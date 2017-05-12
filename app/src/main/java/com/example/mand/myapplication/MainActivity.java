@@ -1,10 +1,14 @@
 package com.example.mand.myapplication;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import cherubs.cherubsActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -24,5 +28,11 @@ public class MainActivity extends AppCompatActivity {
     }
     public boolean onOptionsItemSelected(MenuItem item){
         return true;
+    }
+
+    //METODO PARA CAMBIAR DE ACTIVIDAD
+    public void cherubsActivity(View v){
+        Intent intent = new Intent(this, cherubsActivity.class);
+        startActivity(intent);
     }
 }
