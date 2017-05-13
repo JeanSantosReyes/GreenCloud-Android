@@ -19,31 +19,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class getData extends AsyncTask<Void,Void,Void>{
-    private Context context;
-    private String type;
-    private ProgressDialog progress;
-    public getData(String type,ProgressDialog progress,Context context){
-        this.type = type;
-        this.progress = progress;
-        this.context = context;
-    }
-
-    @Override
-    protected Void doInBackground(Void... params) {
-        bajarType();
-        return null;
-    }
-
-    public void onPreExecute() {
-        progress.show();
-    }
-    public void onPostExecute(Void unused) {
-        progress.dismiss();
-    }
-
-    public void bajarType(){
-        String dir = "http://207.249.127.215:1026/v2/entities?type="+type;
+public class getData{
+    private float temperaturaActual;
+    private JSONObject temperaturaJSON;
+    public JSONObject[] jsonObjects;
+    public float getTempActual(){
+        String dir = "http://207.249.127.215:1026/v2/entities?type=cherubs";
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -76,26 +57,26 @@ public class getData extends AsyncTask<Void,Void,Void>{
                     e.printStackTrace();
                 }
                 JSONObject obJSON = null;
-
-                for (int i = 0;i<jsonAr.length();i++){
+                int size = jsonAr.length();
+                jsonObjects = new JSONObject[size];
+                for (int i = 0;i<size;i++){
                     obJSON = jsonAr.getJSONObject(i);
-                    Log.e("json",obJSON.toString());
+                    jsonObjects[i] = obJSON;
                 }
+                temperaturaJSON = new JSONObject(jsonAr.getJSONObject(size-1).getString("temperatura"));
 
+                temperaturaActual = Float.parseFloat(""+temperaturaJSON.getDouble("value"));
             }else{
                 Log.e("json","Ocurrio un error");
             }
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            Log.e("json", "Ocurrio un error "+e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e("json", "Ocurrio un error " + e.getMessage());
         } catch (JSONException e) {
-            Log.e("json", "Ocurrio un error "+e.getMessage());
             e.printStackTrace();
         }
-
+        return temperaturaActual;
     }
 }
