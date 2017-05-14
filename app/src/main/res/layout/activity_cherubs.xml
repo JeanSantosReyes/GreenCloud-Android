@@ -2,33 +2,108 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
+              android:background="@color/colorAccent"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <include layout="@layout/toolbargeneral" />
-    <android.support.v7.widget.CardView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_margin="10dp"
-        app:cardCornerRadius="10dp"
-        android:elevation="4dp">
-        <com.github.mikephil.charting.charts.PieChart
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/temperatura"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    </android.support.v7.widget.CardView>
-    <android.support.v7.widget.CardView
+        <android.support.v7.widget.CardView
+            android:onClick="changeToTemperaturaCherubs"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:elevation="4dp"
+            app:cardCornerRadius="4dp"
+            app:cardBackgroundColor="@color/colorPrimary">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="changeToTemperaturaCherubs"
+                    android:src="@drawable/temp"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:onClick="changeToHumedadRelativaCherubs"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:elevation="4dp"
+            app:cardCornerRadius="4dp"
+            app:cardBackgroundColor="@color/colorPrimary">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="changeToHumedadRelativaCherubs"
+                    android:src="@drawable/humedad"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center"
+                    android:textSize="8pt"
+                    android:text="Humedad relativa"
+                    android:textStyle="italic"
+                    android:textColor="@color/colorAccent"
+                    />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_margin="10dp"
-        app:cardCornerRadius="10dp"
-        android:elevation="4dp">
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/temperaturas"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:onClick="changeToHuedadSueloCherubs"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:elevation="4dp"
+            app:cardCornerRadius="4dp"
+            app:cardBackgroundColor="@color/colorPrimary">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="changeToHuedadSueloCherubs"
+                    android:src="@drawable/humedad"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center"
+                    android:textSize="8pt"
+                    android:text="Humedad Suelo"
+                    android:textStyle="italic"
+                    android:textColor="@color/colorAccent"
+                    />
 
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        </LinearLayout>
 </LinearLayout>

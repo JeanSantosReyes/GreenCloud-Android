@@ -20,10 +20,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class getData{
-    private float temperaturaActual;
-    private JSONObject temperaturaJSON;
-    public JSONObject[] jsonObjects;
-    public float getTempActual(){
+    private float temperaturaActual,humeadadRelativaActual,humedadSueloActual;
+    private JSONObject temperaturaJSON,humedadRelativaJSON,humedadSueloJSON;
+    public JSONObject[] jsonObjects,jsonObjectsHRelativa,jsonObjectsHSuelo;
+    public void ObtenerDatos(){
         String dir = "http://207.249.127.215:1026/v2/entities?type=cherubs";
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -63,9 +63,18 @@ public class getData{
                     obJSON = jsonAr.getJSONObject(i);
                     jsonObjects[i] = obJSON;
                 }
-                temperaturaJSON = new JSONObject(jsonAr.getJSONObject(size-1).getString("temperatura"));
+                jsonObjectsHSuelo = jsonObjectsHRelativa = jsonObjects;
 
+
+                temperaturaJSON = new JSONObject(jsonAr.getJSONObject(size-1).getString("temperatura"));
                 temperaturaActual = Float.parseFloat(""+temperaturaJSON.getDouble("value"));
+
+                humedadRelativaJSON = new JSONObject(jsonAr.getJSONObject(size-1).getString("humedadRelativa"));
+                humeadadRelativaActual = Float.parseFloat(""+humedadRelativaJSON.get("value"));
+
+                humedadSueloJSON = new JSONObject(jsonAr.getJSONObject(size-1).getString("humedadSuelo"));
+                humedadSueloActual = Float.parseFloat(""+humedadSueloJSON.get("value"));
+
             }else{
                 Log.e("json","Ocurrio un error");
             }
@@ -77,6 +86,17 @@ public class getData{
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+    public float getTempActual(){
+        ObtenerDatos();
         return temperaturaActual;
+    }
+    public float getHumeadadRelativaActual(){
+        ObtenerDatos();
+        return humeadadRelativaActual;
+    }
+    public float getHumedadSueloActual(){
+        ObtenerDatos();
+        return humedadSueloActual;
     }
 }

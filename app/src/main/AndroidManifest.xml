@@ -20,6 +20,9 @@
 
 
         <activity android:name="cherubs.cherubsActivity" />
+        <activity android:name="cherubs.cherubstemperaturaActivity" />
+        <activity android:name="cherubs.cherubshrelativaActivity" />
+        <activity android:name="cherubs.cherubshsueloActivity" />
     </application>
 
 </manifest>
