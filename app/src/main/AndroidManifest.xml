@@ -19,32 +19,10 @@
         </activity>
 
 
-        <activity android:name="cherubs.cherubsActivity" />
-        <activity android:name="cherubs.cherubstemperaturaActivity" />
-        <activity android:name="cherubs.cherubshrelativaActivity" />
-        <activity android:name="cherubs.cherubshsueloActivity" />
-
-        <activity android:name="eclipses.eclipsesActivity"/>
-        <activity android:name="eclipses.eclipsestemperaturaActivity" />
-        <activity android:name="eclipses.eclipseshsueloActivity"/>
-        <activity android:name="eclipses.eclipseshrelativaActivity" />
-
-
-        <activity android:name="glorys.glorysActivity" />
-        <activity android:name="glorys.gloryshrelativaActivity"/>
-        <activity android:name="glorys.gloryshsueloActivity"/>
-        <activity android:name="glorys.glorystemperaturaActivity"/>
-
-
-        <activity android:name="jubiles.jubilesActivity"/>
-        <activity android:name="jubiles.jubileshrelativaActivity"/>
-        <activity android:name="jubiles.jubileshsueloActivity"/>
-        <activity android:name="jubiles.jubilestemperaturaActivity"/>
-
-        <activity android:name="sunburts.sunburtsActivity"/>
-        <activity android:name="sunburts.sunburtshrelativaActivity"/>
-        <activity android:name="sunburts.sunburtshsueloActivity"/>
-        <activity android:name="sunburts.sunburtstemperaturaActivity"/>
+        <activity android:name="cherubs.tomateActivity" />
+        <activity android:name="cherubs.tomatetemperaturaActivity" />
+        <activity android:name="cherubs.tomatehrelativaActivity" />
+        <activity android:name="cherubs.tomatehsueloActivity" />
 
     </application>
 

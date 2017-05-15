@@ -1,21 +1,18 @@
-package jubiles;
+package cherubs;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import com.example.mand.myapplication.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
-
 import org.json.JSONException;
 
 import Model.getData;
 
-
-public class jubileshsueloActivity extends AppCompatActivity {
+public class tomatehsueloActivity extends AppCompatActivity{
 
     private Toolbar toolbar;
     private BarChart barra;
@@ -23,18 +20,25 @@ public class jubileshsueloActivity extends AppCompatActivity {
 
     private getData data = new getData();
 
+    private String type;
+
     public void onCreate(Bundle bundle){
         super.onCreate(bundle);
-        setContentView(R.layout.activity_jubileshsuelo);
+        setContentView(R.layout.ativity_tomatehsuelo);
 
         toolbar = (Toolbar) findViewById(R.id.toolbarGen);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        Bundle extras = getIntent().getExtras();
 
-        barra = (BarChart) findViewById(R.id.humerdadSueloJubiles);
+        if(extras!=null){
+            type = extras.getString("type");
+        }
 
-        lineChart = (LineChart) findViewById(R.id.humerdadSuelosJubiles);
+        barra = (BarChart) findViewById(R.id.humerdadSuelo);
+
+        lineChart = (LineChart) findViewById(R.id.humerdadSuelos);
 
         inicializandoGraficarUno();
         try {
@@ -45,7 +49,7 @@ public class jubileshsueloActivity extends AppCompatActivity {
     }
     //Codigo de la grafica numero 1
     public void inicializandoGraficarUno(){
-        data.llenarGrafica1(barra,"jubiles","humedadSuelo");
+        data.llenarGrafica1(barra,type,"humedadSuelo");
     }
 
     //FIN DEL COEDIGO DE LA GRAFICA UNO
