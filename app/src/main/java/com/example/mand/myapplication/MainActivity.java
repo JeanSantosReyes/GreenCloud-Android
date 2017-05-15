@@ -11,7 +11,8 @@ import android.view.View;
 import android.view.Window;
 
 import cherubs.cherubsActivity;
-
+import eclipses.eclipsesActivity;
+import glorys.glorysActivity;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -40,6 +41,18 @@ public class MainActivity extends AppCompatActivity {
     //METODO PARA CAMBIAR DE ACTIVIDAD
     public void cherubsActivity(View v){
         Intent intent = new Intent(this, cherubsActivity.class);
+        startActivity(intent);
+    }
+
+    //METODO PARA CAMBIAR ALA ACTIVIDAD DE ECLIPSES
+    public void eclipsesActivity(View v){
+        Intent intent = new Intent(this,eclipsesActivity.class);
+        startActivity(intent);
+    }
+
+    //METODO PARA CAMBIR ALA ACTIVIDAD DE GLORYS
+    public void glorysActivity(View v){
+        Intent intent = new Intent(this,glorysActivity.class);
         startActivity(intent);
     }
 }
