@@ -1,12 +1,10 @@
 package cherubs;
 
-import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.mand.myapplication.R;
 import com.github.mikephil.charting.charts.BarChart;
@@ -15,10 +13,9 @@ import com.github.mikephil.charting.charts.LineChart;
 import org.json.JSONException;
 
 
-import DataPicker.DataPickerFragment;
 import Model.getData;
 
-public class cherubstemperaturaActivity extends AppCompatActivity{
+public class tomatetemperaturaActivity extends AppCompatActivity{
     private BarChart barra;
     private LineChart lineChart;
 
@@ -26,13 +23,22 @@ public class cherubstemperaturaActivity extends AppCompatActivity{
 
     private Toolbar toolbar;
 
+    String type;
+
     public void onCreate(Bundle b){
         super.onCreate(b);
-        setContentView(R.layout.activity_cherubs_temperatura);
+        setContentView(R.layout.activity_tomate_temperatura);
 
         toolbar = (Toolbar) findViewById(R.id.toolbarGen);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Bundle extras = getIntent().getExtras();
+
+        if(extras!=null){
+            type = extras.getString("type");
+        }
+
 
         barra = (BarChart) findViewById(R.id.temperatura);
 
@@ -48,7 +54,7 @@ public class cherubstemperaturaActivity extends AppCompatActivity{
 
     //Codigo de la grafica numero 1
     public void inicializandoGraficarUno(){
-        data.llenarGrafica1(barra,"cherubs","temperatura");
+        data.llenarGrafica1(barra,type,"temperatura");
     }
     //FIN DEL COEDIGO DE LA GRAFICA UNO
 

@@ -13,20 +13,21 @@ import android.view.Window;
 
 import com.example.mand.myapplication.R;
 
-public class cherubsActivity extends AppCompatActivity{
+public class tomateActivity extends AppCompatActivity{
     private Toolbar toolbar;
-
+    private String type;
 
     public void onCreate(Bundle b) {
         super.onCreate(b);
-        setContentView(R.layout.activity_cherubs);
+        setContentView(R.layout.activity_tomate);
         toolbar = (Toolbar) findViewById(R.id.toolbarGen);
-
-
-
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null){
+            type= extras.getString("type");
+        }
 
        if(Build.VERSION.SDK_INT >= 21){
            Window window = this.getWindow();
@@ -39,7 +40,7 @@ public class cherubsActivity extends AppCompatActivity{
 
 
     public boolean onCreateOptionsMenu(Menu menu){
-        toolbar.setTitle("Cherubs");
+        toolbar.setTitle(type);
         return true;
     }
     public boolean onOptionsItemSelected(MenuItem item){
@@ -51,15 +52,18 @@ public class cherubsActivity extends AppCompatActivity{
         return true;
     }
     public void changeToTemperaturaCherubs(View v){
-        Intent intent = new Intent(this,cherubstemperaturaActivity.class);
+        Intent intent = new Intent(this, tomatetemperaturaActivity.class);
+        intent.putExtra("type",type);
         startActivity(intent);
     }
     public void changeToHumedadRelativaCherubs(View v){
-        Intent intent = new Intent(this,cherubshrelativaActivity.class);
+        Intent intent = new Intent(this, tomatehrelativaActivity.class);
+        intent.putExtra("type",type);
         startActivity(intent);
     }
     public void changeToHuedadSueloCherubs(View v){
-        Intent intent = new Intent(this,cherubshsueloActivity.class);
+        Intent intent = new Intent(this, tomatehsueloActivity.class);
+        intent.putExtra("type",type);
         startActivity(intent);
     }
 }
