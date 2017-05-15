@@ -54,7 +54,7 @@ public class tomatetemperaturaActivity extends AppCompatActivity{
 
     //Codigo de la grafica numero 1
     public void inicializandoGraficarUno(){
-        data.llenarGrafica1(barra,type,"temperatura");
+        data.llenarGrafica1(barra,type,"temperatura","Temperatura");
     }
     //FIN DEL COEDIGO DE LA GRAFICA UNO
 

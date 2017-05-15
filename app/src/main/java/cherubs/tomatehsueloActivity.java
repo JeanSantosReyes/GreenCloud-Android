@@ -49,7 +49,7 @@ public class tomatehsueloActivity extends AppCompatActivity{
     }
     //Codigo de la grafica numero 1
     public void inicializandoGraficarUno(){
-        data.llenarGrafica1(barra,type,"humedadSuelo");
+        data.llenarGrafica1(barra,type,"humedadSuelo","Humedad Suelo");
     }
 
     //FIN DEL COEDIGO DE LA GRAFICA UNO

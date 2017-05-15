@@ -42,12 +42,18 @@ public class getData{
     private JSONObject valorJSON;
     public JSONObject[] jsonObjects;
 
+    //Variable de mensaje que se mostrar en las graficas
+    private String mensaje;
+
+
     //GRAFICA UNO
 
     /*Metodo que llena la graficar numero uno , Se le manda una variable de tpo BarChart que es la grafica
       y se le manda una variable type de tipo String para saber a que entidad se van a hacer las consultas en el servidor,
       y se le manda una tercera variable de tipo String llamada field para sacar el campo del json que quieramos mostrar en la grafica*/
-    public void llenarGrafica1(BarChart barra,String type,String field){
+    public void llenarGrafica1(BarChart barra,String type,String field,String mensaje){
+        this.mensaje = mensaje;
+
         //Metodo para obtener los datos del servidor dependiendo el type y field que le mandemos
         ObtenerDatos(type, field);
         //Se llena la lista de colores
@@ -72,7 +78,7 @@ public class getData{
     }
     public void llenarLabelsLabel(){
         StringLABEL = new ArrayList<>();
-        StringLABEL.add("Humedad Relativa");
+        StringLABEL.add(mensaje);
     }
 
     //FIN DE LA GRAFICA UNO
@@ -94,7 +100,7 @@ public class getData{
         dataSet.setColors(colores);
         LineData ldata = new LineData(labels,dataSet);
         lineChart.setData(ldata);
-        lineChart.setDescription("Humedad Relativa");
+        lineChart.setDescription(mensaje);
         lineChart.animateY(3000);
 
     }
