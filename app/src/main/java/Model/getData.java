@@ -67,6 +67,7 @@ public class getData{
 
         BarDataSet dataSet = new BarDataSet(barEntry,"");
         dataSet.setColors(colores);
+        barra.setDescription("");
         BarData barData = new BarData(StringLABEL,dataSet);
         barra.animateY(3000);
         barra.setData(barData);
