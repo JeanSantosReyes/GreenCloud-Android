@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorAccent"
+    android:background="@color/colorFondo"
     tools:context="com.example.mand.myapplication.MainActivity">
     <include layout="@layout/toolbargeneral" />
 
@@ -38,7 +38,7 @@
                  android:textAlignment="center"
                  android:textSize="10pt"
                  android:text="Cherubs"
-                 android:textStyle="italic"
+                 android:textStyle="normal"
                  android:textColor="@color/primary_text"
                  />
 
@@ -69,8 +69,8 @@
                     android:layout_height="match_parent"
                     android:textAlignment="center"
                     android:textSize="10pt"
-                    android:text="Eclipse"
-                    android:textStyle="italic"
+                    android:text="Eclipses"
+                    android:textStyle="normal"
                     android:textColor="@color/primary_text"
                     />
 
@@ -109,7 +109,7 @@
                     android:textAlignment="center"
                     android:textSize="10pt"
                     android:text="Glorys"
-                    android:textStyle="italic"
+                    android:textStyle="normal"
                     android:textColor="@color/primary_text"
                     />
 
@@ -141,7 +141,7 @@
                     android:textAlignment="center"
                     android:textSize="10pt"
                     android:text="Jubilees"
-                    android:textStyle="italic"
+                    android:textStyle="normal"
                     android:textColor="@color/primary_text"
                     />
 
@@ -180,7 +180,7 @@
                     android:textAlignment="center"
                     android:textSize="10pt"
                     android:text="SunBurts"
-                    android:textStyle="italic"
+                    android:textStyle="normal"
                     android:textColor="@color/primary_text"
                     />
 
