@@ -35,6 +35,17 @@
         <activity android:name="glorys.gloryshsueloActivity"/>
         <activity android:name="glorys.glorystemperaturaActivity"/>
 
+
+        <activity android:name="jubiles.jubilesActivity"/>
+        <activity android:name="jubiles.jubileshrelativaActivity"/>
+        <activity android:name="jubiles.jubileshsueloActivity"/>
+        <activity android:name="jubiles.jubilestemperaturaActivity"/>
+
+        <activity android:name="sunburts.sunburtsActivity"/>
+        <activity android:name="sunburts.sunburtshrelativaActivity"/>
+        <activity android:name="sunburts.sunburtshsueloActivity"/>
+        <activity android:name="sunburts.sunburtstemperaturaActivity"/>
+
     </application>
 
 </manifest>

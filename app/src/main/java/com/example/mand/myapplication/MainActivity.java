@@ -13,6 +13,8 @@ import android.view.Window;
 import cherubs.cherubsActivity;
 import eclipses.eclipsesActivity;
 import glorys.glorysActivity;
+import jubiles.jubilesActivity;
+import sunburts.sunburtsActivity;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -53,6 +55,18 @@ public class MainActivity extends AppCompatActivity {
     //METODO PARA CAMBIR ALA ACTIVIDAD DE GLORYS
     public void glorysActivity(View v){
         Intent intent = new Intent(this,glorysActivity.class);
+        startActivity(intent);
+    }
+
+    //METODO PARA CAMBIR ALA ACTIVIDAD DE JUBIES
+    public void jubilesActivity(View v){
+        Intent intent = new Intent(this,jubilesActivity.class);
+        startActivity(intent);
+    }
+
+    //METODO PARA CAMBIR ALA ACTIVIDAD DE SUNBURTS
+    public void sunburtsActivity(View v){
+        Intent intent = new Intent(this,sunburtsActivity.class);
         startActivity(intent);
     }
 }
