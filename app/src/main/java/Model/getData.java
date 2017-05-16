@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -52,13 +53,16 @@ public class getData{
       y se le manda una variable type de tipo String para saber a que entidad se van a hacer las consultas en el servidor,
       y se le manda una tercera variable de tipo String llamada field para sacar el campo del json que quieramos mostrar en la grafica*/
     public void llenarGrafica1(BarChart barra,String type,String field,String mensaje){
+
         this.mensaje = mensaje;
 
         //Metodo para obtener los datos del servidor dependiendo el type y field que le mandemos
         ObtenerDatos(type, field);
         //Se llena la lista de colores
         colores.add(Color.BLUE);
-
+        YAxis y = barra.getAxisLeft();
+        y.setAxisMaxValue(100);
+        y.setAxisMinValue(0);
         //Se llena la lista de barEntry con el dato actual que se mostrar en la grafica 1
         llenarBarEntryData();
         //Se llena la lista de labels que se van a mostrar en la grafica 1
@@ -87,7 +91,8 @@ public class getData{
 
     //INICIO DE LA GRAFICA DOS
 
-    public void llenarGrafica2(LineChart lineChart,String data,int[] currentDate,int[] chooseDate) throws JSONException {
+    public void llenarGrafica2(LineChart lineChart,String data) throws JSONException {
+
         //Se inicializan dos listas la primera de typo Entry y la segunda de tipo String
         ArrayList<Entry> numeros = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<>();
@@ -96,7 +101,7 @@ public class getData{
         llenarGrafica1 ,Se le manda la lista numeros vacia para que la llene el metodo , y tambien la lista labels para que la llene,
         y por ultimo la variable data que data , es el campo que queremos del json del servor , por ejemplo si queremos la temperatura
         esa variable seria igual a "temperatura" data = "temperatura" */
-        preparandoDatosGraficar(jsonObjects, numeros, labels, data,currentDate,chooseDate);
+        preparandoDatosGraficar(jsonObjects, numeros, labels, data);
         LineDataSet dataSet = new LineDataSet(numeros,"");
         dataSet.setColors(colores);
         LineData ldata = new LineData(labels,dataSet);
@@ -108,19 +113,25 @@ public class getData{
 
     //FIN GRAFICA DOS
 
-    public void preparandoDatosGraficar(JSONObject[] jsonObjects,ArrayList<Entry> list,ArrayList<String> labels,String dat,int[] currentDate,int[] chooseDate) throws JSONException {
+    public void preparandoDatosGraficar(JSONObject[] jsonObjects,ArrayList<Entry> list,ArrayList<String> labels,String dat) throws JSONException {
         //Sacamos el ancho de los json que se guararon en la variable jsonObjects
         int size = jsonObjects.length;
-        for (int i = 1;i<size;i++){
+        int inicio = ((size-10)<1)?1:size-10;
+        //LA VARIABLE contadorLIST es para empezar siempre a mostrar la grafica desde el inicio
+        //SI PONEMOS QUE EMPIECE DE I-1 MOSTRAR LA GRAFICA MUY JUNTA POR ESO EMPEZAMOS DESDE CERO CON CONTADOR LIST
+        int contadorLIST = 0;
+        for (int i = inicio;i<size;i++){
             //Guardamos el json anterior para poder hacer comparacion entre fechas
             JSONObject sant = jsonObjects[i-1];
             JSONObject fechaAnterior = new JSONObject(sant.getString("fecha"));
             String[] horaAnterior = fechaAnterior.getString("value").split(" ")[1].split(":");
+            String[] fechaAnt = fechaAnterior.getString("value").split(" ")[0].split(":");
 
             //Guardamos el json actual para poder haceer comparaciones con el json anterior
             JSONObject sact = jsonObjects[i];
             JSONObject fecha = new JSONObject(sact.getString("fecha"));
             String[] horaAtual = fecha.getString("value").split(" ")[1].split(":");
+            String[] fechaActual = fecha.getString("value").split(" ")[0].split(":");
 
             /*Sacamos del jsonAnterior el campo que ocupamos con la variable dat, por ejemplo si queremos sacar la temperatura
             Entonces la variable dat seria igua a temperatura dat="temperatura"
@@ -139,14 +150,15 @@ public class getData{
                     }else{
                         labels.add(horaAnterior[0]+":"+horaAnterior[1]);
                     }
-                    list.add(new Entry(parseInt(tmpAnt.getString("value")), i - 1));
+                    list.add(new Entry(parseInt(tmpAnt.getString("value")), contadorLIST));
                 }
             }else{
                 //Si las horas no son iguales entonces guardamos en la lista de labels la hora anterior y los minutos
                 labels.add(horaAnterior[0] + ":" + horaAnterior[1]);
                 //y guardamos el valor anterior en la lista
-                list.add(new Entry(parseInt(tmpAnt.getString("value")),i-1));
+                list.add(new Entry(parseInt(tmpAnt.getString("value")),contadorLIST));
             }
+            contadorLIST++;
 
         }
         //Con estas ultimas lineas ponermos el ultimo valor de la lista en la grafica , si las quitamos el ultimo valor no lo mostrara

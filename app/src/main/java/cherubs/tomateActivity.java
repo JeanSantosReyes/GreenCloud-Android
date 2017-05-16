@@ -56,7 +56,8 @@ public class tomateActivity extends AppCompatActivity implements DatePickerDialo
         barra.setVisibility(View.INVISIBLE);
         lineChart.setVisibility(View.INVISIBLE);
         medicion = (TextView) findViewById(R.id.medicion);
-        BTNFecha = (Button) findViewById(R.id.fecha);
+        //ESTA DE ABAJO
+        //BTNFecha = (Button) findViewById(R.id.fecha);
 
         Bundle extras = getIntent().getExtras();
         if(extras!=null){
@@ -86,14 +87,11 @@ public class tomateActivity extends AppCompatActivity implements DatePickerDialo
         return true;
     }
     public void changeToTemperaturaCherubs(View v) throws JSONException {
-        BTNFecha.setVisibility(View.VISIBLE);
         barra.setVisibility(View.VISIBLE);//hacemos visible la barra para graficar
         lineChart.setVisibility(View.VISIBLE);
         medicion.setText("Temperatura");//se le manda el titulo de la variable de medicion
         data.llenarGrafica1(barra, type, "temperatura", "");//llamada al metodo
-        int[] a = new int[3];
-        int[] b = new int[3];
-        data.llenarGrafica2(lineChart, "temperatura", a, b);
+        data.llenarGrafica2(lineChart, "temperatura");
     }
 
 
@@ -102,18 +100,14 @@ public class tomateActivity extends AppCompatActivity implements DatePickerDialo
         lineChart.setVisibility(View.VISIBLE);
         medicion.setText("Humedad Relativa");//se le manda el titulo de la variable de medicion
         data.llenarGrafica1(barra, type, "humedadRelativa", "");//llamada al metodo
-        int[] a = new int[3];
-        int[] b = new int[3];
-        data.llenarGrafica2(lineChart, "tempera-tura", a, b);
+        data.llenarGrafica2(lineChart, "temperatura");
     }
     public void changeToHuedadSueloCherubs(View v) throws JSONException {
         barra.setVisibility(View.VISIBLE);//hacemos visible la barra para graficar
         lineChart.setVisibility(View.VISIBLE);
         medicion.setText("Humedad del suelo");//se le manda el titulo de la variable de medicion
         data.llenarGrafica1(barra, type, "humedadSuelo", "");//llamada al metodo
-        int[] a = new int[3];
-        int[] b = new int[3];
-        data.llenarGrafica2(lineChart, "temperatura", a, b);
+        data.llenarGrafica2(lineChart, "temperatura");
     }
 
 
@@ -126,10 +120,7 @@ public class tomateActivity extends AppCompatActivity implements DatePickerDialo
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         Toast.makeText(this, year + " " + monthOfYear + " " + " " + dayOfMonth, Toast.LENGTH_LONG).show();
         try {
-            int[] a,b;
-            a = new int[3];
-            b = new int[3];
-            data.llenarGrafica2(lineChart,"temperatura",a,b);
+            data.llenarGrafica2(lineChart,"temperatura");
         } catch (JSONException e) {
             e.printStackTrace();
         }
