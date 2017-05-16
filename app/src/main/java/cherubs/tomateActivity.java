@@ -10,12 +10,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
 
 import com.example.mand.myapplication.R;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
+
+import org.json.JSONException;
+
+import Model.getData;
 
 public class tomateActivity extends AppCompatActivity{
     private Toolbar toolbar;
     private String type;
+
+    private BarChart barra;
+    private LineChart lineChart;
+    private TextView medicion;
+
+    private getData data = new getData();
 
     public void onCreate(Bundle b) {
         super.onCreate(b);
@@ -23,6 +36,11 @@ public class tomateActivity extends AppCompatActivity{
         toolbar = (Toolbar) findViewById(R.id.toolbarGen);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        barra = (BarChart) findViewById(R.id.temperatura);
+        lineChart = (LineChart) findViewById(R.id.temperaturas);
+        barra.setVisibility(View.INVISIBLE);
+        medicion = (TextView) findViewById(R.id.medicion);
 
         Bundle extras = getIntent().getExtras();
         if(extras!=null){
@@ -51,11 +69,17 @@ public class tomateActivity extends AppCompatActivity{
         }
         return true;
     }
-    public void changeToTemperaturaCherubs(View v){
-        Intent intent = new Intent(this, tomatetemperaturaActivity.class);
-        intent.putExtra("type",type);
-        startActivity(intent);
+    public void changeToTemperaturaCherubs(View v) throws JSONException {
+        barra.setVisibility(View.VISIBLE);//hacemos visible la barra para graficar
+        medicion.setText("Temperatura");//se le manda el titulo de la variable de medicion
+        data.llenarGrafica1(barra,type,"temperatura","Temperatura");//llamada al metodo
+        grafica2();
     }
+
+    public void grafica2() throws JSONException {
+        data.llenarGrafica2(lineChart,"temperatura");
+    }
+
     public void changeToHumedadRelativaCherubs(View v){
         Intent intent = new Intent(this, tomatehrelativaActivity.class);
         intent.putExtra("type",type);
