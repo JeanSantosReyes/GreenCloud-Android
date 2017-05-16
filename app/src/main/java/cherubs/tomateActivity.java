@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,7 +42,7 @@ public class tomateActivity extends AppCompatActivity implements DatePickerDialo
     private DatePicker datePicker;
     private Calendar calendar;
     private int Currentyear, Currentmonth, Currentday;
-
+    private Button BTNFecha;
 
     public void onCreate(Bundle b) {
         super.onCreate(b);
@@ -55,6 +56,7 @@ public class tomateActivity extends AppCompatActivity implements DatePickerDialo
         barra.setVisibility(View.INVISIBLE);
         lineChart.setVisibility(View.INVISIBLE);
         medicion = (TextView) findViewById(R.id.medicion);
+        BTNFecha = (Button) findViewById(R.id.fecha);
 
         Bundle extras = getIntent().getExtras();
         if(extras!=null){
@@ -84,6 +86,7 @@ public class tomateActivity extends AppCompatActivity implements DatePickerDialo
         return true;
     }
     public void changeToTemperaturaCherubs(View v) throws JSONException {
+        BTNFecha.setVisibility(View.VISIBLE);
         barra.setVisibility(View.VISIBLE);//hacemos visible la barra para graficar
         lineChart.setVisibility(View.VISIBLE);
         medicion.setText("Temperatura");//se le manda el titulo de la variable de medicion
