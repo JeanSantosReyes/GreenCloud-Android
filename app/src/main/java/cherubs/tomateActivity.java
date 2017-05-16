@@ -21,14 +21,15 @@ import org.json.JSONException;
 import Model.getData;
 
 public class tomateActivity extends AppCompatActivity{
+    private getData data = new getData();
+
     private Toolbar toolbar;
     private String type;
 
     private BarChart barra;
     private LineChart lineChart;
-    private TextView medicion;
 
-    private getData data = new getData();
+    private TextView medicion;
 
     public void onCreate(Bundle b) {
         super.onCreate(b);
@@ -40,6 +41,7 @@ public class tomateActivity extends AppCompatActivity{
         barra = (BarChart) findViewById(R.id.temperatura);
         lineChart = (LineChart) findViewById(R.id.temperaturas);
         barra.setVisibility(View.INVISIBLE);
+        lineChart.setVisibility(View.INVISIBLE);
         medicion = (TextView) findViewById(R.id.medicion);
 
         Bundle extras = getIntent().getExtras();
@@ -71,14 +73,15 @@ public class tomateActivity extends AppCompatActivity{
     }
     public void changeToTemperaturaCherubs(View v) throws JSONException {
         barra.setVisibility(View.VISIBLE);//hacemos visible la barra para graficar
+        lineChart.setVisibility(View.VISIBLE);
         medicion.setText("Temperatura");//se le manda el titulo de la variable de medicion
         data.llenarGrafica1(barra,type,"temperatura","Temperatura");//llamada al metodo
-        grafica2();
+        int[] a = new int[3];
+        int[] b = new int[3];
+        data.llenarGrafica2(lineChart,"temperatura",a,b);
+
     }
 
-    public void grafica2() throws JSONException {
-        data.llenarGrafica2(lineChart,"temperatura");
-    }
 
     public void changeToHumedadRelativaCherubs(View v){
         Intent intent = new Intent(this, tomatehrelativaActivity.class);
