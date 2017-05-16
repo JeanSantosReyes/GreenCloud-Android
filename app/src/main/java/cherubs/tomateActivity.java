@@ -75,11 +75,10 @@ public class tomateActivity extends AppCompatActivity{
         barra.setVisibility(View.VISIBLE);//hacemos visible la barra para graficar
         lineChart.setVisibility(View.VISIBLE);
         medicion.setText("Temperatura");//se le manda el titulo de la variable de medicion
-        data.llenarGrafica1(barra,type,"temperatura","Temperatura");//llamada al metodo
+        data.llenarGrafica1(barra, type, "temperatura", "Temperatura");//llamada al metodo
         int[] a = new int[3];
         int[] b = new int[3];
-        data.llenarGrafica2(lineChart,"temperatura",a,b);
-
+        data.llenarGrafica2(lineChart, "temperatura", a, b);
     }
 
 
