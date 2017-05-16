@@ -56,7 +56,10 @@ public class tomatehsueloActivity extends AppCompatActivity{
 
     //CODIGO DE LA GRAFICA DOS
     public void iniciarlizarGraficaDos() throws JSONException {
-        data.llenarGrafica2(lineChart,"humedadSuelo",0,0,0);
+        int[] a,b;
+        a = new int[3];
+        b = new int[3];
+        data.llenarGrafica2(lineChart,"humedadSuelo",a,b);
 
     }
 

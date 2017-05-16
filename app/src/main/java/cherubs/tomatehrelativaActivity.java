@@ -59,7 +59,10 @@ public class tomatehrelativaActivity extends AppCompatActivity{
 
     //CODIGO DE LA GRAFICA DOS
     public void iniciarlizarGraficaDos() throws JSONException {
-        data.llenarGrafica2(lineChart,"humedadRelativa",0,0,0);
+        int[] a,b;
+        a = new int[3];
+        b = new int[3];
+        data.llenarGrafica2(lineChart,"humedadRelativa",a,b);
     }
     public boolean onCreateOptionsMenu(Menu menu){
         toolbar.setTitle("Humedad Relativa");

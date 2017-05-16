@@ -77,7 +77,10 @@ public class tomateActivity extends AppCompatActivity{
     }
 
     public void grafica2() throws JSONException {
-        data.llenarGrafica2(lineChart,"temperatura");
+        int[] a,b;
+        a = new int[3];
+        b = new int[3];
+        data.llenarGrafica2(lineChart,"temperatura",a,b);
     }
 
     public void changeToHumedadRelativaCherubs(View v){
