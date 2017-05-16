@@ -96,7 +96,7 @@ public class getData{
         llenarGrafica1 ,Se le manda la lista numeros vacia para que la llene el metodo , y tambien la lista labels para que la llene,
         y por ultimo la variable data que data , es el campo que queremos del json del servor , por ejemplo si queremos la temperatura
         esa variable seria igual a "temperatura" data = "temperatura" */
-        preparandoDatosGraficar(jsonObjects, numeros, labels, data,day,month,year);
+        preparandoDatosGraficar(jsonObjects, numeros, labels, data,currentDate,chooseDate);
         LineDataSet dataSet = new LineDataSet(numeros,"");
         dataSet.setColors(colores);
         LineData ldata = new LineData(labels,dataSet);
@@ -108,7 +108,7 @@ public class getData{
 
     //FIN GRAFICA DOS
 
-    public void preparandoDatosGraficar(JSONObject[] jsonObjects,ArrayList<Entry> list,ArrayList<String> labels,String dat,int day,int month,int year) throws JSONException {
+    public void preparandoDatosGraficar(JSONObject[] jsonObjects,ArrayList<Entry> list,ArrayList<String> labels,String dat,int[] currentDate,int[] chooseDate) throws JSONException {
         //Sacamos el ancho de los json que se guararon en la variable jsonObjects
         int size = jsonObjects.length;
         for (int i = 1;i<size;i++){

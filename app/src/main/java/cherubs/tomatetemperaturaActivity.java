@@ -79,7 +79,10 @@ public class tomatetemperaturaActivity extends AppCompatActivity implements Date
 
     //CODIGO DE LA GRAFICA DOS
     public void iniciarlizarGraficaDos() throws JSONException {
-        data.llenarGrafica2(lineChart, "temperatura",0,0,0);
+        int[] a,b;
+        a = new int[3];
+        b = new int[3];
+        data.llenarGrafica2(lineChart,"temperatura",a,b);
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -105,7 +108,10 @@ public class tomatetemperaturaActivity extends AppCompatActivity implements Date
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         Toast.makeText(this,year+" "+monthOfYear+" "+" "+dayOfMonth,Toast.LENGTH_LONG).show();
         try {
-            data.llenarGrafica2(lineChart,"temperatura",dayOfMonth,monthOfYear,year);
+            int[] a,b;
+            a = new int[3];
+            b = new int[3];
+            data.llenarGrafica2(lineChart,"temperatura",a,b);
         } catch (JSONException e) {
             e.printStackTrace();
         }
