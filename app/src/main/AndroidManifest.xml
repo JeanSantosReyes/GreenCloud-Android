@@ -20,9 +20,6 @@
 
 
         <activity android:name="cherubs.tomateActivity" />
-        <activity android:name="cherubs.tomatetemperaturaActivity" />
-        <activity android:name="cherubs.tomatehrelativaActivity" />
-        <activity android:name="cherubs.tomatehsueloActivity" />
 
     </application>
 

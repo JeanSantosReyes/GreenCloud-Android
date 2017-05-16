@@ -57,7 +57,7 @@ public class getData{
         //Metodo para obtener los datos del servidor dependiendo el type y field que le mandemos
         ObtenerDatos(type, field);
         //Se llena la lista de colores
-        colores.add(Color.RED);
+        colores.add(Color.BLUE);
 
         //Se llena la lista de barEntry con el dato actual que se mostrar en la grafica 1
         llenarBarEntryData();
@@ -87,7 +87,7 @@ public class getData{
 
     //INICIO DE LA GRAFICA DOS
 
-    public void llenarGrafica2(LineChart lineChart,String data) throws JSONException {
+    public void llenarGrafica2(LineChart lineChart,String data,int[] currentDate,int[] chooseDate) throws JSONException {
         //Se inicializan dos listas la primera de typo Entry y la segunda de tipo String
         ArrayList<Entry> numeros = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<>();
@@ -96,7 +96,7 @@ public class getData{
         llenarGrafica1 ,Se le manda la lista numeros vacia para que la llene el metodo , y tambien la lista labels para que la llene,
         y por ultimo la variable data que data , es el campo que queremos del json del servor , por ejemplo si queremos la temperatura
         esa variable seria igual a "temperatura" data = "temperatura" */
-        preparandoDatosGraficar(jsonObjects, numeros, labels, data);
+        preparandoDatosGraficar(jsonObjects, numeros, labels, data,currentDate,chooseDate);
         LineDataSet dataSet = new LineDataSet(numeros,"");
         dataSet.setColors(colores);
         LineData ldata = new LineData(labels,dataSet);
@@ -108,7 +108,7 @@ public class getData{
 
     //FIN GRAFICA DOS
 
-    public void preparandoDatosGraficar(JSONObject[] jsonObjects,ArrayList<Entry> list,ArrayList<String> labels,String dat) throws JSONException {
+    public void preparandoDatosGraficar(JSONObject[] jsonObjects,ArrayList<Entry> list,ArrayList<String> labels,String dat,int[] currentDate,int[] chooseDate) throws JSONException {
         //Sacamos el ancho de los json que se guararon en la variable jsonObjects
         int size = jsonObjects.length;
         for (int i = 1;i<size;i++){
@@ -123,7 +123,7 @@ public class getData{
             String[] horaAtual = fecha.getString("value").split(" ")[1].split(":");
 
             /*Sacamos del jsonAnterior el campo que ocupamos con la variable dat, por ejemplo si queremos sacar la temperatura
-            Entonces la cariable dat seria igua a temperatura dat="temperatura"
+            Entonces la variable dat seria igua a temperatura dat="temperatura"
              */
             JSONObject tmpAnt = new JSONObject(sant.getString(dat));
 
