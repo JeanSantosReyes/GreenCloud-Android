@@ -57,7 +57,7 @@ public class getData{
         //Metodo para obtener los datos del servidor dependiendo el type y field que le mandemos
         ObtenerDatos(type, field);
         //Se llena la lista de colores
-        colores.add(Color.RED);
+        colores.add(Color.BLUE);
 
         //Se llena la lista de barEntry con el dato actual que se mostrar en la grafica 1
         llenarBarEntryData();
