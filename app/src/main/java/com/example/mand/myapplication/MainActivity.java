@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ import Model.getData;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static class tomateActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
         private getData data = new getData();
+        private Toolbar mTool;
 
         private Toolbar toolbar;
         private String type;
@@ -101,6 +105,10 @@ public class MainActivity extends AppCompatActivity {
         private int Currentyear, Currentmonth, Currentday;
         private Button BTNFecha;
 
+        TabHost tabHost;
+        LinearLayout linearLayout;
+
+
         public void onCreate(Bundle b) {
             super.onCreate(b);
             setContentView(R.layout.activity_tomate);
@@ -108,6 +116,20 @@ public class MainActivity extends AppCompatActivity {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+            //TABS
+            tabHost = (TabHost) findViewById(R.id.tabHost);
+            tabHost.setup();
+            TabHost.TabSpec tabSpec = tabHost.newTabSpec("tab1");
+            tabSpec.setIndicator("Actual");
+            tabSpec.setContent(R.id.tab1);
+            tabHost.addTab(tabSpec);
+
+            tabHost.setup();
+            TabHost.TabSpec tabSpec2=tabHost.newTabSpec("tab2");
+            tabSpec2.setIndicator("Histórica");
+            tabSpec2.setContent(R.id.tab222);
+            tabHost.addTab(tabSpec2);
+            //TABS
             barra = (BarChart) findViewById(R.id.temperatura);
             lineChart = (LineChart) findViewById(R.id.temperaturas);
             barra.setVisibility(View.INVISIBLE);
