@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     //METODO PARA CAMBIR ALA ACTIVIDAD DE JUBIES
     public void jubilesActivity(View v){
         Intent intent = new Intent(this, tomateActivity.class);
-        intent.putExtra("type","jubiles"); //Cambiar a "jubilees", así cambió en la API
+        intent.putExtra("type","jubilees"); //Cambiar a "jubilees", así cambió en la API
         startActivity(intent);
     }
 
