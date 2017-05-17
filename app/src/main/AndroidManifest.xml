@@ -19,7 +19,7 @@
         </activity>
 
 
-        <activity android:name="cherubs.tomateActivity" />
+        <activity android:name=".MainActivity$tomateActivity" />
 
     </application>
 
