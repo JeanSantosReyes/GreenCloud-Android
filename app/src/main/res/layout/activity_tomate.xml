@@ -51,56 +51,91 @@
         android:textStyle="bold"
         />
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="@dimen/cardview_default_radius">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
 
-        <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_margin="10dp"
-        app:cardCornerRadius="10dp"
-        android:elevation="4dp">
 
-        <com.github.mikephil.charting.charts.BarChart
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:id="@+id/temperatura"/>
 
-    </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_margin="10dp"
-        app:cardCornerRadius="10dp"
-        android:elevation="4dp">
-        <LinearLayout
+
+
+        <TabHost
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/tabHost"
+            android:layout_gravity="center_horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
-            <!--<Button
-                android:visibility="invisible"
-                android:id="@+id/fecha"
+
+            <TabWidget
+                android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:text="Fecha"
-                android:onClick="setDate"/>-->
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/temperaturas"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-        </LinearLayout>
+                android:layout_height="wrap_content"></TabWidget>
 
-    </android.support.v7.widget.CardView>
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:id="@+id/tab1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="10dp"
+                        android:elevation="4dp">
+
+                        <com.github.mikephil.charting.charts.BarChart
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:id="@+id/temperatura"/>
+
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tab222"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="10dp"
+                        android:elevation="4dp">
+                            <!--<Button
+                                android:visibility="invisible"
+                                android:id="@+id/fecha"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:text="Fecha"
+                                android:onClick="setDate"/>-->
+                            <com.github.mikephil.charting.charts.LineChart
+                                android:id="@+id/temperaturas"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                />
+
+                    </android.support.v7.widget.CardView>
+
+
+                </LinearLayout>
+
+            </FrameLayout>
         </LinearLayout>
-    </ScrollView>
+        </TabHost>
+
+
 </LinearLayout>
