@@ -20,6 +20,7 @@
 
 
         <activity android:name=".MainActivity$tomateActivity" />
+        <activity android:name=".secciones" />
 
     </application>
 

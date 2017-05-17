@@ -55,8 +55,10 @@ public class MainActivity extends AppCompatActivity {
 
     //METODO PARA CAMBIAR DE ACTIVIDAD
     public void cherubsActivity(View v){
-        Intent intent = new Intent(this, tomateActivity.class);
+        /*Intent intent = new Intent(this, tomateActivity.class);
         intent.putExtra("type", "cherubs");
+        startActivity(intent);*/
+        Intent intent = new Intent(this,secciones.class);
         startActivity(intent);
     }
 
