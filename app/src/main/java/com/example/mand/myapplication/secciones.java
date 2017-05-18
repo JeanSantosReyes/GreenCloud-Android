@@ -14,6 +14,7 @@ import android.widget.Spinner;
 public class secciones extends AppCompatActivity {
     private Spinner spinner;
     private int position;
+    private String type;
     public void onCreate(Bundle b){
         super.onCreate(b);
         setContentView(R.layout.secciones);
@@ -21,12 +22,11 @@ public class secciones extends AppCompatActivity {
             Window window = this.getWindow();
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
-        spinner = (Spinner) findViewById(R.id.tomatesSpinner);
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null){
+            type = extras.getString("type");
+        }
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.tomates_array,android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new oyenteSpinner());
     }
     public class oyenteSpinner implements AdapterView.OnItemSelectedListener{
         @Override
@@ -42,28 +42,27 @@ public class secciones extends AppCompatActivity {
     public void setPosition(int position){
         this.position = position;
     }
-    String[] variadades = {"cherubs","eclipses","glorys","jubilees","sunburts"};
    public void goto00(View v){
        Intent intent = new Intent(this, MainActivity.tomateActivity.class);
-       intent.putExtra("type",variadades[position]);
+       intent.putExtra("type",type);
        intent.putExtra("position","0,0");
        startActivity(intent);
    }
     public void goto01(View v){
         Intent intent = new Intent(this, MainActivity.tomateActivity.class);
-        intent.putExtra("type",variadades[position]);
+        intent.putExtra("type",type);
         intent.putExtra("position","0,1");
         startActivity(intent);
     }
     public void goto10(View v){
         Intent intent = new Intent(this, MainActivity.tomateActivity.class);
-        intent.putExtra("type",variadades[position]);
+        intent.putExtra("type",type);
         intent.putExtra("position","1,0");
         startActivity(intent);
     }
     public void goto11(View v){
         Intent intent = new Intent(this, MainActivity.tomateActivity.class);
-        intent.putExtra("type",variadades[position]);
+        intent.putExtra("type",type);
         intent.putExtra("position","1,1");
         startActivity(intent);
     }

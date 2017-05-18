@@ -65,33 +65,47 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("type", "cherubs");
         startActivity(intent);*/
         Intent intent = new Intent(this,secciones.class);
+        intent.putExtra("type","cherubs");
         startActivity(intent);
     }
 
     //METODO PARA CAMBIAR ALA ACTIVIDAD DE ECLIPSES
     public void eclipsesActivity(View v){
-        Intent intent = new Intent(this, tomateActivity.class);
+        /*Intent intent = new Intent(this, tomateActivity.class);
         intent.putExtra("type", "eclipses");
+        startActivity(intent);*/
+        Intent intent = new Intent(this,secciones.class);
+        intent.putExtra("type","eclipses");
         startActivity(intent);
     }
 
     //METODO PARA CAMBIR ALA ACTIVIDAD DE GLORYS
     public void glorysActivity(View v){
-        Intent intent = new Intent(this, tomateActivity.class);
+       /* Intent intent = new Intent(this, tomateActivity.class);
         intent.putExtra("type", "glorys");
+        startActivity(intent);*/
+        Intent intent = new Intent(this,secciones.class);
+        intent.putExtra("type","glorys");
         startActivity(intent);
     }
 
     //METODO PARA CAMBIR ALA ACTIVIDAD DE JUBIES
     public void jubilesActivity(View v){
-        Intent intent = new Intent(this, tomateActivity.class);
+        /*Intent intent = new Intent(this, tomateActivity.class);
         intent.putExtra("type","jubilees"); //Cambiar a "jubilees", así cambió en la API
+        startActivity(intent);*/
+        Intent intent = new Intent(this,secciones.class);
+        intent.putExtra("type","jubilees");
         startActivity(intent);
+
     }
 
     //METODO PARA CAMBIR ALA ACTIVIDAD DE SUNBURTS
     public void sunburtsActivity(View v){
-        Intent intent = new Intent(this, tomateActivity.class);
+        /*Intent intent = new Intent(this, tomateActivity.class);
+        intent.putExtra("type","sunburts");
+        startActivity(intent);*/
+        Intent intent = new Intent(this,secciones.class);
         intent.putExtra("type","sunburts");
         startActivity(intent);
     }
