@@ -34,7 +34,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="170dp"
                         android:onClick="goto00"
-                        android:src="@drawable/cherub"/>
+                        android:src="@drawable/ubicacion"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -59,7 +59,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="170dp"
                         android:onClick="goto01"
-                        android:src="@drawable/cherub"/>
+                        android:src="@drawable/ubicacion"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -93,7 +93,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="170dp"
                         android:onClick="goto10"
-                        android:src="@drawable/cherub"/>
+                        android:src="@drawable/ubicacion"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -118,7 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
                     android:onClick="goto11"
-                    android:src="@drawable/cherub"/>
+                    android:src="@drawable/ubicacion"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

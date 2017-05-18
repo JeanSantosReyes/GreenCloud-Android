@@ -3,6 +3,8 @@ package com.example.mand.myapplication;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -111,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
         private int Currentyear, Currentmonth, Currentday;
         private Button BTNFecha;
 
+        //IMAGEViEw
+        private ImageView imgTmp, imgHumeR, imgHumeS;
         TabHost tabHost;
         LinearLayout linearLayout;
 
@@ -121,6 +126,12 @@ public class MainActivity extends AppCompatActivity {
             toolbar = (Toolbar) findViewById(R.id.toolbarGen);
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+            //IMAGE
+            imgTmp = (ImageView) findViewById(R.id.imgTmp);
+            imgHumeR = (ImageView) findViewById(R.id.imgHumeR);
+            imgHumeS = (ImageView) findViewById(R.id.imgHumeS);
+            //IMAGE
 
             //TABS
             tabHost = (TabHost) findViewById(R.id.tabHost);
@@ -169,7 +180,14 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         }
+
+        //Click para la temperatura
         public void changeToTemperaturaCherubs(View v) throws JSONException {
+            //imgTmp.setBackground(getResources().getDrawable(R.drawable.temperaturasueloseleccionado));
+            imgTmp.setImageResource(R.drawable.temperaturasueloseleccionado);
+            imgHumeS.setImageResource(R.drawable.humedadsuelo);
+            imgHumeR.setImageResource(R.drawable.humedadrelativa);
+
             barra.setVisibility(View.VISIBLE);//hacemos visible la barra para graficar
             lineChart.setVisibility(View.VISIBLE);
             medicion.setText("Temperatura");//se le manda el titulo de la variable de medicion
@@ -177,15 +195,26 @@ public class MainActivity extends AppCompatActivity {
             data.llenarGrafica2(lineChart, "temperatura");
         }
 
-
+        //Click para la HumedadRelativa
         public void changeToHumedadRelativaCherubs(View v) throws JSONException {
+
+            imgTmp.setImageResource(R.drawable.temperaturasuelo);
+            imgHumeS.setImageResource(R.drawable.humedadsuelo);
+            imgHumeR.setImageResource(R.drawable.humedadrelativaseleccionado);
+
             barra.setVisibility(View.VISIBLE);//hacemos visible la barra para graficar
             lineChart.setVisibility(View.VISIBLE);
             medicion.setText("Humedad Relativa");//se le manda el titulo de la variable de medicion
             data.llenarGrafica1(barra, type, position,"humedadRelativa", "");//llamada al metodo
             data.llenarGrafica2(lineChart, "temperatura");
         }
+        //Click para la HumedadSuelo
         public void changeToHuedadSueloCherubs(View v) throws JSONException {
+
+            imgTmp.setImageResource(R.drawable.temperaturasuelo);
+            imgHumeS.setImageResource(R.drawable.humedadsueloseleccionado);
+            imgHumeR.setImageResource(R.drawable.humedadrelativa);
+
             barra.setVisibility(View.VISIBLE);//hacemos visible la barra para graficar
             lineChart.setVisibility(View.VISIBLE);
             medicion.setText("Humedad del suelo");//se le manda el titulo de la variable de medicion
@@ -193,5 +222,9 @@ public class MainActivity extends AppCompatActivity {
             data.llenarGrafica2(lineChart, "temperatura");
         }
 
+    }
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "Nature Sweet Tomatoes, Variedades", Toast.LENGTH_SHORT).show();
     }
 }
