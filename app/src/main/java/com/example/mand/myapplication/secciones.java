@@ -1,5 +1,7 @@
 package com.example.mand.myapplication;
 
+
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,11 +10,10 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 public class secciones extends AppCompatActivity {
     private Spinner spinner;
-    private boolean flag = false;
+    private int position;
     public void onCreate(Bundle b){
         super.onCreate(b);
         setContentView(R.layout.secciones);
@@ -30,11 +31,7 @@ public class secciones extends AppCompatActivity {
     public class oyenteSpinner implements AdapterView.OnItemSelectedListener{
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            if(flag){
-                Toast.makeText(secciones.this," "+position, Toast.LENGTH_LONG).show();
-            }else{
-                flag = true;
-            }
+            setPosition(position);
         }
 
         @Override
@@ -42,4 +39,33 @@ public class secciones extends AppCompatActivity {
 
         }
     }
+    public void setPosition(int position){
+        this.position = position;
+    }
+    String[] variadades = {"cherubs","eclipses","glorys","jubilees","sunburts"};
+   public void goto00(View v){
+       Intent intent = new Intent(this, MainActivity.tomateActivity.class);
+       intent.putExtra("type",variadades[position]);
+       intent.putExtra("position","0,0");
+       startActivity(intent);
+   }
+    public void goto01(View v){
+        Intent intent = new Intent(this, MainActivity.tomateActivity.class);
+        intent.putExtra("type",variadades[position]);
+        intent.putExtra("position","0,1");
+        startActivity(intent);
+    }
+    public void goto10(View v){
+        Intent intent = new Intent(this, MainActivity.tomateActivity.class);
+        intent.putExtra("type",variadades[position]);
+        intent.putExtra("position","1,0");
+        startActivity(intent);
+    }
+    public void goto11(View v){
+        Intent intent = new Intent(this, MainActivity.tomateActivity.class);
+        intent.putExtra("type",variadades[position]);
+        intent.putExtra("position","1,1");
+        startActivity(intent);
+    }
+
 }

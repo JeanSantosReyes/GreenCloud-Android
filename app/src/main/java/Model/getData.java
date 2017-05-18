@@ -41,7 +41,7 @@ public class getData{
 
     //Variables para tratar los datos de tipo json que consumimos de fiware
     private JSONObject valorJSON;
-    public JSONObject[] jsonObjects;
+    public ArrayList<JSONObject> jsonObjects;
 
     //Variable de mensaje que se mostrar en las graficas
     private String mensaje;
@@ -52,12 +52,12 @@ public class getData{
     /*Metodo que llena la graficar numero uno , Se le manda una variable de tpo BarChart que es la grafica
       y se le manda una variable type de tipo String para saber a que entidad se van a hacer las consultas en el servidor,
       y se le manda una tercera variable de tipo String llamada field para sacar el campo del json que quieramos mostrar en la grafica*/
-    public void llenarGrafica1(BarChart barra,String type,String field,String mensaje){
+    public void llenarGrafica1(BarChart barra,String type,String position,String field,String mensaje){
 
         this.mensaje = mensaje;
 
         //Metodo para obtener los datos del servidor dependiendo el type y field que le mandemos
-        ObtenerDatos(type, field);
+        ObtenerDatos(type, field, position);
         //Se llena la lista de colores
         colores.add(Color.BLUE);
         YAxis y = barra.getAxisLeft();
@@ -113,22 +113,22 @@ public class getData{
 
     //FIN GRAFICA DOS
 
-    public void preparandoDatosGraficar(JSONObject[] jsonObjects,ArrayList<Entry> list,ArrayList<String> labels,String dat) throws JSONException {
+    public void preparandoDatosGraficar(ArrayList<JSONObject> jsonObjects,ArrayList<Entry> list,ArrayList<String> labels,String dat) throws JSONException {
         //Sacamos el ancho de los json que se guararon en la variable jsonObjects
-        int size = jsonObjects.length;
+        int size = jsonObjects.size();
         int inicio = ((size-10)<1)?1:size-10;
         //LA VARIABLE contadorLIST es para empezar siempre a mostrar la grafica desde el inicio
         //SI PONEMOS QUE EMPIECE DE I-1 MOSTRAR LA GRAFICA MUY JUNTA POR ESO EMPEZAMOS DESDE CERO CON CONTADOR LIST
         int contadorLIST = 0;
         for (int i = inicio;i<size;i++){
             //Guardamos el json anterior para poder hacer comparacion entre fechas
-            JSONObject sant = jsonObjects[i-1];
+            JSONObject sant = jsonObjects.get(i-1);
             JSONObject fechaAnterior = new JSONObject(sant.getString("fecha"));
             String[] horaAnterior = fechaAnterior.getString("value").split(" ")[1].split(":");
             String[] fechaAnt = fechaAnterior.getString("value").split(" ")[0].split(":");
 
             //Guardamos el json actual para poder haceer comparaciones con el json anterior
-            JSONObject sact = jsonObjects[i];
+            JSONObject sact = jsonObjects.get(i);
             JSONObject fecha = new JSONObject(sact.getString("fecha"));
             String[] horaAtual = fecha.getString("value").split(" ")[1].split(":");
             String[] fechaActual = fecha.getString("value").split(" ")[0].split(":");
@@ -162,7 +162,7 @@ public class getData{
 
         }
         //Con estas ultimas lineas ponermos el ultimo valor de la lista en la grafica , si las quitamos el ultimo valor no lo mostrara
-        JSONObject sact = jsonObjects[size-1];
+        JSONObject sact = jsonObjects.get(size-1);
         JSONObject fecha = new JSONObject(sact.getString("fecha"));
         String[] horaAtual = fecha.getString("value").split(" ")[1].split(":");
         labels.add(horaAtual[0] + ":" + horaAtual[1]);
@@ -181,8 +181,8 @@ public class getData{
 
 
 
-    public void ObtenerDatos(String type,String field){
-        String dir = "http://207.249.127.215:1026/v2/entities?type="+type;
+    public void ObtenerDatos(String type,String field,String position){
+        String dir = "http://207.249.127.215:1026/v2/entities?q=position=='"+position+"'&type="+type;
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -215,13 +215,14 @@ public class getData{
                     e.printStackTrace();
                 }
                 JSONObject obJSON = null;
+                jsonObjects = new ArrayList<>();
                 int size = jsonAr.length();
-                jsonObjects = new JSONObject[size];
+                int index = 0;
                 for (int i = 0;i<size;i++){
                     obJSON = jsonAr.getJSONObject(i);
-                    jsonObjects[i] = obJSON;
-                }
+                    jsonObjects.add(obJSON);
 
+                }
                 valorJSON = new JSONObject(jsonAr.getJSONObject(size-1).getString(field));
 
                 valorGrafica1 = Float.parseFloat(""+valorJSON.getDouble("value"));

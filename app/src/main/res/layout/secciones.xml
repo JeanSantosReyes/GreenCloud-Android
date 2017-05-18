@@ -24,6 +24,7 @@
                 android:layout_width="170dp"
                 android:layout_height="200dp"
                 android:layout_margin="5dp"
+                android:onClick="gotoCherubs00"
                 android:background="@color/colorAccent">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -32,6 +33,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="170dp"
+                        android:onClick="goto00"
                         android:src="@drawable/cherub"/>
                     <TextView
                         android:layout_width="match_parent"
@@ -47,6 +49,7 @@
                 android:layout_width="170dp"
                 android:layout_height="200dp"
                 android:layout_margin="5dp"
+                android:onClick="goto01"
                 android:background="@color/colorAccent">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -55,6 +58,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="170dp"
+                        android:onClick="goto01"
                         android:src="@drawable/cherub"/>
                     <TextView
                         android:layout_width="match_parent"
@@ -79,6 +83,7 @@
                 android:layout_width="170dp"
                 android:layout_height="200dp"
                 android:layout_margin="5dp"
+                android:onClick="goto10"
                 android:background="@color/colorAccent">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -87,6 +92,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="170dp"
+                        android:onClick="goto10"
                         android:src="@drawable/cherub"/>
                     <TextView
                         android:layout_width="match_parent"
@@ -102,6 +108,7 @@
                 android:layout_width="170dp"
                 android:layout_height="200dp"
                 android:layout_margin="5dp"
+                android:onClick="goto11"
                 android:background="@color/colorAccent">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -110,6 +117,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
+                    android:onClick="goto11"
                     android:src="@drawable/cherub"/>
                 <TextView
                     android:layout_width="match_parent"

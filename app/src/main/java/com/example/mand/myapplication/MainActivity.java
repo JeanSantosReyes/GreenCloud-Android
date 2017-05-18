@@ -94,12 +94,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public static class tomateActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+    public static class tomateActivity extends AppCompatActivity{
         private getData data = new getData();
         private Toolbar mTool;
 
         private Toolbar toolbar;
-        private String type;
+        private String type,position;
 
         private BarChart barra;
         private LineChart lineChart;
@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
             Bundle extras = getIntent().getExtras();
             if(extras!=null){
                 type= extras.getString("type");
+                position = extras.getString("position");
             }
 
            if(Build.VERSION.SDK_INT >= 21){
@@ -156,10 +157,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
-
-
-
-
         public boolean onCreateOptionsMenu(Menu menu){
             toolbar.setTitle(type);
             return true;
@@ -176,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
             barra.setVisibility(View.VISIBLE);//hacemos visible la barra para graficar
             lineChart.setVisibility(View.VISIBLE);
             medicion.setText("Temperatura");//se le manda el titulo de la variable de medicion
-            data.llenarGrafica1(barra, type, "temperatura", "");//llamada al metodo
+            data.llenarGrafica1(barra, type,position, "temperatura", "");//llamada al metodo
             data.llenarGrafica2(lineChart, "temperatura");
         }
 
@@ -185,46 +182,16 @@ public class MainActivity extends AppCompatActivity {
             barra.setVisibility(View.VISIBLE);//hacemos visible la barra para graficar
             lineChart.setVisibility(View.VISIBLE);
             medicion.setText("Humedad Relativa");//se le manda el titulo de la variable de medicion
-            data.llenarGrafica1(barra, type, "humedadRelativa", "");//llamada al metodo
+            data.llenarGrafica1(barra, type, position,"humedadRelativa", "");//llamada al metodo
             data.llenarGrafica2(lineChart, "temperatura");
         }
         public void changeToHuedadSueloCherubs(View v) throws JSONException {
             barra.setVisibility(View.VISIBLE);//hacemos visible la barra para graficar
             lineChart.setVisibility(View.VISIBLE);
             medicion.setText("Humedad del suelo");//se le manda el titulo de la variable de medicion
-            data.llenarGrafica1(barra, type, "humedadSuelo", "");//llamada al metodo
+            data.llenarGrafica1(barra, type, position,"humedadSuelo", "");//llamada al metodo
             data.llenarGrafica2(lineChart, "temperatura");
         }
 
-
-        public void setDate(View view) {
-            DatePickerFragment fragment = new DatePickerFragment();
-            fragment.show(getSupportFragmentManager(), "Picker");
-        }
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            Toast.makeText(this, year + " " + monthOfYear + " " + " " + dayOfMonth, Toast.LENGTH_LONG).show();
-            try {
-                data.llenarGrafica2(lineChart,"temperatura");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }
-        public static class DatePickerFragment extends DialogFragment {
-
-            @Override
-            public Dialog onCreateDialog(Bundle savedInstanceState) {
-                final Calendar c = Calendar.getInstance();
-                int year = c.get(Calendar.YEAR);
-                int month = c.get(Calendar.MONTH);
-                int day = c.get(Calendar.DAY_OF_MONTH);
-
-
-                return new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener) getActivity(), year, month, day);
-            }
-
-        }
     }
 }
