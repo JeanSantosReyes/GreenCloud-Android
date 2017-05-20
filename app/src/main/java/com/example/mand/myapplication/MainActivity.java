@@ -237,8 +237,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    @Override
-    public void onBackPressed() {
-        Toast.makeText(this, "Nature Sweet Tomatoes, Variedades", Toast.LENGTH_SHORT).show();
-    }
+
 }
