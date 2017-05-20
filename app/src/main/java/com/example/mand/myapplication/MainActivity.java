@@ -111,6 +111,135 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+<<<<<<< HEAD
+    public static class tomateActivity extends AppCompatActivity{
+        private getData data = new getData();
+        private Toolbar mTool;
+
+        private Toolbar toolbar;
+        private String type,position;
+
+        private BarChart barra;
+        private LineChart lineChart;
+
+        private TextView medicion;
+
+        private DatePicker datePicker;
+        private Calendar calendar;
+        private int Currentyear, Currentmonth, Currentday;
+        private Button BTNFecha;
+
+        //IMAGEViEw
+        private ImageView imgTmp, imgHumeR, imgHumeS;
+        TabHost tabHost;
+        LinearLayout linearLayout;
+
+
+        public void onCreate(Bundle b) {
+            super.onCreate(b);
+            setContentView(R.layout.activity_tomate);
+            toolbar = (Toolbar) findViewById(R.id.toolbarGen);
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+            //IMAGE
+            imgTmp = (ImageView) findViewById(R.id.imgTmp);
+            imgHumeR = (ImageView) findViewById(R.id.imgHumeR);
+            imgHumeS = (ImageView) findViewById(R.id.imgHumeS);
+            //IMAGE
+
+            //TABS
+            tabHost = (TabHost) findViewById(R.id.tabHost);
+            tabHost.setup();
+            TabHost.TabSpec tabSpec = tabHost.newTabSpec("tab1");
+            tabSpec.setIndicator("Actual");
+            tabSpec.setContent(R.id.tab1);
+            tabHost.addTab(tabSpec);
+
+            tabHost.setup();
+            TabHost.TabSpec tabSpec2=tabHost.newTabSpec("tab2");
+            tabSpec2.setIndicator("Histórica");
+            tabSpec2.setContent(R.id.tab222);
+            tabHost.addTab(tabSpec2);
+            //TABS
+            barra = (BarChart) findViewById(R.id.temperatura);
+            lineChart = (LineChart) findViewById(R.id.temperaturas);
+            barra.setVisibility(View.INVISIBLE);
+            lineChart.setVisibility(View.INVISIBLE);
+            medicion = (TextView) findViewById(R.id.medicion);
+            //ESTA DE ABAJO
+            //BTNFecha = (Button) findViewById(R.id.fecha);
+
+            Bundle extras = getIntent().getExtras();
+            if(extras!=null){
+                type= extras.getString("type");
+                position = extras.getString("position");
+            }
+
+           if(Build.VERSION.SDK_INT >= 21){
+               Window window = this.getWindow();
+               window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimary));
+           }
+
+
+        }
+        public boolean onCreateOptionsMenu(Menu menu){
+            toolbar.setTitle(type);
+            return true;
+        }
+        public boolean onOptionsItemSelected(MenuItem item){
+            switch (item.getItemId()){
+                case android.R.id.home:
+                    onBackPressed();
+                break;
+            }
+            return true;
+        }
+
+        //Click para la temperatura
+        public void changeToTemperaturaCherubs(View v) throws JSONException {
+            //imgTmp.setBackground(getResources().getDrawable(R.drawable.temperaturasueloseleccionado));
+            imgTmp.setImageResource(R.drawable.temperaturasueloseleccionado);
+            imgHumeS.setImageResource(R.drawable.humedadsuelo);
+            imgHumeR.setImageResource(R.drawable.humedadrelativa);
+
+            barra.setVisibility(View.VISIBLE);//hacemos visible la barra para graficar
+            lineChart.setVisibility(View.VISIBLE);
+            medicion.setText("Temperatura");//se le manda el titulo de la variable de medicion
+            data.llenarGrafica1(barra, type,position, "temperatura", "");//llamada al metodo
+            data.llenarGrafica2(lineChart, "temperatura");
+        }
+
+        //Click para la HumedadRelativa
+        public void changeToHumedadRelativaCherubs(View v) throws JSONException {
+
+            imgTmp.setImageResource(R.drawable.temperaturasuelo);
+            imgHumeS.setImageResource(R.drawable.humedadsuelo);
+            imgHumeR.setImageResource(R.drawable.humedadrelativaseleccionado);
+
+            barra.setVisibility(View.VISIBLE);//hacemos visible la barra para graficar
+            lineChart.setVisibility(View.VISIBLE);
+            medicion.setText("Humedad Relativa");//se le manda el titulo de la variable de medicion
+            data.llenarGrafica1(barra, type, position,"humedadRelativa", "");//llamada al metodo
+            data.llenarGrafica2(lineChart, "temperatura");
+        }
+        //Click para la HumedadSuelo
+        public void changeToHuedadSueloCherubs(View v) throws JSONException {
+
+            imgTmp.setImageResource(R.drawable.temperaturasuelo);
+            imgHumeS.setImageResource(R.drawable.humedadsueloseleccionado);
+            imgHumeR.setImageResource(R.drawable.humedadrelativa);
+
+            barra.setVisibility(View.VISIBLE);//hacemos visible la barra para graficar
+            lineChart.setVisibility(View.VISIBLE);
+            medicion.setText("Humedad del suelo");//se le manda el titulo de la variable de medicion
+            data.llenarGrafica1(barra, type, position,"humedadSuelo", "");//llamada al metodo
+            data.llenarGrafica2(lineChart, "temperatura");
+        }
+
+    }
+
+=======
     @Override
     public void onBackPressed() {
         Toast.makeText(this, "Nature Sweet Tomatoes, Variedades", Toast.LENGTH_SHORT).show();
@@ -140,4 +269,5 @@ public class MainActivity extends AppCompatActivity {
         dialog.setNegativeButton("Cancelar",null);
         dialog.show();
     }
+>>>>>>> 49cd8d9ed15fa63f7eb97e8ca3251d462eaf94f2
 }

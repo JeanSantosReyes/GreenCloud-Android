@@ -42,7 +42,7 @@ public class login extends AppCompatActivity {
                 } else {
 
                     if (usuario.equals(user) && contrasena.equals(pass)) {
-                        Intent go = new Intent(login.this, MainActivity.class);
+                        Intent go = new Intent(login.this, navigation.class);
                         startActivity(go);
                     } else {
                         Toast.makeText(login.this, "Usuario o Contraseña Incorrectos", Toast.LENGTH_SHORT).show();
