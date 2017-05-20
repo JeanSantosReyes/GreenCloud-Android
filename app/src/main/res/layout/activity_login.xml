@@ -7,14 +7,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorFondo"
-    tools:context="com.example.mand.myapplication.login">
+    tools:context="com.example.mand.myapplication.login"
+    android:weightSum="1">
 
 
     <ImageView
+        android:layout_marginTop="30pt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/logofondo"
-        android:id="@+id/imageView" />
+        android:src="@drawable/greenlogo"
+        android:id="@+id/imageView"
+        android:layout_weight="0.29" />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"

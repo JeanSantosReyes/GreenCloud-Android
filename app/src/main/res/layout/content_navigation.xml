@@ -10,13 +10,12 @@
     android:orientation="vertical"
     android:background="@color/colorFondo">
 
-    <LinearLayout
-        android:layout_marginTop="10dp"
+
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/worldns"
-        >
-
-    </LinearLayout>
+        android:src="@drawable/logofondo"
+        android:id="@+id/imageView"
+        android:layout_gravity="center"/>
 
 </LinearLayout>
