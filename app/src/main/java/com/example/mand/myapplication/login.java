@@ -39,6 +39,7 @@ public class login extends AppCompatActivity {
 
                 Intent go2 = new Intent(login.this, navigation.class);
                 startActivity(go2);
+                finish();
                 if (usuario.length() == 0 || contrasena.length() == 0) {
                     Toast.makeText(login.this, "Ingrese los datos", Toast.LENGTH_SHORT).show();
                 } else {
