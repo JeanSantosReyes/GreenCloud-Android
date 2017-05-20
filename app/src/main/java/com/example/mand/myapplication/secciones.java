@@ -6,6 +6,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 
@@ -32,7 +34,7 @@ public class secciones extends AppCompatActivity {
    public void goto00(View v){
        Intent intent = new Intent(this, tomateActivity.class);
        intent.putExtra("type",type);
-       intent.putExtra("position","0,0");
+       intent.putExtra("position", "0,0");
        startActivity(intent);
    }
     public void goto01(View v){
@@ -54,4 +56,16 @@ public class secciones extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public boolean onCreateOptionsMenu(Menu menu){
+        toolbar.setTitle("Secciones");
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return true;
+    }
 }
