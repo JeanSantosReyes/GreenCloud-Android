@@ -97,6 +97,8 @@ public class tomateActivity extends AppCompatActivity {
         adapter.updateFragment(0,type,position,"temperatura");
         adapter.updateFragment(1,type,position,"temperatura");
         imgTmp.setImageResource(R.drawable.temperaturasueloseleccionado);
+        imgHumeR.setImageResource(R.drawable.humedadrelativa);
+        imgHumeS.setImageResource(R.drawable.humedadsuelo);
     }
 
     //Click para la HumedadRelativa
@@ -104,12 +106,17 @@ public class tomateActivity extends AppCompatActivity {
         adapter.updateFragment(0,type,position,"humedadRelativa");
         adapter.updateFragment(1,type,position,"humedadRelativa");
         imgHumeR.setImageResource(R.drawable.humedadrelativaseleccionado);
+        imgTmp.setImageResource(R.drawable.temperaturasuelo);
+        imgHumeS.setImageResource(R.drawable.humedadsuelo);
+
     }
     //Click para la HumedadSuelo
     public void changeToHuedadSueloCherubs(View v) throws JSONException {
         adapter.updateFragment(0,type,position,"humedadSuelo");
         adapter.updateFragment(1,type,position,"humedadSuelo");
         imgHumeS.setImageResource(R.drawable.humedadsueloseleccionado);
+        imgHumeR.setImageResource(R.drawable.humedadrelativa);
+        imgTmp.setImageResource(R.drawable.temperaturasuelo);
     }
 
 }
