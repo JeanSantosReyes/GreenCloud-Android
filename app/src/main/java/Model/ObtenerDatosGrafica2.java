@@ -54,6 +54,7 @@ public class ObtenerDatosGrafica2 {
     }
     public void graficar(){
         LineDataSet dataSet = new LineDataSet(datos,"");
+        dataSet.setLineWidth(5);
         LineData lineData = new LineData(mensajes,dataSet);
         linea.setData(lineData);
         linea.setDescription("");
