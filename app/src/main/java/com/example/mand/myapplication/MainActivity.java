@@ -1,18 +1,15 @@
 package com.example.mand.myapplication;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.view.PagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,8 +17,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +51,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
     public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:
+                salir();
+                break;
+        }
         return true;
     }
 
@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+<<<<<<< HEAD
     public static class tomateActivity extends AppCompatActivity{
         private getData data = new getData();
         private Toolbar mTool;
@@ -238,4 +239,35 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+=======
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "Nature Sweet Tomatoes, Variedades", Toast.LENGTH_SHORT).show();
+    }
+
+    public boolean onKeyUp(int keyCode,KeyEvent event){
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            salir();
+        }
+        return true;
+    }
+    public void salir(){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setMessage("Estas seguro que deseas salir?");
+        dialog.setTitle("Alerta");
+        dialog.setCancelable(false);
+        dialog.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                MainActivity.this.finish();
+                Intent home = new Intent(Intent.ACTION_MAIN);
+                home.addCategory(Intent.CATEGORY_HOME);
+                home.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(home);
+            }
+        });
+        dialog.setNegativeButton("Cancelar",null);
+        dialog.show();
+    }
+>>>>>>> 49cd8d9ed15fa63f7eb97e8ca3251d462eaf94f2
 }

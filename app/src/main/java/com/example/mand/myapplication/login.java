@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,7 +35,8 @@ public class login extends AppCompatActivity {
                 String usuario = txtUsuario.getText().toString();
                 String contrasena = txtPass.getText().toString();
 
-
+                Intent go2 = new Intent(login.this, MainActivity.class);
+                startActivity(go2);
                 if(usuario.length() == 0 || contrasena.length() == 0){
                     Toast.makeText(login.this, "Ingrese los datos", Toast.LENGTH_SHORT).show();
                 }else {
@@ -53,7 +56,40 @@ public class login extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        Toast.makeText(this, "Nature Sweet Tomatoes", Toast.LENGTH_SHORT).show();
+        salir();
     }
+    public boolean onKeyUp(int keyCode,KeyEvent keyEvent){
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            salir();
+        }
+
+        return true;
+    }
+    public boolean onOptionItemSelected(MenuItem menuItem){
+        switch (menuItem.getItemId()){
+            case android.R.id.home:
+                salir();
+                break;
+        }
+        return true;
+    }
+    public void salir(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage("Estas seguro que deseas salir?");
+        alert.setTitle("Alerta");
+        alert.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                login.this.finish();
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+        alert.setNegativeButton("Cancelar", null);
+        alert.show();
+    }
+
 
 }

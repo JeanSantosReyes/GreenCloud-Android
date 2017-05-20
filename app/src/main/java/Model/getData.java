@@ -91,8 +91,8 @@ public class getData{
 
     //INICIO DE LA GRAFICA DOS
 
-    public void llenarGrafica2(LineChart lineChart,String data) throws JSONException {
-
+    public void llenarGrafica2(LineChart lineChart,String type,String position,String field,String mensaje) throws JSONException {
+        ObtenerDatos(type,field,position);
         //Se inicializan dos listas la primera de typo Entry y la segunda de tipo String
         ArrayList<Entry> numeros = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<>();
@@ -101,7 +101,7 @@ public class getData{
         llenarGrafica1 ,Se le manda la lista numeros vacia para que la llene el metodo , y tambien la lista labels para que la llene,
         y por ultimo la variable data que data , es el campo que queremos del json del servor , por ejemplo si queremos la temperatura
         esa variable seria igual a "temperatura" data = "temperatura" */
-        preparandoDatosGraficar(jsonObjects, numeros, labels, data);
+        preparandoDatosGraficar(jsonObjects, numeros, labels, field);
         LineDataSet dataSet = new LineDataSet(numeros,"");
         dataSet.setColors(colores);
         LineData ldata = new LineData(labels,dataSet);
