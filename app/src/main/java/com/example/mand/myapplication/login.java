@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,7 +19,8 @@ import android.widget.Toast;
 public class login extends AppCompatActivity {
 
     Button btnLogin;
-    EditText txtUsuario, txtPass;
+    EditText txtUsuario;
+    TextInputEditText txtPass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +28,7 @@ public class login extends AppCompatActivity {
 
         btnLogin = (Button) findViewById(R.id.btnLogin);
         txtUsuario = (EditText) findViewById(R.id.txtUsuario);
-        //txtPass = (EditText) findViewById(R.id.txtPass);
+        txtPass = (TextInputEditText) findViewById(R.id.txtPass);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,7 +37,7 @@ public class login extends AppCompatActivity {
                 String usuario = txtUsuario.getText().toString();
                 String contrasena = txtPass.getText().toString();
 
-                Intent go2 = new Intent(login.this, MainActivity.class);
+                Intent go2 = new Intent(login.this, navigation.class);
                 startActivity(go2);
                 if (usuario.length() == 0 || contrasena.length() == 0) {
                     Toast.makeText(login.this, "Ingrese los datos", Toast.LENGTH_SHORT).show();
