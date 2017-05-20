@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,8 +26,7 @@ public class login extends AppCompatActivity {
 
         btnLogin = (Button) findViewById(R.id.btnLogin);
         txtUsuario = (EditText) findViewById(R.id.txtUsuario);
-        txtPass = (EditText) findViewById(R.id.txtPass);
-
+        //txtPass = (EditText) findViewById(R.id.txtPass);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,9 +37,9 @@ public class login extends AppCompatActivity {
 
                 Intent go2 = new Intent(login.this, MainActivity.class);
                 startActivity(go2);
-                if(usuario.length() == 0 || contrasena.length() == 0){
+                if (usuario.length() == 0 || contrasena.length() == 0) {
                     Toast.makeText(login.this, "Ingrese los datos", Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
 
                     if (usuario.equals(user) && contrasena.equals(pass)) {
                         Intent go = new Intent(login.this, MainActivity.class);
