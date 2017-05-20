@@ -51,6 +51,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
     public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:
+                salir();
+                break;
+        }
         return true;
     }
 
@@ -120,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
     public void salir(){
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setMessage("Estas seguro que deseas salir?");
-        dialog.setTitle("Alert");
+        dialog.setTitle("Alerta");
         dialog.setCancelable(false);
         dialog.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
