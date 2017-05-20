@@ -19,7 +19,8 @@
         <activity android:name=".MainActivity">
 
         </activity>
-        <activity android:name=".MainActivity$tomateActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".tomateActivity"/>
         <activity android:name=".secciones" />
         <activity android:name=".login">
             <intent-filter>
@@ -28,9 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login"></activity>
     </application>
 
 </manifest>
