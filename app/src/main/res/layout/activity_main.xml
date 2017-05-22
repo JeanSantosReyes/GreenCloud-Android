@@ -29,9 +29,10 @@
              android:orientation="vertical">
              <ImageView
                  android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
+                 android:layout_height="108dp"
                  android:onClick="cherubsActivity"
-                 android:src="@drawable/cherub"/>
+                 android:src="@drawable/cherub"
+                 style="?android:borderlessButtonStyle"/>
              <TextView
                  android:layout_width="match_parent"
                  android:layout_height="match_parent"
@@ -61,9 +62,10 @@
                 android:orientation="vertical">
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="108dp"
                     android:onClick="eclipsesActivity"
-                    android:src="@drawable/eclipse"/>
+                    android:src="@drawable/eclipse"
+                    style="?android:borderlessButtonStyle"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -100,9 +102,10 @@
                 android:orientation="vertical">
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="108dp"
                     android:onClick="glorysActivity"
-                    android:src="@drawable/glorys"/>
+                    android:src="@drawable/glorys"
+                    style="?android:borderlessButtonStyle"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -132,9 +135,10 @@
                 android:orientation="vertical">
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="108dp"
                     android:onClick="jubilesActivity"
-                    android:src="@drawable/jubilees"/>
+                    android:src="@drawable/jubilees"
+                    style="?android:borderlessButtonStyle"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -171,9 +175,10 @@
                 android:orientation="vertical">
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="108dp"
                     android:onClick="sunburtsActivity"
-                    android:src="@drawable/sunburst"/>
+                    android:src="@drawable/sunburst"
+                    style="?android:borderlessButtonStyle"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

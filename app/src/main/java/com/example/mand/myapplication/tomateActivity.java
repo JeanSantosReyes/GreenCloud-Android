@@ -86,6 +86,9 @@ public class tomateActivity extends AppCompatActivity {
         imgTmp.setImageResource(R.drawable.temperaturasueloseleccionado);
         imgHumeR.setImageResource(R.drawable.humedadrelativa);
         imgHumeS.setImageResource(R.drawable.humedadsuelo);
+        /*imgTmp.setFocusableInTouchMode(true);
+        imgHumeS.setFocusableInTouchMode(false);
+        imgHumeR.setFocusableInTouchMode(false);*/
     }
 
     //Click para la HumedadRelativa
@@ -95,6 +98,9 @@ public class tomateActivity extends AppCompatActivity {
         imgHumeR.setImageResource(R.drawable.humedadrelativaseleccionado);
         imgTmp.setImageResource(R.drawable.temperaturasuelo);
         imgHumeS.setImageResource(R.drawable.humedadsuelo);
+        /*imgHumeR.setFocusableInTouchMode(true);
+        imgHumeS.setFocusableInTouchMode(false);
+        imgTmp.setFocusableInTouchMode(false);*/
 
     }
     //Click para la HumedadSuelo
@@ -104,6 +110,9 @@ public class tomateActivity extends AppCompatActivity {
         imgHumeS.setImageResource(R.drawable.humedadsueloseleccionado);
         imgHumeR.setImageResource(R.drawable.humedadrelativa);
         imgTmp.setImageResource(R.drawable.temperaturasuelo);
+        /*imgHumeS.setFocusableInTouchMode(true);
+        imgTmp.setFocusableInTouchMode(false);
+        imgHumeR.setFocusableInTouchMode(false);*/
     }
 
 }
