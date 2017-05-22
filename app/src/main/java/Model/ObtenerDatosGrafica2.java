@@ -1,6 +1,8 @@
 package Model;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.util.Log;
 import android.widget.Toast;
@@ -49,11 +51,46 @@ public class ObtenerDatosGrafica2 {
         this.datos = new ArrayList<>();
         this.mensajes = new ArrayList<>();
 
+        ProgressDialog dialog = new ProgressDialog(context);
+        dialog.setMessage("Obteniendo datos del servidor...");
+        dialog.setMax(100);
+        dialog.setProgress(0);
+        dialog.setCancelable(false);
 
-        this.obtenerValores();
-        this.filtroUltimos10();
-        this.graficar();
+       new AsynTask(context,dialog,this).execute();
 
+    }
+    static class AsynTask extends AsyncTask<Void,Void,Void>{
+        Context context;
+        ProgressDialog dialog;
+        ObtenerDatosGrafica2 obj;
+        public AsynTask(Context context,ProgressDialog dialog,ObtenerDatosGrafica2 obj){
+            this.context = context;
+            this.dialog = dialog;
+            this.obj = obj;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                obj.obtenerValores();
+                obj.filtroUltimos10();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        public void onPreExecute(){
+            Log.d("maicol","yea");
+            dialog.show();
+        }
+        @Override
+        public void onPostExecute(Void unused) {
+            obj.graficar();
+            dialog.dismiss();
+        }
     }
     public void graficar(){
         LineDataSet dataSet = new LineDataSet(datos,"");

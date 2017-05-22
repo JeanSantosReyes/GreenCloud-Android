@@ -1,8 +1,10 @@
 package Model;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -56,8 +58,43 @@ public class ObtenerDatosGrafica1 {
         this.mensaje = mensaje;
         this.context = context;
 
-        this.obtenerValor();
-        this.llenarGrafica();
+        ProgressDialog dialog = new ProgressDialog(context);
+        dialog.setMessage("Obteniendo datos del servidor...");
+        dialog.setMax(100);
+        dialog.setProgress(0);
+        dialog.setCancelable(false);
+
+        new AsynTask(context,dialog,this).execute();
+
+
+
+    }
+    //TAREA ASINCRONA PARA TRAER LOS DATOS DEL SERVIDOR
+    static class AsynTask extends AsyncTask<Void,Void,Void>{
+        private ProgressDialog dialog;
+        private Context context;
+        private ObtenerDatosGrafica1 obj;
+        public AsynTask(Context context,ProgressDialog dialog,ObtenerDatosGrafica1 obj){
+            this.dialog = dialog;
+            this.context = context;
+            this.obj = obj;
+            Log.d("maicol","yea");
+        }
+        @Override
+        public Void doInBackground(Void... params) {
+            obj.obtenerValor();
+            return null;
+        }
+        @Override
+        public void onPreExecute(){
+            Log.d("maicol","yea");
+            dialog.show();
+        }
+        @Override
+        public void onPostExecute(Void unused) {
+            obj.llenarGrafica();
+            dialog.dismiss();
+        }
 
     }
     public void llenarGrafica(){
