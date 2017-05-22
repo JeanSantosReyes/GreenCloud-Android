@@ -68,7 +68,6 @@ public class ObtenerDatosGrafica2 {
             }
         });
 
-
         linea.setData(lineData);
 
         linea.animateY(3000);
