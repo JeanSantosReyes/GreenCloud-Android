@@ -63,11 +63,15 @@ public class ObtenerDatosGrafica1 {
 
         PieDataSet dataSet = new PieDataSet(barEntries,"");
 
+
         PieData pieData = new PieData(dataSet);
+
 
         barra.setData(pieData);
 
         barra.setRotationEnabled(false);
+
+
 
         barra.setMaxAngle((valorGrafica1 * 180) / 100);
 
@@ -75,8 +79,10 @@ public class ObtenerDatosGrafica1 {
 
         barra.setCenterTextOffset(0, -20);
 
+        barra.setCenterText(mensaje + " Actual");
 
-        barra.getDescription().setText(mensaje + " Actual");
+
+        barra.getDescription().setText("");
 
         barra.getDescription().setTextSize(20);
 

@@ -57,8 +57,14 @@ public class ObtenerDatosGrafica2 {
     }
     public void graficar(){
         LineDataSet dataSet = new LineDataSet(datos,"");
+
+        dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+
+        dataSet.setDrawFilled(true);
+
         dataSet.setLineWidth(5);
         LineData lineData = new LineData(dataSet);
+
 
         XAxis xAxis = linea.getXAxis();
         xAxis.setValueFormatter(new IAxisValueFormatter() {
@@ -67,6 +73,7 @@ public class ObtenerDatosGrafica2 {
                 return mensajes.get((int) v % mensajes.size());
             }
         });
+
 
         linea.setData(lineData);
 
@@ -161,7 +168,7 @@ public class ObtenerDatosGrafica2 {
                 }
             }else{
                 mensajes.add(horaAnterior[0]+" : "+horaAnterior[1]);
-                datos.add(new Entry(contador,parse(temporalAnterior.getString("value"))));
+                datos.add(new Entry(contador, parse(temporalAnterior.getString("value"))));
             }
             contador++;
 
