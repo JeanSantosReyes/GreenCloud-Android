@@ -1,11 +1,16 @@
 package Model;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.Window;
+import android.widget.AbsListView;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.animation.Easing;
@@ -69,6 +74,7 @@ public class ObtenerDatosGrafica1 {
 
         barra.setData(pieData);
 
+
         barra.setRotationEnabled(false);
 
 
@@ -81,22 +87,24 @@ public class ObtenerDatosGrafica1 {
 
         barra.setCenterText(mensaje + " Actual");
 
+       barra.setEntryLabelTextSize(12f);
 
         barra.getDescription().setText("");
 
         barra.getDescription().setTextSize(20);
-
-        //DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-
-
-      // barra.getDescription().setPosition(metrics.widthPixels-100,metrics.heightPixels/4);
-
 
         barra.setTransparentCircleColor(Color.WHITE);
 
         barra.setTransparentCircleAlpha(110);
 
         barra.setHoleRadius(58f);
+
+        DisplayMetrics display = context.getResources().getDisplayMetrics();
+
+        FrameLayout.LayoutParams _rootLayoutParams = new FrameLayout.LayoutParams(display.widthPixels, display.heightPixels);
+
+        _rootLayoutParams.setMargins(0, 0, 0, 0);
+        barra.setLayoutParams(_rootLayoutParams);
 
         barra.setTransparentCircleRadius(61f);
 
@@ -105,6 +113,7 @@ public class ObtenerDatosGrafica1 {
         barra.setCenterTextOffset(0, -20);
 
     }
+
     public void llenarBarEntryData(){
         //DECLARANDO LA LISTA QUE SEA UN UNICO VALOR QUE SE MOSTRAR EN LA LISTA
        barEntries = new ArrayList<>();
