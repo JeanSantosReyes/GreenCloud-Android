@@ -178,7 +178,14 @@ public class ObtenerDatosGrafica2 {
         }
     }
     public void filtroUltimos10() throws JSONException {
-        int size = jsonValores.size();
+
+
+        try{
+
+            int size = jsonValores.size();
+
+
+
         int inicio = ((size-10)<1)?1:size-10;
         int contador = 0;
         for (int i = inicio;i<size;i++){
@@ -210,6 +217,13 @@ public class ObtenerDatosGrafica2 {
             contador++;
 
         }
+        }
+
+        catch (Exception ex)
+        {
+            Toast.makeText(context, "Error"+ex, Toast.LENGTH_SHORT).show();
+        }
+
     }
     public String[] split(String value,int position){
         return value.split(" ")[position].split(":");

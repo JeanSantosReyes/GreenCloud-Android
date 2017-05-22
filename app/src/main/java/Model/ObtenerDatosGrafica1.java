@@ -50,6 +50,7 @@ public class ObtenerDatosGrafica1 {
     private Context context;
     private ArrayList<PieEntry> barEntries;
     private ArrayList<String> labels;
+
     public ObtenerDatosGrafica1(PieChart barra,String tabla,String posicion,String campo,String mensaje,Context context){
         this.barra = barra;
         this.tabla = tabla;
@@ -98,6 +99,8 @@ public class ObtenerDatosGrafica1 {
 
     }
     public void llenarGrafica(){
+        try {
+
 
         llenarBarEntryData();
         llenandoLabels();
@@ -148,7 +151,9 @@ public class ObtenerDatosGrafica1 {
         barra.animateY(3000, Easing.EasingOption.EaseInOutQuad);
 
         barra.setCenterTextOffset(0, -20);
-
+        }catch (Exception e){
+            Toast.makeText(context, "NO internet"+e, Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void llenarBarEntryData(){
