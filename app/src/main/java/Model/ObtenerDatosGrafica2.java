@@ -7,10 +7,13 @@ import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,9 +58,19 @@ public class ObtenerDatosGrafica2 {
     public void graficar(){
         LineDataSet dataSet = new LineDataSet(datos,"");
         dataSet.setLineWidth(5);
-        LineData lineData = new LineData(mensajes,dataSet);
+        LineData lineData = new LineData(dataSet);
+
+        XAxis xAxis = linea.getXAxis();
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float v, AxisBase axisBase) {
+                return mensajes.get((int) v % mensajes.size());
+            }
+        });
+
+
         linea.setData(lineData);
-        linea.setDescription("");
+
         linea.animateY(3000);
     }
 
@@ -145,11 +158,11 @@ public class ObtenerDatosGrafica2 {
             if(parse(horaActual[0])==parse(horaAnterior[0])){
                 if(parse(horaActual[1]) - parse(horaAnterior[1]) >= 5 ){
                     mensajes.add(horaAnterior[0]+":"+horaAnterior[1]);
-                    datos.add(new Entry(parse(temporalAnterior.getString("value")),contador));
+                    datos.add(new Entry(contador,parse(temporalAnterior.getString("value"))));
                 }
             }else{
                 mensajes.add(horaAnterior[0]+" : "+horaAnterior[1]);
-                datos.add(new Entry(parse(temporalAnterior.getString("value")),contador));
+                datos.add(new Entry(contador,parse(temporalAnterior.getString("value"))));
             }
             contador++;
 

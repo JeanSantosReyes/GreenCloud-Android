@@ -9,9 +9,7 @@ import com.github.mikephil.charting.charts.LineChart;
 
 import org.json.JSONException;
 
-import Model.ObtenerDatosGrafica1;
 import Model.ObtenerDatosGrafica2;
-import Model.getData;
 
 /**
  * Created by MAND on 19/05/2017.
@@ -52,7 +50,7 @@ public class FragmetLinea extends FragmentGrafica {
         }
         return view;
     }
-    public void updateLinea(String type,String posicion,String field) throws JSONException {
-        data = new ObtenerDatosGrafica2(linea,type,posicion,field,"",getActivity());
+    public void updateLinea(String type,String posicion,String field,String mensaje) throws JSONException {
+        data = new ObtenerDatosGrafica2(linea,type,posicion,field,mensaje,getActivity());
     }
 }

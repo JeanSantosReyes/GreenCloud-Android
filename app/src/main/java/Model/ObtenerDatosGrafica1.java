@@ -1,15 +1,24 @@
 package Model;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.StrictMode;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Window;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,20 +32,18 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-/**
- * Created by MAND on 19/05/2017.
- */
+
 public class ObtenerDatosGrafica1 {
     private float valorGrafica1;
 
     private JSONObject valorJSON;
 
-    private BarChart barra;
+    private PieChart barra;
     private String tabla,posicion,campo,mensaje;
     private Context context;
-    private ArrayList<BarEntry> barEntries;
+    private ArrayList<PieEntry> barEntries;
     private ArrayList<String> labels;
-    public ObtenerDatosGrafica1(BarChart barra,String tabla,String posicion,String campo,String mensaje,Context context){
+    public ObtenerDatosGrafica1(PieChart barra,String tabla,String posicion,String campo,String mensaje,Context context){
         this.barra = barra;
         this.tabla = tabla;
         this.posicion = posicion;
@@ -49,33 +56,56 @@ public class ObtenerDatosGrafica1 {
 
     }
     public void llenarGrafica(){
-        //OBTENIENDO EL AXIS DE LA BARRA PARA PODER PONERLE QUE SEA DE 0 A 100
-        YAxis axis = barra.getAxisLeft();
-        //PONIENDO EL MINIMO COMO 0 DE LA BARRA
-        axis.setAxisMinValue(0);
-        //PONIENDO EL MAXIMO COMO 100 DE LA BARRA
-        axis.setAxisMaxValue(100);
 
         llenarBarEntryData();
         llenandoLabels();
 
-        //PREPARANDOS LOS VALORES EN UN BARDATASET
-        BarDataSet dataSet = new BarDataSet(barEntries,"");
-        //Agregando los mensaje y el dataset a barData
-        BarData barData = new BarData(labels,dataSet);
-        //QUITANDO LA DESCRIPCION ALA GRAFICA
-        barra.setDescription("");
-        //AGREGANDO UNA ANIMAZION ALA BARRA
-        barra.animateY(3000);
-        //AGREGANDO LOS VALORES ALA LISTA
-        barra.setData(barData);
+
+        PieDataSet dataSet = new PieDataSet(barEntries,"");
+
+        PieData pieData = new PieData(dataSet);
+
+        barra.setData(pieData);
+
+        barra.setRotationEnabled(false);
+
+        barra.setMaxAngle((valorGrafica1 * 180) / 100);
+
+        barra.setRotationAngle(180f);
+
+        barra.setCenterTextOffset(0, -20);
+
+
+        barra.getDescription().setText(mensaje + " Actual");
+
+        barra.getDescription().setTextSize(20);
+
+        //DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+
+
+      // barra.getDescription().setPosition(metrics.widthPixels-100,metrics.heightPixels/4);
+
+
+        barra.setTransparentCircleColor(Color.WHITE);
+
+        barra.setTransparentCircleAlpha(110);
+
+        barra.setHoleRadius(58f);
+
+        barra.setTransparentCircleRadius(61f);
+
+        barra.animateY(3000, Easing.EasingOption.EaseInOutQuad);
+
+        barra.setCenterTextOffset(0, -20);
 
     }
     public void llenarBarEntryData(){
         //DECLARANDO LA LISTA QUE SEA UN UNICO VALOR QUE SE MOSTRAR EN LA LISTA
        barEntries = new ArrayList<>();
         //AGREGANDO EL VALOR ALA LISTA
-        barEntries.add(new BarEntry(valorGrafica1,0));
+        barEntries.add(new PieEntry(valorGrafica1,0));
+        Log.d("valorGraficaUno",""+valorGrafica1);
+
     }
     public void llenandoLabels(){
         //AGREGANDO UN MESAJE A UNA LISTA
