@@ -1,5 +1,6 @@
 package com.example.mand.myapplication;
 
+import android.animation.ValueAnimator;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -62,9 +63,6 @@ public class tomateActivity extends AppCompatActivity {
 
 
     }
-
-
-
 
     public boolean onCreateOptionsMenu(Menu menu){
         toolbar.setTitle(type);

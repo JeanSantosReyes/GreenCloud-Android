@@ -1,9 +1,12 @@
 package com.example.mand.myapplication;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -32,24 +35,40 @@ public class secciones extends AppCompatActivity {
     }
 
    public void goto00(View v){
+       if(!isNetworkAvailable(secciones.this)){
+           message(v);
+           return;
+       }
        Intent intent = new Intent(this, tomateActivity.class);
        intent.putExtra("type",type);
        intent.putExtra("position", "0,0");
        startActivity(intent);
    }
     public void goto01(View v){
+        if(!isNetworkAvailable(secciones.this)){
+            message(v);
+            return;
+        }
         Intent intent = new Intent(this, tomateActivity.class);
         intent.putExtra("type",type);
         intent.putExtra("position","0,1");
         startActivity(intent);
     }
     public void goto10(View v){
+        if(!isNetworkAvailable(secciones.this)){
+            message(v);
+            return;
+        }
         Intent intent = new Intent(this, tomateActivity.class);
         intent.putExtra("type",type);
         intent.putExtra("position","1,0");
         startActivity(intent);
     }
     public void goto11(View v){
+        if(!isNetworkAvailable(secciones.this)){
+            message(v);
+            return;
+        }
         Intent intent = new Intent(this, tomateActivity.class);
         intent.putExtra("type",type);
         intent.putExtra("position","1,1");
@@ -67,5 +86,15 @@ public class secciones extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager conMan = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(conMan.getActiveNetworkInfo() != null && conMan.getActiveNetworkInfo().isConnected())
+            return true;
+        else
+            return false;
+    }
+    public void message(View view){
+        Snackbar.make(view,"Debes de tener una conexion a iternet",Snackbar.LENGTH_LONG).show();
     }
 }

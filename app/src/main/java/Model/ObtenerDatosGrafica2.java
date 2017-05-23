@@ -2,20 +2,26 @@ package Model;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.mand.myapplication.secciones;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,6 +57,9 @@ public class ObtenerDatosGrafica2 {
         this.datos = new ArrayList<>();
         this.mensajes = new ArrayList<>();
 
+
+
+
         ProgressDialog dialog = new ProgressDialog(context);
         dialog.setMessage("Obteniendo datos del servidor...");
         dialog.setMax(100);
@@ -60,6 +69,7 @@ public class ObtenerDatosGrafica2 {
        new AsynTask(context,dialog,this).execute();
 
     }
+
     static class AsynTask extends AsyncTask<Void,Void,Void>{
         Context context;
         ProgressDialog dialog;
@@ -100,10 +110,31 @@ public class ObtenerDatosGrafica2 {
         dataSet.setDrawFilled(true);
 
         dataSet.setLineWidth(5);
+
+
+
         LineData lineData = new LineData(dataSet);
+
+        LimitLine limitLine = new LimitLine(45,"Temperatura maxima");
+
+        linea.getAxisLeft().addLimitLine(limitLine);
+
+        limitLine.setLineWidth(4f);
+        limitLine.setTextSize(12f);
+
+
+        LimitLine limitLine1 = new LimitLine(10, "Temperatura minima");
+
+        linea.getAxisLeft().addLimitLine(limitLine1);
+
+
+        limitLine1.setLineWidth(4f);
+        limitLine1.setTextSize(12f);
+
 
 
         XAxis xAxis = linea.getXAxis();
+        xAxis.setDrawLabels(false);
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float v, AxisBase axisBase) {
@@ -111,8 +142,10 @@ public class ObtenerDatosGrafica2 {
             }
         });
 
+        linea.setDescription(null);
 
         linea.setData(lineData);
+
 
         linea.animateY(3000);
     }

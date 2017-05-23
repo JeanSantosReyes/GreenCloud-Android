@@ -3,7 +3,9 @@ package Model;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.util.DisplayMetrics;
@@ -15,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.mand.myapplication.secciones;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -64,6 +67,7 @@ public class ObtenerDatosGrafica1 {
         dialog.setMax(100);
         dialog.setProgress(0);
         dialog.setCancelable(false);
+
 
         new AsynTask(context,dialog,this).execute();
 
@@ -125,7 +129,7 @@ public class ObtenerDatosGrafica1 {
 
         barra.setCenterTextOffset(0, -20);
 
-        barra.setCenterText(mensaje + " Actual");
+        barra.setCenterText(mensaje);
 
        barra.setEntryLabelTextSize(12f);
 
@@ -155,6 +159,7 @@ public class ObtenerDatosGrafica1 {
             Toast.makeText(context, "NO internet"+e, Toast.LENGTH_SHORT).show();
         }
     }
+
 
     public void llenarBarEntryData(){
         //DECLARANDO LA LISTA QUE SEA UN UNICO VALOR QUE SE MOSTRAR EN LA LISTA
