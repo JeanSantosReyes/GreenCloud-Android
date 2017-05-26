@@ -1,8 +1,8 @@
 package com.example.mand.myapplication;
 
-import android.animation.ValueAnimator;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +13,8 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import org.json.JSONException;
+
+import Fragments.DialogFragmentEstadisticas;
 
 public class tomateActivity extends AppCompatActivity {
 
@@ -65,6 +67,7 @@ public class tomateActivity extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_grafica,menu);
         toolbar.setTitle(type);
         return true;
     }
@@ -72,6 +75,11 @@ public class tomateActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case android.R.id.home:
                 onBackPressed();
+                break;
+            case R.id.MenuEstadisticas:
+                FragmentManager fm = getSupportFragmentManager();
+                DialogFragmentEstadisticas dfm = new DialogFragmentEstadisticas();
+                dfm.show(fm,"");
                 break;
         }
         return true;
