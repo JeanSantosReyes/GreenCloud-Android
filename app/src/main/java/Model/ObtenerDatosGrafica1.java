@@ -44,15 +44,17 @@ import java.util.ArrayList;
 
 
 public class ObtenerDatosGrafica1 {
-    private float valorGrafica1;
-
+    public static float valorGrafica1;
+    public static String enviarp="";
     private JSONObject valorJSON;
 
     private PieChart barra;
-    private String tabla,posicion,campo,mensaje;
+    private String tabla,campo,mensaje;
+    private static String posicion;
     private Context context;
     private ArrayList<PieEntry> barEntries;
     private ArrayList<String> labels;
+
 
     public ObtenerDatosGrafica1(PieChart barra,String tabla,String posicion,String campo,String mensaje,Context context){
         this.barra = barra;
@@ -98,10 +100,15 @@ public class ObtenerDatosGrafica1 {
         @Override
         public void onPostExecute(Void unused) {
             obj.llenarGrafica();
+            enviarp = posicion;
+            Alertas obj1 = new Alertas(context, enviarp);
+            obj1.llamar(valorGrafica1 );
             dialog.dismiss();
         }
 
     }
+
+
     public void llenarGrafica(){
         try {
 
@@ -225,8 +232,6 @@ public class ObtenerDatosGrafica1 {
             Log.d("JSONIN",valorJSON.toString());
             valorGrafica1 = Float.parseFloat("" + valorJSON.getDouble("value"));
 
-
-
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -234,6 +239,7 @@ public class ObtenerDatosGrafica1 {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
     }
 
 
