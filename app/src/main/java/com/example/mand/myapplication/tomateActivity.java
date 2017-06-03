@@ -14,7 +14,7 @@ import android.widget.ImageView;
 
 import org.json.JSONException;
 
-import Fragments.DialogFragmentEstadisticas;
+import Fragments.DialogFragmentGeneral;
 
 public class tomateActivity extends AppCompatActivity {
 
@@ -78,7 +78,7 @@ public class tomateActivity extends AppCompatActivity {
                 break;
             case R.id.MenuEstadisticas:
                 FragmentManager fm = getSupportFragmentManager();
-                DialogFragmentEstadisticas dfm = new DialogFragmentEstadisticas();
+                DialogFragmentGeneral dfm = DialogFragmentGeneral.newInstance("fragmentestadisticas");
                 dfm.show(fm,"");
                 break;
         }

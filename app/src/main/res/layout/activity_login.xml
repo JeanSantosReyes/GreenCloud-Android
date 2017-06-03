@@ -20,9 +20,8 @@
        android:paddingRight="24dp"
        android:weightSum="1">
        <ImageView
-           android:layout_marginTop="30pt"
            android:layout_width="match_parent"
-           android:layout_height="140dp"
+           android:layout_height="200dp"
            android:src="@drawable/oficial"
            android:id="@+id/imageView"
            android:layout_weight="0.16" />

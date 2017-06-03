@@ -1,12 +1,16 @@
 package Model;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.StrictMode;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.mand.myapplication.secciones;
@@ -21,6 +25,8 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.json.JSONArray;
@@ -34,6 +40,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+
+import Fragments.DialogFragmentGeneral;
 
 public class ObtenerDatosGrafica2 {
     private JSONObject valorJSON;
@@ -148,6 +156,26 @@ public class ObtenerDatosGrafica2 {
 
 
         linea.animateY(3000);
+
+        linea.setOnChartValueSelectedListener(new oyenteGrafica());
+
+    }
+    public class oyenteGrafica implements OnChartValueSelectedListener{
+
+
+        @Override
+        public void onValueSelected(Entry entry, Highlight highlight) {
+            Toast.makeText(context,""+entry.toString(),Toast.LENGTH_SHORT).show();
+            FragmentManager fm = ((FragmentActivity)context).getSupportFragmentManager();
+            DialogFragmentGeneral dialogFragmentGeneral = DialogFragmentGeneral.newInstance("resuengrafica");
+            dialogFragmentGeneral.show(fm,"");
+            Log.d("maickol", ""+highlight.toString());
+        }
+
+        @Override
+        public void onNothingSelected() {
+
+        }
     }
 
 

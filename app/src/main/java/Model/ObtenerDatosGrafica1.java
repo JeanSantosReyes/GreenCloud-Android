@@ -112,6 +112,7 @@ public class ObtenerDatosGrafica1 {
 
         PieDataSet dataSet = new PieDataSet(barEntries,"");
 
+        dataSet.setValueTextSize(20);
 
         PieData pieData = new PieData(dataSet);
 
@@ -131,11 +132,13 @@ public class ObtenerDatosGrafica1 {
 
         barra.setCenterText(mensaje);
 
-       barra.setEntryLabelTextSize(12f);
+        barra.setCenterTextSize(20);
+
+       barra.setEntryLabelTextSize(20f);
 
         barra.getDescription().setText("");
 
-        barra.getDescription().setTextSize(20);
+        barra.getDescription().setTextSize(30);
 
         barra.setTransparentCircleColor(Color.WHITE);
 
