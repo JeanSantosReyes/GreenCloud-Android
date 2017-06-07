@@ -10,24 +10,16 @@ import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
-import android.view.Window;
-import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.example.mand.myapplication.secciones;
-import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
 import org.json.JSONArray;
@@ -48,15 +40,16 @@ public class ObtenerDatosGrafica1 {
     public static String enviarp="";
     private JSONObject valorJSON;
 
-    private PieChart barra;
+
+    private BarChart barra;
     private String tabla,campo,mensaje;
     private static String posicion;
     private Context context;
-    private ArrayList<PieEntry> barEntries;
+    private ArrayList<BarEntry> barEntries;
     private ArrayList<String> labels;
 
 
-    public ObtenerDatosGrafica1(PieChart barra,String tabla,String posicion,String campo,String mensaje,Context context){
+    public ObtenerDatosGrafica1(BarChart barra,String tabla,String posicion,String campo,String mensaje,Context context){
         this.barra = barra;
         this.tabla = tabla;
         this.posicion = posicion;
@@ -101,89 +94,56 @@ public class ObtenerDatosGrafica1 {
         public void onPostExecute(Void unused) {
             obj.llenarGrafica();
             enviarp = posicion;
-            Alertas obj1 = new Alertas(context, enviarp);
-            obj1.llamar(valorGrafica1 );
+            //Alertas obj1 = new Alertas(context, enviarp);
+           // obj1.llamar(valorGrafica1 );
             dialog.dismiss();
         }
 
     }
 
 
+
     public void llenarGrafica(){
-        try {
 
+        barra.getXAxis().setDrawLabels(false);
+        barra.getAxisRight().setDrawLabels(false);
+        barra.setDescription(null);
+        barra.getLegend().setEnabled(false);
 
+        //OBTENIENDO EL AXIS DE LA BARRA PARA PODER PONERLE QUE SEA DE 0 A 100
+        YAxis axis = barra.getAxisLeft();
+        //PONIENDO EL MINIMO COMO 0 DE LA BARRA
+        axis.setAxisMinValue(0);
+        //PONIENDO EL MAXIMO COMO 100 DE LA BARRA
+        axis.setAxisMaxValue(100);
         llenarBarEntryData();
         llenandoLabels();
 
+        //PREPARANDOS LOS VALORES EN UN BARDATASET
+        BarDataSet dataSet = new BarDataSet(barEntries,"");
+        //Agregando los mensaje y el dataset a barData
+        BarData barData = new BarData(dataSet);
+        //QUITANDO LA DESCRIPCION ALA GRAFICA
+       // barra.setDescription("");
+        //AGREGANDO UNA ANIMAZION ALA BARRA
+        barra.animateY(3000);
+        //AGREGANDO LOS VALORES ALA LISTA
+        barra.setData(barData);
 
-        PieDataSet dataSet = new PieDataSet(barEntries,"");
-
-        dataSet.setValueTextSize(20);
-
-        PieData pieData = new PieData(dataSet);
-
-
-        barra.setData(pieData);
-
-
-        barra.setRotationEnabled(false);
-
-
-
-        barra.setMaxAngle((valorGrafica1 * 180) / 100);
-
-        barra.setRotationAngle(180f);
-
-        barra.setCenterTextOffset(0, -20);
-
-        barra.setCenterText(mensaje);
-
-        barra.setCenterTextSize(20);
-
-       barra.setEntryLabelTextSize(20f);
-
-        barra.getDescription().setText("");
-
-        barra.getDescription().setTextSize(30);
-
-        barra.setTransparentCircleColor(Color.WHITE);
-
-        barra.setTransparentCircleAlpha(110);
-
-        barra.setHoleRadius(58f);
-
-        DisplayMetrics display = context.getResources().getDisplayMetrics();
-
-        FrameLayout.LayoutParams _rootLayoutParams = new FrameLayout.LayoutParams(display.widthPixels, display.heightPixels);
-
-        _rootLayoutParams.setMargins(0, 0, 0, 0);
-        barra.setLayoutParams(_rootLayoutParams);
-
-        barra.setTransparentCircleRadius(61f);
-
-        barra.animateY(3000, Easing.EasingOption.EaseInOutQuad);
-
-        barra.setCenterTextOffset(0, -20);
-        }catch (Exception e){
-            Toast.makeText(context, "NO internet"+e, Toast.LENGTH_SHORT).show();
-        }
     }
-
-
     public void llenarBarEntryData(){
         //DECLARANDO LA LISTA QUE SEA UN UNICO VALOR QUE SE MOSTRAR EN LA LISTA
-       barEntries = new ArrayList<>();
+        barEntries = new ArrayList<>();
         //AGREGANDO EL VALOR ALA LISTA
-        barEntries.add(new PieEntry(valorGrafica1,0));
-        Log.d("valorGraficaUno",""+valorGrafica1);
-
+        Log.d("mikol",""+valorGrafica1);
+        barEntries.add(new BarEntry(0,valorGrafica1));
     }
     public void llenandoLabels(){
         //AGREGANDO UN MESAJE A UNA LISTA
         labels = new ArrayList<>();
         //AGREGANDO EL MENSAJE ALA LISTA LABELS
-        labels.add(mensaje);
+       // labels.add(mensaje);
+
     }
 
     public void obtenerValor(){

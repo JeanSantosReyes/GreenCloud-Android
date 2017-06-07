@@ -12,7 +12,7 @@ import com.github.mikephil.charting.charts.PieChart;
 import Model.ObtenerDatosGrafica1;
 
 public class FragmentGrafica extends Fragment {
-    private PieChart grafica1;
+    private BarChart grafica1;
     private ObtenerDatosGrafica1 data;
     private String position,type,field;
     public static FragmentGrafica newInstance(int page,String title,String position,String type,String field){
@@ -33,7 +33,7 @@ public class FragmentGrafica extends Fragment {
     }
     public View onCreateView(LayoutInflater inflater,ViewGroup group,Bundle bundle){
         View view = inflater.inflate(R.layout.fragment_grafica_1,group,false);
-        grafica1 = (PieChart) view.findViewById(R.id.grafica1);
+        grafica1 = (BarChart) view.findViewById(R.id.grafica1);
 
         position = getArguments().getString("position");
 

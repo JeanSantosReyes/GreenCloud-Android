@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="variedades">
+        <item>cherubs</item>
+        <item>eclipses</item>
+        <item>glorys</item>
+        <item>jubilees</item>
+        <item>sunburts</item>
+    </string-array>
+</resources>

@@ -6,6 +6,11 @@
             android:id="@+id/consultaVariables"
             android:icon="@android:drawable/ic_menu_search"
             android:title="Consulta de Variables" />
+        <item
+            android:id="@+id/ConfiguracionVariables"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="Configurar variables"
+            />
     </group>
 
     <item android:title="Opciones">
@@ -16,5 +21,7 @@
                 android:title="Cerrar Sesión" />
         </menu>
     </item>
+
+
 
 </menu>

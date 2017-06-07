@@ -19,6 +19,7 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".tomateActivity"/>
         <activity android:name=".secciones" />
+        <activity android:name=".ConfiguracionVariables"/>
         <activity android:name=".login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

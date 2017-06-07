@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <include layout="@layout/toolbargeneral" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:orientation="vertical">
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Temperatura maxima"/>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:id="@+id/maximaTIL"
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tmpMaxima"
+                android:inputType="numberDecimal"/>
+        </android.support.design.widget.TextInputLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Temperatura minima"/>
+     <android.support.design.widget.TextInputLayout
+         android:layout_width="match_parent"
+         android:id="@+id/minimaTIL"
+         android:layout_height="wrap_content">
+         <EditText
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:id="@+id/tmpMinima"
+             android:inputType="numberDecimal"/>
+     </android.support.design.widget.TextInputLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerVariedades"
+            android:entries="@array/variedades"></Spinner>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar"
+            android:onClick="insert"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/cardview_light_background"/>
+
+    </LinearLayout>
+
+</LinearLayout>

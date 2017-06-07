@@ -82,6 +82,9 @@ public class navigation extends AppCompatActivity
         }else if(id == R.id.closeSesion){
             Intent close = new Intent(navigation.this, login.class);
             startActivity(close);
+        }else if(id == R.id.ConfiguracionVariables){
+            Intent intent = new Intent(navigation.this,ConfiguracionVariables.class);
+            startActivity(intent);
         }
 
 

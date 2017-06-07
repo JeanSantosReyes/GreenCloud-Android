@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.StrictMode;
@@ -13,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.mand.myapplication.R;
 import com.example.mand.myapplication.secciones;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -41,6 +44,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import BaseDeDatos.sqlite;
 import Fragments.DialogFragmentGeneral;
 
 public class ObtenerDatosGrafica2 {
@@ -53,7 +57,8 @@ public class ObtenerDatosGrafica2 {
     private ArrayList<Entry> datos;
     private ArrayList<String> mensajes;
     private ArrayList<String> labels;
-
+    private boolean flag;
+    private int temperaturaMaxima,temperaturaMinima,version;
     public ObtenerDatosGrafica2(LineChart linea,String tabla,String posicion,String campo,String mensaje,Context context) throws JSONException {
         this.linea = linea;
         this.tabla = tabla;
@@ -61,6 +66,8 @@ public class ObtenerDatosGrafica2 {
         this.campo = campo;
         this.mensaje = mensaje;
         this.context = context;
+
+        this.version = Integer.parseInt(context.getString(R.string.version_db));
 
         this.datos = new ArrayList<>();
         this.mensajes = new ArrayList<>();
@@ -75,6 +82,29 @@ public class ObtenerDatosGrafica2 {
         dialog.setCancelable(false);
 
        new AsynTask(context,dialog,this).execute();
+
+        obtenerMaximosMinimos();
+    }
+    public void obtenerMaximosMinimos(){
+        sqlite bh = new sqlite(context,"MMTable",null,version);
+        SQLiteDatabase db = bh.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM MMTable WHERE variedad = '"+tabla+"'",null);
+        long i = c.getCount();
+
+        if(i>0){
+            try{
+                if(c.moveToFirst()){
+                    flag = true;
+                    temperaturaMaxima = Integer.parseInt(c.getString(1));
+                    temperaturaMinima = Integer.parseInt(c.getString(2));
+                    Toast.makeText(context,""+temperaturaMaxima+" "+temperaturaMinima,Toast.LENGTH_LONG).show();
+                }
+            }finally {
+
+            }
+        }else{
+            flag = false;
+        }
 
     }
 
@@ -123,21 +153,23 @@ public class ObtenerDatosGrafica2 {
 
         LineData lineData = new LineData(dataSet);
 
-        LimitLine limitLine = new LimitLine(45,"Temperatura maxima");
+       if(flag){
+           LimitLine limitLine = new LimitLine(temperaturaMaxima,"Temperatura maxima");
 
-        linea.getAxisLeft().addLimitLine(limitLine);
+           linea.getAxisLeft().addLimitLine(limitLine);
 
-        limitLine.setLineWidth(4f);
-        limitLine.setTextSize(12f);
+           LimitLine limitLine1 = new LimitLine(temperaturaMinima, "Temperatura minima");
+
+           linea.getAxisLeft().addLimitLine(limitLine1);
+
+           limitLine.setLineWidth(4f);
+           limitLine.setTextSize(12f);
+
+           limitLine1.setLineWidth(4f);
+           limitLine1.setTextSize(12f);
+       }
 
 
-        LimitLine limitLine1 = new LimitLine(10, "Temperatura minima");
-
-        linea.getAxisLeft().addLimitLine(limitLine1);
-
-
-        limitLine1.setLineWidth(4f);
-        limitLine1.setTextSize(12f);
 
 
 
@@ -157,6 +189,10 @@ public class ObtenerDatosGrafica2 {
 
         linea.animateY(3000);
 
+        linea.getLegend().setEnabled(false);
+
+        linea.getAxisRight().setDrawLabels(false);
+
         linea.setOnChartValueSelectedListener(new oyenteGrafica());
 
     }
@@ -168,8 +204,8 @@ public class ObtenerDatosGrafica2 {
             Toast.makeText(context,""+entry.toString(),Toast.LENGTH_SHORT).show();
             FragmentManager fm = ((FragmentActivity)context).getSupportFragmentManager();
             DialogFragmentGeneral dialogFragmentGeneral = DialogFragmentGeneral.newInstance("resuengrafica");
-            dialogFragmentGeneral.show(fm,"");
-            Log.d("maickol", ""+highlight.toString());
+            dialogFragmentGeneral.show(fm, "");
+            Log.d("maickol", "" + highlight.toString());
         }
 
         @Override
