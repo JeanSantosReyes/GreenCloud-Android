@@ -93,6 +93,11 @@ public class tomateActivity extends AppCompatActivity {
         adapter.updateFragment(1, type, position, "temperatura", "Temperaturas", 1);
         dfm.dismiss();
     }
+    public void estadisticasUnDia(View view) throws JSONException{
+        Toast.makeText(tomateActivity.this,"Maickol rodriguez cornejo 2",Toast.LENGTH_LONG).show();
+        adapter.updateFragment(1,type,position,"temperatura","Temperaturas",2);
+        dfm.dismiss();
+    }
     
     //Click para la temperatura
     public void changeToTemperaturaCherubs(View v) throws JSONException {

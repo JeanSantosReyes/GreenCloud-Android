@@ -158,8 +158,7 @@ public class ObtenerDatosGrafica1 {
         //PREPARAMOS LA DIRECCION A DONDE SE VA A REALIZAR LA PETICION
       // String dir = "http://207.249.127.215:1026/v2/entities?q=position=='"+posicion+"'&type="+tabla;
         String dir = "http://tatallerarquitectura.com/fiware/actual/"+tabla+"/"+posicion;
-
-
+        Log.d("maickol",dir);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -198,8 +197,14 @@ public class ObtenerDatosGrafica1 {
             JSONArray jsonArray = null;
             //CREAMOS UN ARRAY CON TODOS LOS DATOS OBTENIDOS DEL SERVIDOR
             jsonArray = new JSONArray(json);
-            //OBTENEMOS EL ULTIMO VALOR DEL JSON QUE SERA EL QUE SE GRAFICA Y LO  GUSRAMOS EN valorJSON
-            valorGrafica1 = Float.parseFloat("" + jsonArray.getJSONObject(0).getString("temperatura"));
+            Log.d("michi",""+jsonArray.length());
+            if(!jsonArray.getJSONObject(0).getString("temperatura").equalsIgnoreCase("null") && jsonArray.length()>0){
+                //OBTENEMOS EL ULTIMO VALOR DEL JSON QUE SERA EL QUE SE GRAFICA Y LO  GUSRAMOS EN valorJSON
+                valorGrafica1 = Float.parseFloat("" + jsonArray.getJSONObject(0).getString("temperatura"));
+            }else{
+                valorGrafica1 = 0;
+            }
+
 
         } catch (MalformedURLException e) {
             e.printStackTrace();

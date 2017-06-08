@@ -48,6 +48,7 @@
                   <ImageView
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
+                      android:onClick="estadisticasUnDia"
                       android:src="@drawable/chars"/>
                   <TextView
                       android:layout_width="match_parent"
@@ -55,7 +56,7 @@
                       android:gravity="center"
                       android:textStyle="bold"
                       android:textSize="9pt"
-                      android:text="1 año"/>
+                      android:text="1 dia"/>
               </LinearLayout>
           </android.support.v7.widget.CardView>
       </LinearLayout>

@@ -61,7 +61,7 @@ public class ObtenerDatosGrafica2 {
     private ArrayList<String> mensajes;
     private ArrayList<String> labels;
     private boolean flag;
-    private int tipoEstadisca;
+    private int tipoEstadisca,size;
 
     private int temperaturaMaxima,temperaturaMinima,version;
     public ObtenerDatosGrafica2(LineChart linea,String tabla,String posicion,String campo,String mensaje,Context context,int tipoEstadistica) throws JSONException {
@@ -133,22 +133,27 @@ public class ObtenerDatosGrafica2 {
 
                 //Formateando los datos para el servicio
 
-
+                Log.d("eta",""+obj.tipoEstadisca);
                 String y = (""+year).length()==1?"0"+year:""+year;
                 String m = (""+month).length()==1?"0"+month:""+month;
                 String d = (""+day).length()==1?"0"+day:""+day;
+                String h  = (""+hour).length()==1?"0"+hour:""+hour;
 
                 switch (obj.tipoEstadisca){
                     case 0:
                         Log.d("maickol", "Opcion numero 0");
                         //obj.obtenerValores();
                         //obj.filtroUltimos10();
-                        obj.obtenerEstadisticasHora(y,m,d);
+                        obj.obtenerEstadisticasHora(y,m,d,h,0);
                         break;
                     case 1:
                         //obj.obtenerValores();
                         //obj.filtroUltimos10();
-                        obj.obtenerEstadisticasHora(y,m,d);
+                        obj.obtenerEstadisticasHora(y,m,d,h,1);
+                        Log.d("maickol", "Opcion numero 1 "+year+" "+month+" "+day+" "+hour);
+                        break;
+                    case 2:
+                        obj.obtenerEstadisticasHora(y,m,d,h,2);
                         Log.d("maickol", "Opcion numero 1 "+year+" "+month+" "+day+" "+hour);
                         break;
                 }
@@ -163,7 +168,11 @@ public class ObtenerDatosGrafica2 {
         }
         @Override
         public void onPostExecute(Void unused) {
-            obj.graficar();
+            if(obj.size > 0){
+                obj.graficar();
+            }else{
+                Toast.makeText(context,"No hay datos para mostar en las estadisticas",Toast.LENGTH_LONG).show();
+            }
             dialog.dismiss();
         }
     }
@@ -201,10 +210,11 @@ public class ObtenerDatosGrafica2 {
 
 
         XAxis xAxis = linea.getXAxis();
-        xAxis.setDrawLabels(false);
+        xAxis.setDrawLabels(true);
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float v, AxisBase axisBase) {
+                Log.d("androide",mensajes.get((int) v % mensajes.size()));
                 return mensajes.get((int) v % mensajes.size());
             }
         });
@@ -241,10 +251,22 @@ public class ObtenerDatosGrafica2 {
         }
     }
 
-    public void obtenerEstadisticasHora(String year,String month,String day){
+    public void obtenerEstadisticasHora(String year,String month,String day,String hora,int tipo){
         //String dir = "http://207.249.127.215:1026/v2/entities?q=position=='"+posicion+"'&type="+tabla;
-        String dir = "http://tatallerarquitectura.com/fiware/hora/"+tabla+"/"+posicion+"/"+year+"/"+month+"/"+day+"/00";
-        Log.d("mikol",dir);
+        String dir= "";
+        switch (tipo){
+            case 0:
+                dir = "http://tatallerarquitectura.com/fiware/hora/"+tabla+"/"+posicion+"/"+year+"/"+month+"/"+day+"/"+hora;
+                break;
+            case 1:
+                dir = "http://tatallerarquitectura.com/fiware/hora/"+tabla+"/"+posicion+"/"+year+"/"+month+"/"+day+"/"+hora;
+                break;
+            case 2:
+                dir = "http://tatallerarquitectura.com/fiware/dia/"+tabla+"/"+posicion+"/"+year+"/"+month+"/"+day;
+                break;
+        }
+
+        Log.d("mikol",dir+" "+hora);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         URL url = null;
@@ -279,13 +301,13 @@ public class ObtenerDatosGrafica2 {
 
                 Log.d("mikol", ""+jsonArray.toString());
                 jsonValores = new ArrayList<>();
-                int size = jsonArray.length();
+                size = jsonArray.length();
                 int index = 0;
                 Log.d("mikol",""+size);
                 for(int i = 0;i<size;i++){
                     valorJSON = jsonArray.getJSONObject(i);
                     mensajes.add(valorJSON.getString("hora"));
-                    datos.add(new Entry(i,parse(valorJSON.getString("temperatura"))));
+                    datos.add(new Entry(i,parse(valorJSON.getString(campo))));
                 }
             }
         }catch (Exception e){
