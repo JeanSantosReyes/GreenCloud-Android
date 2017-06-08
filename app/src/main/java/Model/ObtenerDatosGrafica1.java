@@ -110,6 +110,12 @@ public class ObtenerDatosGrafica1 {
         barra.setDescription(null);
         barra.getLegend().setEnabled(false);
 
+        //LINEAS PARA QUITAR LAS LINEAS DE LA BARRA
+        barra.getAxisRight().setDrawGridLines(false);
+        barra.getAxisLeft().setDrawGridLines(false);
+        barra.getXAxis().setDrawGridLines(false);
+
+
         //OBTENIENDO EL AXIS DE LA BARRA PARA PODER PONERLE QUE SEA DE 0 A 100
         YAxis axis = barra.getAxisLeft();
         //PONIENDO EL MINIMO COMO 0 DE LA BARRA
@@ -121,6 +127,8 @@ public class ObtenerDatosGrafica1 {
 
         //PREPARANDOS LOS VALORES EN UN BARDATASET
         BarDataSet dataSet = new BarDataSet(barEntries,"");
+        dataSet.setHighlightEnabled(false);
+        dataSet.setValueTextSize(20);
         //Agregando los mensaje y el dataset a barData
         BarData barData = new BarData(dataSet);
         //QUITANDO LA DESCRIPCION ALA GRAFICA
@@ -148,7 +156,10 @@ public class ObtenerDatosGrafica1 {
 
     public void obtenerValor(){
         //PREPARAMOS LA DIRECCION A DONDE SE VA A REALIZAR LA PETICION
-        String dir = "http://207.249.127.215:1026/v2/entities?q=position=='"+posicion+"'&type="+tabla;
+      // String dir = "http://207.249.127.215:1026/v2/entities?q=position=='"+posicion+"'&type="+tabla;
+        String dir = "http://tatallerarquitectura.com/fiware/actual/"+tabla+"/"+posicion;
+
+
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -188,9 +199,7 @@ public class ObtenerDatosGrafica1 {
             //CREAMOS UN ARRAY CON TODOS LOS DATOS OBTENIDOS DEL SERVIDOR
             jsonArray = new JSONArray(json);
             //OBTENEMOS EL ULTIMO VALOR DEL JSON QUE SERA EL QUE SE GRAFICA Y LO  GUSRAMOS EN valorJSON
-            valorJSON = new JSONObject(jsonArray.getJSONObject(jsonArray.length()-1).getString(campo));
-            Log.d("JSONIN",valorJSON.toString());
-            valorGrafica1 = Float.parseFloat("" + valorJSON.getDouble("value"));
+            valorGrafica1 = Float.parseFloat("" + jsonArray.getJSONObject(0).getString("temperatura"));
 
         } catch (MalformedURLException e) {
             e.printStackTrace();

@@ -43,6 +43,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 import BaseDeDatos.sqlite;
 import Fragments.DialogFragmentGeneral;
@@ -58,14 +61,17 @@ public class ObtenerDatosGrafica2 {
     private ArrayList<String> mensajes;
     private ArrayList<String> labels;
     private boolean flag;
+    private int tipoEstadisca;
+
     private int temperaturaMaxima,temperaturaMinima,version;
-    public ObtenerDatosGrafica2(LineChart linea,String tabla,String posicion,String campo,String mensaje,Context context) throws JSONException {
+    public ObtenerDatosGrafica2(LineChart linea,String tabla,String posicion,String campo,String mensaje,Context context,int tipoEstadistica) throws JSONException {
         this.linea = linea;
         this.tabla = tabla;
         this.posicion = posicion;
         this.campo = campo;
         this.mensaje = mensaje;
         this.context = context;
+        this.tipoEstadisca = tipoEstadistica;
 
         this.version = Integer.parseInt(context.getString(R.string.version_db));
 
@@ -97,7 +103,6 @@ public class ObtenerDatosGrafica2 {
                     flag = true;
                     temperaturaMaxima = Integer.parseInt(c.getString(1));
                     temperaturaMinima = Integer.parseInt(c.getString(2));
-                    Toast.makeText(context,""+temperaturaMaxima+" "+temperaturaMinima,Toast.LENGTH_LONG).show();
                 }
             }finally {
 
@@ -120,18 +125,40 @@ public class ObtenerDatosGrafica2 {
 
         @Override
         protected Void doInBackground(Void... params) {
-            try {
-                obj.obtenerValores();
-                obj.filtroUltimos10();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("America/Mexico_City"));
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH)+1;
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+                //Formateando los datos para el servicio
+
+
+                String y = (""+year).length()==1?"0"+year:""+year;
+                String m = (""+month).length()==1?"0"+month:""+month;
+                String d = (""+day).length()==1?"0"+day:""+day;
+
+                switch (obj.tipoEstadisca){
+                    case 0:
+                        Log.d("maickol", "Opcion numero 0");
+                        //obj.obtenerValores();
+                        //obj.filtroUltimos10();
+                        obj.obtenerEstadisticasHora(y,m,d);
+                        break;
+                    case 1:
+                        //obj.obtenerValores();
+                        //obj.filtroUltimos10();
+                        obj.obtenerEstadisticasHora(y,m,d);
+                        Log.d("maickol", "Opcion numero 1 "+year+" "+month+" "+day+" "+hour);
+                        break;
+                }
+
             return null;
         }
 
         @Override
         public void onPreExecute(){
-            Log.d("maicol","yea");
+            Log.d("maicol", "yea");
             dialog.show();
         }
         @Override
@@ -193,7 +220,7 @@ public class ObtenerDatosGrafica2 {
 
         linea.getAxisRight().setDrawLabels(false);
 
-        linea.setOnChartValueSelectedListener(new oyenteGrafica());
+        //linea.setOnChartValueSelectedListener(new oyenteGrafica());
 
     }
     public class oyenteGrafica implements OnChartValueSelectedListener{
@@ -214,75 +241,62 @@ public class ObtenerDatosGrafica2 {
         }
     }
 
-
-    public void obtenerValores(){
-        //PREPARAMOS LA DIRECCION A DONDE SE VA A REALIZAR LA PETICION
-        String dir = "http://207.249.127.215:1026/v2/entities?q=position=='"+posicion+"'&type="+tabla;
-
+    public void obtenerEstadisticasHora(String year,String month,String day){
+        //String dir = "http://207.249.127.215:1026/v2/entities?q=position=='"+posicion+"'&type="+tabla;
+        String dir = "http://tatallerarquitectura.com/fiware/hora/"+tabla+"/"+posicion+"/"+year+"/"+month+"/"+day+"/00";
+        Log.d("mikol",dir);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         URL url = null;
         HttpURLConnection conexion;
 
-
-        try {
-            //CRAMOS EL OBJETO DE URL PASANDOLE AL CONTRUCTOR LA  DIRECCION
+        try{
             url = new URL(dir);
-            //SE ABRE UNA CONEXION CON LA URL Y GUARDANDO LA CONEXION EN LA VARIABLE CONEXION
-            conexion =(HttpURLConnection)url.openConnection();
-            //LE INDICAMOS EL TUPO DE PETICION
+
+            conexion = (HttpURLConnection) url.openConnection();
+
             conexion.setRequestMethod("GET");
-            //CONTECAMOS CON LA URL
+
             conexion.connect();
-            //OBTENEMOS EL CODIGO DE RESPUESTRA
-            int code = conexion.getResponseCode();
-            //SI ES DEIFENTE EL CODIGO DE LA RESPUESTA A 200 ENTONCES MOSTRAMOS UN MENSAE DE ERROR Y PARAMOS LA EJECUCION CON RETURN
-            if(code != HttpURLConnection.HTTP_OK){
-                Toast.makeText(context, "Ocurrio un error " + code, Toast.LENGTH_LONG).show();
-                return;
-            }
-            //CREAMOS UN BUFFER CON LOS DATOS OBTENIDOS
-            BufferedReader in = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-            String json = "";
-            //GUARDAMOS LOS DATOS OBTENIDOS EN RESPONSE
-            while((inputLine = in.readLine()) != null){
-                response.append(inputLine);
-            }
-            //PASAMOS LOS DATOS OBTENIDOS DE RESPONSE A JSON
-            json = response.toString();
-            //PARSEAMOS A JSON LA VARIABLE JSON CON LOS DATOS DEL SERVIDOR
-            JSONArray jsonArray = null;
-            //CREAMOS UN ARRAY CON TODOS LOS DATOS OBTENIDOS DEL SERVIDOR
-            jsonArray = new JSONArray(json);
-            //OBTENEMOS EL ULTIMO VALOR DEL JSON QUE SERA EL QUE SE GRAFICA Y LO  GUSRAMOS EN valorJSON
 
-            jsonValores = new ArrayList<>();
-            int size = jsonArray.length();
-            int index = 0;
-            for(int i = 0;i<size;i++){
-                valorJSON = jsonArray.getJSONObject(i);
-                jsonValores.add(valorJSON);
-            }
+            if(conexion.getResponseCode() == HttpURLConnection.HTTP_OK){
+                //CREAMOS UN BUFFER CON LOS DATOS OBTENIDOS
+                BufferedReader in = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+                String json = "";
+                //GUARDAMOS LOS DATOS OBTENIDOS EN RESPONSE
+                while((inputLine = in.readLine()) != null){
+                    response.append(inputLine);
+                }
+                //PASAMOS LOS DATOS OBTENIDOS DE RESPONSE A JSON
+                json = response.toString();
+                //PARSEAMOS A JSON LA VARIABLE JSON CON LOS DATOS DEL SERVIDOR
+                JSONArray jsonArray = null;
+                //CREAMOS UN ARRAY CON TODOS LOS DATOS OBTENIDOS DEL SERVIDOR
+                jsonArray = new JSONArray(json);
+                //OBTENEMOS EL ULTIMO VALOR DEL JSON QUE SERA EL QUE SE GRAFICA Y LO  GUSRAMOS EN valorJSON
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
+                Log.d("mikol", ""+jsonArray.toString());
+                jsonValores = new ArrayList<>();
+                int size = jsonArray.length();
+                int index = 0;
+                Log.d("mikol",""+size);
+                for(int i = 0;i<size;i++){
+                    valorJSON = jsonArray.getJSONObject(i);
+                    mensajes.add(valorJSON.getString("hora"));
+                    datos.add(new Entry(i,parse(valorJSON.getString("temperatura"))));
+                }
+            }
+        }catch (Exception e){
+
         }
+
     }
     public void filtroUltimos10() throws JSONException {
-
-
         try{
 
             int size = jsonValores.size();
-
-
-
         int inicio = ((size-10)<1)?1:size-10;
         int contador = 0;
         for (int i = inicio;i<size;i++){
@@ -318,10 +332,11 @@ public class ObtenerDatosGrafica2 {
 
         catch (Exception ex)
         {
-            Toast.makeText(context, "Error"+ex, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "Error"+ex, Toast.LENGTH_SHORT).show();
         }
 
     }
+
     public String[] split(String value,int position){
         return value.split(" ")[position].split(":");
     }

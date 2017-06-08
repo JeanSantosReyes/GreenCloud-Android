@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -25,6 +26,8 @@ public class tomateActivity extends AppCompatActivity {
 
     private MyViewPager adapter;
     private ViewPager viewPager;
+
+    private  DialogFragmentGeneral dfm;
 
     //IMAGEViEw
     private ImageView imgTmp, imgHumeR, imgHumeS;
@@ -63,8 +66,8 @@ public class tomateActivity extends AppCompatActivity {
             window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimary));
         }
 
-
     }
+    
 
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_grafica,menu);
@@ -78,17 +81,23 @@ public class tomateActivity extends AppCompatActivity {
                 break;
             case R.id.MenuEstadisticas:
                 FragmentManager fm = getSupportFragmentManager();
-                DialogFragmentGeneral dfm = DialogFragmentGeneral.newInstance("fragmentestadisticas");
+                dfm = DialogFragmentGeneral.newInstance("fragmentestadisticas");
                 dfm.show(fm,"");
                 break;
         }
         return true;
     }
-
+    
+    public void estadisticaUnaHora(View view) throws JSONException {
+        Toast.makeText(tomateActivity.this, "Maickol Rodriguez cornejo", Toast.LENGTH_SHORT).show();
+        adapter.updateFragment(1, type, position, "temperatura", "Temperaturas", 1);
+        dfm.dismiss();
+    }
+    
     //Click para la temperatura
     public void changeToTemperaturaCherubs(View v) throws JSONException {
-        adapter.updateFragment(0,type,position,"temperatura","Temperatura actual");
-        adapter.updateFragment(1,type,position,"temperatura","Temperaturas");
+        adapter.updateFragment(0,type,position,"temperatura","Temperatura actual",0);
+        adapter.updateFragment(1,type,position,"temperatura","Temperaturas",0);
         imgTmp.setImageResource(R.drawable.temperaturasueloseleccionado);
         imgHumeR.setImageResource(R.drawable.humedadrelativa);
         imgHumeS.setImageResource(R.drawable.humedadsuelo);
@@ -99,8 +108,8 @@ public class tomateActivity extends AppCompatActivity {
 
     //Click para la HumedadRelativa
     public void changeToHumedadRelativaCherubs(View v) throws JSONException {
-        adapter.updateFragment(0,type,position,"humedadRelativa","Humedad relativa actual");
-        adapter.updateFragment(1,type,position,"humedadRelativa","Humedades relativas");
+        adapter.updateFragment(0,type,position,"humedadRelativa","Humedad relativa actual",0);
+        adapter.updateFragment(1,type,position,"humedadRelativa","Humedades relativas",0);
         imgHumeR.setImageResource(R.drawable.humedadrelativaseleccionado);
         imgTmp.setImageResource(R.drawable.temperaturasuelo);
         imgHumeS.setImageResource(R.drawable.humedadsuelo);
@@ -111,8 +120,8 @@ public class tomateActivity extends AppCompatActivity {
     }
     //Click para la HumedadSuelo
     public void changeToHuedadSueloCherubs(View v) throws JSONException {
-        adapter.updateFragment(0,type,position,"humedadSuelo","Humedad suelo actual");
-        adapter.updateFragment(1,type,position,"humedadSuelo","Humedades suelo");
+        adapter.updateFragment(0,type,position,"humedadSuelo","Humedad suelo actual",0);
+        adapter.updateFragment(1,type,position,"humedadSuelo","Humedades suelo",0);
         imgHumeS.setImageResource(R.drawable.humedadsueloseleccionado);
         imgHumeR.setImageResource(R.drawable.humedadrelativa);
         imgTmp.setImageResource(R.drawable.temperaturasuelo);

@@ -12,7 +12,7 @@ public class MyViewPager extends FragmentPagerAdapter {
     private Fragment[] fragmentsList;
     private FragmentManager fragmentManager;
     private FragmentGrafica grafica = FragmentGrafica.newInstance(0,"Barra","0,0","","");
-    private FragmetLinea linea = FragmetLinea.newInstance(1,"Linea","0,0","","");
+    private FragmetLinea linea = FragmetLinea.newInstance(1,"Linea","0,0","","",0);
     private String posicion,type,field,mensaje;
 
     public MyViewPager(FragmentManager manager,String posicion,String type,String field,String mensaje){
@@ -36,7 +36,7 @@ public class MyViewPager extends FragmentPagerAdapter {
                 fragmentsList[position] = FragmentGrafica.newInstance(0,"Barra",posicion,type,field);
                 return fragmentsList[position];
             case 1:
-                fragmentsList[position] = FragmetLinea.newInstance(1,"Historial",posicion,type,field);
+                fragmentsList[position] = FragmetLinea.newInstance(1,"Historial",posicion,type,field,0);
                 return fragmentsList[position];
             default:
                 return null;
@@ -53,14 +53,14 @@ public class MyViewPager extends FragmentPagerAdapter {
         return dos[position];
     }
 
-    public void updateFragment(int fragment,String type,String seccion,String field,String mensaje) throws JSONException {
+    public void updateFragment(int fragment,String type,String seccion,String field,String mensaje,int tipoEstadistica) throws JSONException {
         Log.d("update"," "+fragment+" " +seccion+" "+field+" "+type);
         switch (fragment){
             case 0:
                 ((FragmentGrafica)fragmentsList[0]).updateGrafica(type,seccion,field,mensaje);
                 break;
             case 1:
-                ((FragmetLinea)fragmentsList[1]).updateLinea(type, seccion, field,mensaje);
+                ((FragmetLinea)fragmentsList[1]).updateLinea(type, seccion, field,mensaje,tipoEstadistica);
                 break;
         }
     }

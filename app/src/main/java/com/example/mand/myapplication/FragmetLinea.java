@@ -18,7 +18,8 @@ public class FragmetLinea extends FragmentGrafica {
     private LineChart linea;
     private ObtenerDatosGrafica2 data;
     String posicion,type,field;
-    public static FragmetLinea newInstance(int page,String texto,String posicion,String type,String field){
+    int tipoEstadistica;
+    public static FragmetLinea newInstance(int page,String texto,String posicion,String type,String field,int tipoEstadistica){
         FragmetLinea fl = new FragmetLinea();
         Bundle bundle = new Bundle();
         bundle.putInt("someInt", page);
@@ -26,6 +27,7 @@ public class FragmetLinea extends FragmentGrafica {
         bundle.putString("posicion", posicion);
         bundle.putString("type",type);
         bundle.putString("field",field);
+        bundle.putInt("tipoEstadistica",tipoEstadistica);
         fl.setArguments(bundle);
         return fl;
     }
@@ -42,15 +44,22 @@ public class FragmetLinea extends FragmentGrafica {
         posicion = getArguments().getString("posicion");
         type = getArguments().getString("type");
         field = getArguments().getString("field");
+        tipoEstadistica = getArguments().getInt("tipoEstadistica");
 
         try {
-            data = new ObtenerDatosGrafica2(linea,type,posicion,field,"",getActivity());
+            data = new ObtenerDatosGrafica2(linea,type,posicion,field,"",getActivity(),tipoEstadistica);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return view;
     }
-    public void updateLinea(String type,String posicion,String field,String mensaje) throws JSONException {
-        data = new ObtenerDatosGrafica2(linea,type,posicion,field,mensaje,getActivity());
+    /*
+       tipoEstadisticas
+
+       1 = ESTADISTICAS POR HORA
+       2 = ESTADISTICAS POR DIA
+   */
+    public void updateLinea(String type,String posicion,String field,String mensaje,int tipoEstadistica) throws JSONException {
+        data = new ObtenerDatosGrafica2(linea,type,posicion,field,mensaje,getActivity(),tipoEstadistica);
     }
 }

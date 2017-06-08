@@ -47,6 +47,7 @@ public class FragmentGrafica extends Fragment {
 
         return view;
     }
+
     public void updateGrafica(String type,String seccion,String field,String mensaje){
        data = new ObtenerDatosGrafica1(grafica1,type,seccion,field,mensaje,getActivity());
     }
