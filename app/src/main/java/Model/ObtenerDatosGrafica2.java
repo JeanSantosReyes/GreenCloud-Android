@@ -138,24 +138,36 @@ public class ObtenerDatosGrafica2 {
                 String m = (""+month).length()==1?"0"+month:""+month;
                 String d = (""+day).length()==1?"0"+day:""+day;
                 String h  = (""+hour).length()==1?"0"+hour:""+hour;
-
+                /* tipos de estadisticas
+                *  1- es igual a una hora
+                *  2-es igual a un dia
+                *  3-es igual a una semana
+                *  4-es igual a un mes
+                */
                 switch (obj.tipoEstadisca){
                     case 0:
                         Log.d("maickol", "Opcion numero 0");
                         //obj.obtenerValores();
                         //obj.filtroUltimos10();
-                        obj.obtenerEstadisticasHora(y,m,d,h,0);
+                        obj.obtenerEstadisticasHora(y,m,d,h,0,"hora");
                         break;
                     case 1:
                         //obj.obtenerValores();
                         //obj.filtroUltimos10();
-                        obj.obtenerEstadisticasHora(y,m,d,h,1);
+                        obj.obtenerEstadisticasHora(y,m,d,h,1,"hora");
                         Log.d("maickol", "Opcion numero 1 "+year+" "+month+" "+day+" "+hour);
                         break;
                     case 2:
-                        obj.obtenerEstadisticasHora(y,m,d,h,2);
-                        Log.d("maickol", "Opcion numero 1 "+year+" "+month+" "+day+" "+hour);
+                        obj.obtenerEstadisticasHora(y,m,d,h,2,"hora");
+                        Log.d("maickol", "Opcion numero 1 " + year + " " + month + " " + day + " " + hour);
                         break;
+                    case 3:
+                        obj.obtenerEstadisticasHora(y,m,d,h,3,"dia");
+                        break;
+                    case 4:
+                        obj.obtenerEstadisticasHora(y,m,d,h,4,"dia");
+                        break;
+
                 }
 
             return null;
@@ -251,7 +263,7 @@ public class ObtenerDatosGrafica2 {
         }
     }
 
-    public void obtenerEstadisticasHora(String year,String month,String day,String hora,int tipo){
+    public void obtenerEstadisticasHora(String year,String month,String day,String hora,int tipo,String valorLabel){
         //String dir = "http://207.249.127.215:1026/v2/entities?q=position=='"+posicion+"'&type="+tabla;
         String dir= "";
         switch (tipo){
@@ -263,6 +275,12 @@ public class ObtenerDatosGrafica2 {
                 break;
             case 2:
                 dir = "http://tatallerarquitectura.com/fiware/dia/"+tabla+"/"+posicion+"/"+year+"/"+month+"/"+day;
+                break;
+            case 3:
+                dir = "http://tatallerarquitectura.com/fiware/semana/"+tabla+"/"+posicion+"/"+year+"/"+month+"/"+day;
+                break;
+            case 4:
+                dir = "http://tatallerarquitectura.com/fiware/mes/"+tabla+"/"+posicion+"/"+year+"/"+month;
                 break;
         }
 
@@ -306,7 +324,7 @@ public class ObtenerDatosGrafica2 {
                 Log.d("mikol",""+size);
                 for(int i = 0;i<size;i++){
                     valorJSON = jsonArray.getJSONObject(i);
-                    mensajes.add(valorJSON.getString("hora"));
+                    mensajes.add(valorJSON.getString(valorLabel));
                     datos.add(new Entry(i,parse(valorJSON.getString(campo))));
                 }
             }
@@ -315,49 +333,7 @@ public class ObtenerDatosGrafica2 {
         }
 
     }
-    public void filtroUltimos10() throws JSONException {
-        try{
 
-            int size = jsonValores.size();
-        int inicio = ((size-10)<1)?1:size-10;
-        int contador = 0;
-        for (int i = inicio;i<size;i++){
-            //GUARDAMOS EL DATO ANTERIOR PARA HACER COMPARACIONES
-            JSONObject jsonAnterior = jsonValores.get(i-1);
-            JSONObject FechaHoraAnterior = new JSONObject(jsonAnterior.getString("fecha"));
-
-            String[] horaAnterior = split(FechaHoraAnterior.getString("value"), 1);
-            String[] fechaAnterior = split(FechaHoraAnterior.getString("value"),0);
-
-            //GUARDANIS EL DATO ACTUAL PARA HACER COMPARACIONES CON EL ANTERIOR
-            JSONObject jsonActual = jsonValores.get(i);
-            JSONObject FechaHoraActual = new JSONObject(jsonActual.getString("fecha"));
-
-            String[] horaActual = split(FechaHoraActual.getString("value"), 1);
-            String[] fechaActual = split(FechaHoraActual.getString("value"),0);
-
-            JSONObject temporalAnterior = new JSONObject(jsonAnterior.getString(campo));
-            Log.d("maickolink",temporalAnterior.toString());
-            if(parse(horaActual[0])==parse(horaAnterior[0])){
-                if(parse(horaActual[1]) - parse(horaAnterior[1]) >= 5 ){
-                    mensajes.add(horaAnterior[0]+":"+horaAnterior[1]);
-                    datos.add(new Entry(contador,parse(temporalAnterior.getString("value"))));
-                }
-            }else{
-                mensajes.add(horaAnterior[0]+" : "+horaAnterior[1]);
-                datos.add(new Entry(contador, parse(temporalAnterior.getString("value"))));
-            }
-            contador++;
-
-        }
-        }
-
-        catch (Exception ex)
-        {
-            //Toast.makeText(context, "Error"+ex, Toast.LENGTH_SHORT).show();
-        }
-
-    }
 
     public String[] split(String value,int position){
         return value.split(" ")[position].split(":");

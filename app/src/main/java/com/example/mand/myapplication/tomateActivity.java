@@ -89,16 +89,23 @@ public class tomateActivity extends AppCompatActivity {
     }
     
     public void estadisticaUnaHora(View view) throws JSONException {
-        Toast.makeText(tomateActivity.this, "Maickol Rodriguez cornejo", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(tomateActivity.this, "Maickol Rodriguez cornejo", Toast.LENGTH_SHORT).show();
         adapter.updateFragment(1, type, position, "temperatura", "Temperaturas", 1);
         dfm.dismiss();
     }
     public void estadisticasUnDia(View view) throws JSONException{
-        Toast.makeText(tomateActivity.this,"Maickol rodriguez cornejo 2",Toast.LENGTH_LONG).show();
+        //Toast.makeText(tomateActivity.this,"Maickol rodriguez cornejo 2",Toast.LENGTH_LONG).show();
         adapter.updateFragment(1,type,position,"temperatura","Temperaturas",2);
         dfm.dismiss();
     }
-    
+    public void estadisticasUnaSemana(View view) throws JSONException {
+        adapter.updateFragment(1,type,position,"temperatura","Temperaturas",3);
+        dfm.dismiss();
+    }
+    public void estadisticasMes(View view) throws JSONException {
+        adapter.updateFragment(1,type,position,"temperatura","Temperaturas",4);
+        dfm.dismiss();
+    }
     //Click para la temperatura
     public void changeToTemperaturaCherubs(View v) throws JSONException {
         adapter.updateFragment(0,type,position,"temperatura","Temperatura actual",0);

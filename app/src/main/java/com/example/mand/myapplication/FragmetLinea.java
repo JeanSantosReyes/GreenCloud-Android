@@ -58,6 +58,8 @@ public class FragmetLinea extends FragmentGrafica {
 
        1 = ESTADISTICAS POR HORA
        2 = ESTADISTICAS POR DIA
+       3 = ESTADISTICAS POR SEMANA
+       4 = ESTADISTICAS POR MES
    */
     public void updateLinea(String type,String posicion,String field,String mensaje,int tipoEstadistica) throws JSONException {
         data = new ObtenerDatosGrafica2(linea,type,posicion,field,mensaje,getActivity(),tipoEstadistica);

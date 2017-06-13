@@ -33,6 +33,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 
 public class ObtenerDatosGrafica1 {
@@ -82,7 +85,19 @@ public class ObtenerDatosGrafica1 {
         }
         @Override
         public Void doInBackground(Void... params) {
-            obj.obtenerValor();
+            Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("America/Mexico_City"));
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH)+1;
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+            //Formateando los datos para el servicio
+
+            String y = (""+year).length()==1?"0"+year:""+year;
+            String m = (""+month).length()==1?"0"+month:""+month;
+            String d = (""+day).length()==1?"0"+day:""+day;
+
+            obj.obtenerValor(y,m,d);
             return null;
         }
         @Override
@@ -154,10 +169,10 @@ public class ObtenerDatosGrafica1 {
 
     }
 
-    public void obtenerValor(){
+    public void obtenerValor(String y,String m,String d){
         //PREPARAMOS LA DIRECCION A DONDE SE VA A REALIZAR LA PETICION
       // String dir = "http://207.249.127.215:1026/v2/entities?q=position=='"+posicion+"'&type="+tabla;
-        String dir = "http://tatallerarquitectura.com/fiware/actual/"+tabla+"/"+posicion;
+        String dir = "http://tatallerarquitectura.com/fiware/actual/"+tabla+"/"+posicion+"/"+y+"/"+m+"/"+d;
         Log.d("maickol",dir);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();

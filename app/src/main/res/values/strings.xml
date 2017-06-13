@@ -21,4 +21,16 @@
 
     <string name="action_settings">Settings</string>
     <string name="version_db">1</string>
+    <string-array name="tomates_array">
+        <item>cherubs</item>
+        <item>eclipses</item>
+        <item>Glorys</item>
+        <item>jubilees</item>
+        <item>Sunburts</item>
+    </string-array>
+    <string-array name="variedades_array">
+        <item>Temperatura</item>
+        <item>Humedad suelo</item>
+        <item>Humedad relativa</item>
+    </string-array>
 </resources>
