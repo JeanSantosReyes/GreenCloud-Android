@@ -1,5 +1,6 @@
 package com.example.mand.myapplication;
 
+import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -87,25 +89,45 @@ public class tomateActivity extends AppCompatActivity {
         }
         return true;
     }
-    
+    public String traerVariedad(){
+        Dialog dialogView = dfm.getDialog();
+
+        Spinner variedadesEstadistica = (Spinner) dialogView.findViewById(R.id.variedadesEstadistica);
+
+        String variedad = variedadesEstadistica.getSelectedItem().toString().replace(" ","");
+
+        variedad = String.valueOf(variedad.charAt(0)).toLowerCase()+variedad.substring(1, variedad.length());
+
+        return variedad;
+    }
     public void estadisticaUnaHora(View view) throws JSONException {
         //Toast.makeText(tomateActivity.this, "Maickol Rodriguez cornejo", Toast.LENGTH_SHORT).show();
-        adapter.updateFragment(1, type, position, "temperatura", "Temperaturas", 1);
+
+        String variedad = traerVariedad();
+
+        adapter.updateFragment(1, type, position, variedad, "Temperaturas", 1);
         dfm.dismiss();
     }
     public void estadisticasUnDia(View view) throws JSONException{
         //Toast.makeText(tomateActivity.this,"Maickol rodriguez cornejo 2",Toast.LENGTH_LONG).show();
-        adapter.updateFragment(1,type,position,"temperatura","Temperaturas",2);
+
+        String variedad = traerVariedad();
+
+        adapter.updateFragment(1,type,position,variedad,"Temperaturas",2);
         dfm.dismiss();
     }
     public void estadisticasUnaSemana(View view) throws JSONException {
-        adapter.updateFragment(1,type,position,"temperatura","Temperaturas",3);
+
+        String variedad = traerVariedad();
+
+        adapter.updateFragment(1,type,position,variedad,"Temperaturas",3);
         dfm.dismiss();
     }
     public void estadisticasMes(View view) throws JSONException {
         adapter.updateFragment(1,type,position,"temperatura","Temperaturas",4);
         dfm.dismiss();
     }
+
     //Click para la temperatura
     public void changeToTemperaturaCherubs(View v) throws JSONException {
         adapter.updateFragment(0,type,position,"temperatura","Temperatura actual",0);

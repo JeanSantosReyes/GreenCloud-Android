@@ -30,7 +30,7 @@
     </string-array>
     <string-array name="variedades_array">
         <item>Temperatura</item>
-        <item>Humedad suelo</item>
-        <item>Humedad relativa</item>
+        <item>Humedad Suelo</item>
+        <item>Humedad Relativa</item>
     </string-array>
 </resources>

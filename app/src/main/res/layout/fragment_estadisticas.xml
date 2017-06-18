@@ -4,7 +4,9 @@
               android:orientation="vertical"
               android:minWidth="1000dp"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content"
+              android:layout_margin="10dp"
+              >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,18 +15,20 @@
         <Spinner
             android:entries="@array/variedades_array"
             android:layout_width="match_parent"
+            android:spinnerMode="dropdown"
+            android:id="@+id/variedadesEstadistica"
             android:layout_height="wrap_content">
 
         </Spinner>
     </LinearLayout>
       <LinearLayout
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
+          android:layout_height="150dp"
           android:layout_marginTop="20dp"
           android:orientation="horizontal">
           <android.support.v7.widget.CardView
               android:layout_width="@dimen/dimen_with_card_statistic"
-              android:layout_height="150dp"
+              android:layout_height="wrap_content"
               android:layout_marginLeft="20dp"
               android:elevation="4dp"
               app:cardCornerRadius="10dp">
@@ -41,14 +45,14 @@
                       android:layout_width="match_parent"
                       android:layout_height="match_parent"
                       android:gravity="center"
-                      android:textStyle="bold"
+                      android:textStyle="bold|italic"
                       android:textSize="9pt"
                       android:text="Por Hora"/>
               </LinearLayout>
           </android.support.v7.widget.CardView>
           <android.support.v7.widget.CardView
               android:layout_width="@dimen/dimen_with_card_statistic"
-              android:layout_height="150dp"
+              android:layout_height="wrap_content"
               android:layout_marginLeft="20dp"
               android:elevation="4dp"
               app:cardCornerRadius="10dp">
@@ -65,7 +69,7 @@
                       android:layout_width="match_parent"
                       android:layout_height="match_parent"
                       android:gravity="center"
-                      android:textStyle="bold"
+                      android:textStyle="bold|italic"
                       android:textSize="9pt"
                       android:text="1 dia"/>
               </LinearLayout>
@@ -73,12 +77,13 @@
       </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:orientation="horizontal">
         <android.support.v7.widget.CardView
             android:layout_width="@dimen/dimen_with_card_statistic"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:elevation="4dp"
             app:cardCornerRadius="10dp">
@@ -95,14 +100,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:textStyle="bold"
+                    android:textStyle="bold|italic"
                     android:textSize="9pt"
                     android:text="Una semana"/>
             </LinearLayout>
         </android.support.v7.widget.CardView>
         <android.support.v7.widget.CardView
             android:layout_width="@dimen/dimen_with_card_statistic"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:elevation="4dp"
             app:cardCornerRadius="10dp">
@@ -119,7 +124,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:textStyle="bold"
+                    android:textStyle="bold|italic"
                     android:textSize="9pt"
                     android:text="Un mes"/>
             </LinearLayout>
