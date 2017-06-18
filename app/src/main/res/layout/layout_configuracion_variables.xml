@@ -46,11 +46,24 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="20dp"/>
-        <Spinner
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/spinnerVariedades"
-            android:entries="@array/variedades"></Spinner>
+            android:orientation="horizontal">
+            <Spinner
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinnerVariedades"
+                android:layout_gravity="left"
+                android:entries="@array/variedades"></Spinner>
+            <Spinner
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinnerUnidad"
+                android:layout_gravity="right"
+                android:entries="@array/variedades_array"></Spinner>
+
+        </LinearLayout>
         <Space
             android:layout_width="match_parent"
             android:layout_height="20dp"/>

@@ -1,12 +1,14 @@
 package com.example.mand.myapplication;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.SupportMenuInflater;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -26,7 +28,7 @@ public class ConfiguracionVariables extends AppCompatActivity {
     private boolean TempSet;
     private Toolbar toolbar;
     private EditText maxima,minima;
-    private Spinner spinner;
+    private Spinner spinner,spinner_unidad;
     private TextInputLayout maximaTIL,minimaTIL;
     private int version;
     public void onCreate(Bundle b){
@@ -42,13 +44,21 @@ public class ConfiguracionVariables extends AppCompatActivity {
         maxima = (EditText) findViewById(R.id.tmpMaxima);
         minima = (EditText) findViewById(R.id.tmpMinima);
         spinner = (Spinner) findViewById(R.id.spinnerVariedades);
+        spinner_unidad = (Spinner) findViewById(R.id.spinnerUnidad);
         maximaTIL = (TextInputLayout) findViewById(R.id.maximaTIL);
         minimaTIL = (TextInputLayout) findViewById(R.id.minimaTIL);
 
         spinner.setOnItemSelectedListener(new oyenteSpinner());
+        spinner_unidad.setOnItemSelectedListener(new oyenteSpinner());
 
     }
 
+    public void deleteAllBSD(){
+        sqlite sq = new sqlite(ConfiguracionVariables.this,"MMTable",null,version);
+        SQLiteDatabase db = sq.getWritableDatabase();
+
+        db.execSQL("DELETE FROM MMTable");
+    }
     public class oyenteSpinner implements AdapterView.OnItemSelectedListener{
 
 
@@ -57,7 +67,13 @@ public class ConfiguracionVariables extends AppCompatActivity {
           sqlite bh = new sqlite(ConfiguracionVariables.this,"MMTable",null,version);
 
             SQLiteDatabase db = bh.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT * FROM MMTable WHERE variedad = '"+spinner.getSelectedItem().toString()+"'",null);
+            Cursor cursor = db.rawQuery("SELECT * FROM MMTable WHERE variedad = '"+spinner.getSelectedItem().toString()+"' AND unidad = '"+spinner_unidad.getSelectedItem().toString()+"'",null);
+            Cursor c = db.rawQuery("SELECT * FROM MMTable",null);
+           if(c.moveToFirst()){
+               do{
+                   Log.d("base",c.getInt(0)+" "+c.getString(1)+" "+c.getString(2)+" "+c.getString(3)+" "+c.getString(4));
+               }while(c.moveToNext());
+           }
             long i = cursor.getCount();
             if(i>0){
                 try{
@@ -81,13 +97,21 @@ public class ConfiguracionVariables extends AppCompatActivity {
 
         }
     }
-    public boolean onCreateMenuOptions(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_configuracion_variables,menu);
         return true;
     }
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case android.R.id.home:
                 onBackPressed();
+                break;
+            case R.id.VisualizarVariables:
+                Intent intent = new Intent(ConfiguracionVariables.this,DetallesConfiguracion.class);
+                startActivity(intent);
+                break;
+            case R.id.eliminar:
+                deleteAllBSD();
                 break;
         }
         return true;
@@ -107,6 +131,7 @@ public class ConfiguracionVariables extends AppCompatActivity {
         ContentValues values = new ContentValues();
         values.put("temperatura_maxima",maxima.getText().toString());
         values.put("temperatura_minima",minima.getText().toString());
+        values.put("unidad",spinner_unidad.getSelectedItem().toString());
         values.put("variedad",spinner.getSelectedItem().toString());
 
         sqlite bh = new sqlite(ConfiguracionVariables.this,"MMTable",null,version);
@@ -115,9 +140,10 @@ public class ConfiguracionVariables extends AppCompatActivity {
         long insert = db.insert("MMTable", null, values);
 
         if(insert>0){
-            Snackbar.make(v,"Guardado con exito",Snackbar.LENGTH_SHORT).show();
+            TempSet = false;
+            Toast.makeText(ConfiguracionVariables.this,"Guardado con exito",Toast.LENGTH_SHORT).show();
         }else{
-            Snackbar.make(v,"Ocurrio un error",Snackbar.LENGTH_SHORT).show();
+            Toast.makeText(ConfiguracionVariables.this,"Ocurrio un error",Toast.LENGTH_SHORT).show();
         }
     }
     public void actualizar(View v){
@@ -128,15 +154,16 @@ public class ConfiguracionVariables extends AppCompatActivity {
         ContentValues values = new ContentValues();
         values.put("temperatura_maxima",maxima.getText().toString());
         values.put("temperatura_minima",minima.getText().toString());
+        values.put("unidad",spinner_unidad.getSelectedItem().toString());
         values.put("variedad",spinner.getSelectedItem().toString());
 
         sqlite bh = new sqlite(ConfiguracionVariables.this,"MMTable",null,version);
         SQLiteDatabase db = bh.getWritableDatabase();
-        long update = db.update("MMTable",values,"variedad='"+spinner.getSelectedItem().toString()+"'",null);
+        long update = db.update("MMTable", values, "variedad='" + spinner.getSelectedItem().toString() + "' AND unidad = '"+spinner_unidad.getSelectedItem().toString()+"'", null);
         if(update>0){
-            Snackbar.make(v,"Actualizado con exito",Snackbar.LENGTH_LONG).show();
+            Toast.makeText(ConfiguracionVariables.this,"Actualizado con exito",Toast.LENGTH_SHORT).show();
         }else{
-            Snackbar.make(v,"Ocurrio un error",Snackbar.LENGTH_LONG).show();
+            Toast.makeText(ConfiguracionVariables.this,"Ocurrio un error",Toast.LENGTH_SHORT).show();
         }
 
     }

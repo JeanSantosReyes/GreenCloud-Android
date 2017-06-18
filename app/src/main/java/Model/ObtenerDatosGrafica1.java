@@ -172,7 +172,7 @@ public class ObtenerDatosGrafica1 {
     public void obtenerValor(String y,String m,String d){
         //PREPARAMOS LA DIRECCION A DONDE SE VA A REALIZAR LA PETICION
       // String dir = "http://207.249.127.215:1026/v2/entities?q=position=='"+posicion+"'&type="+tabla;
-        String dir = "http://tatallerarquitectura.com/fiware/actual/"+tabla+"/"+posicion+"/"+y+"/"+m+"/"+d;
+        String dir = "http://greenhousecloud.site40.net/greenService/actual/"+tabla+"/"+posicion+"/"+y+"/"+m+"/"+d;
         Log.d("maickol",dir);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();

@@ -181,9 +181,8 @@ public class ObtenerDatosGrafica2 {
         @Override
         public void onPostExecute(Void unused) {
             if(obj.size > 0){
+                //Toast.makeText(context,"si hay datos para mostar en las estadisticas "+obj.size,Toast.LENGTH_LONG).show();
                 obj.graficar();
-            }else{
-                Toast.makeText(context,"No hay datos para mostar en las estadisticas",Toast.LENGTH_LONG).show();
             }
             dialog.dismiss();
         }
@@ -265,22 +264,22 @@ public class ObtenerDatosGrafica2 {
 
     public void obtenerEstadisticasHora(String year,String month,String day,String hora,int tipo,String valorLabel){
         //String dir = "http://207.249.127.215:1026/v2/entities?q=position=='"+posicion+"'&type="+tabla;
-        String dir= "";
+        String dir= "http://greenhousecloud.site40.net/greenService/";
         switch (tipo){
             case 0:
-                dir = "http://tatallerarquitectura.com/fiware/hora/"+tabla+"/"+posicion+"/"+year+"/"+month+"/"+day+"/"+hora;
+                dir += "hora/"+tabla+"/"+posicion+"/"+year+"/"+month+"/"+day+"/"+hora;
                 break;
             case 1:
-                dir = "http://tatallerarquitectura.com/fiware/hora/"+tabla+"/"+posicion+"/"+year+"/"+month+"/"+day+"/"+hora;
+                dir += "hora/"+tabla+"/"+posicion+"/"+year+"/"+month+"/"+day+"/"+hora;
                 break;
             case 2:
-                dir = "http://tatallerarquitectura.com/fiware/dia/"+tabla+"/"+posicion+"/"+year+"/"+month+"/"+day;
+                dir += "dia/"+tabla+"/"+posicion+"/"+year+"/"+month+"/"+day;
                 break;
             case 3:
-                dir = "http://tatallerarquitectura.com/fiware/semana/"+tabla+"/"+posicion+"/"+year+"/"+month+"/"+day;
+                dir += "semana/"+tabla+"/"+posicion+"/"+year+"/"+month+"/"+day;
                 break;
             case 4:
-                dir = "http://tatallerarquitectura.com/fiware/mes/"+tabla+"/"+posicion+"/"+year+"/"+month;
+                dir += "mes/"+tabla+"/"+posicion+"/"+year+"/"+month;
                 break;
         }
 
@@ -317,24 +316,30 @@ public class ObtenerDatosGrafica2 {
                 jsonArray = new JSONArray(json);
                 //OBTENEMOS EL ULTIMO VALOR DEL JSON QUE SERA EL QUE SE GRAFICA Y LO  GUSRAMOS EN valorJSON
 
-                Log.d("mikol", ""+jsonArray.toString());
                 jsonValores = new ArrayList<>();
                 size = jsonArray.length();
                 int index = 0;
-                Log.d("mikol",""+size);
                 for(int i = 0;i<size;i++){
-                    valorJSON = jsonArray.getJSONObject(i);
-                    mensajes.add(valorJSON.getString(valorLabel));
-                    datos.add(new Entry(i,parse(valorJSON.getString(campo))));
+                    JSONObject obj = jsonArray.getJSONObject(i);
+                    if(parse(comprobarPunto(obj.getString(campo)))!=0){
+                        mensajes.add(obj.getString(valorLabel));
+                        datos.add(new Entry(index,parse(comprobarPunto(obj.getString(campo)))));
+                        index++;
+                    }
                 }
+                size = index;
             }
         }catch (Exception e){
 
         }
 
     }
-
-
+    public String comprobarPunto(String cad){
+        if(cad.contains(".")){
+            cad = cad.substring(0,cad.indexOf("."));
+        }
+        return cad;
+    }
     public String[] split(String value,int position){
         return value.split(" ")[position].split(":");
     }
