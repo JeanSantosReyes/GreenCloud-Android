@@ -99,6 +99,7 @@ public class ConfiguracionVariables extends AppCompatActivity {
     }
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_configuracion_variables,menu);
+        toolbar.setTitle("Configuracion");
         return true;
     }
     public boolean onOptionsItemSelected(MenuItem item){

@@ -82,6 +82,7 @@
                 android:layout_height="wrap_content"
                 android:text="Guardar"
                 android:onClick="insert"
+                android:drawableRight="@drawable/settings"
                 android:background="@color/colorPrimaryDark"
                 android:textColor="@color/cardview_light_background"/>
 
