@@ -1,80 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-    <include layout="@layout/toolbargeneral" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:orientation="vertical">
-        <Space
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/activity_login"
             android:layout_width="match_parent"
-            android:layout_height="20dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Temperatura maxima"/>
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:id="@+id/maximaTIL"
-            android:layout_height="wrap_content">
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tmpMaxima"
-                android:inputType="numberDecimal"/>
-        </android.support.design.widget.TextInputLayout>
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="20dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Temperatura minima"/>
-     <android.support.design.widget.TextInputLayout
-         android:layout_width="match_parent"
-         android:id="@+id/minimaTIL"
-         android:layout_height="wrap_content">
-         <EditText
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:id="@+id/tmpMinima"
-             android:inputType="numberDecimal"/>
-     </android.support.design.widget.TextInputLayout>
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="20dp"/>
+            android:layout_height="match_parent"
+            android:background="@color/colorFondo"
+            android:fitsSystemWindows="true"
+            tools:context="com.example.mand.myapplication.login"
+            android:weightSum="1">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+        <include layout="@layout/toolbargeneral" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Spinner
-                android:layout_width="150dp"
+            android:layout_margin="30dp"
+            android:orientation="vertical">
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/spinnerVariedades"
-                android:layout_gravity="left"
-                android:entries="@array/variedades"></Spinner>
-            <Spinner
-                android:layout_width="150dp"
+                android:text="Temperatura maxima"/>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:id="@+id/maximaTIL"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tmpMaxima"
+                    android:inputType="numberDecimal"/>
+            </android.support.design.widget.TextInputLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/spinnerUnidad"
-                android:layout_gravity="right"
-                android:entries="@array/variedades_array"></Spinner>
+                android:text="Temperatura minima"/>
+         <android.support.design.widget.TextInputLayout
+             android:layout_width="match_parent"
+             android:id="@+id/minimaTIL"
+             android:layout_height="wrap_content">
+             <EditText
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/tmpMinima"
+                 android:inputType="numberDecimal"/>
+         </android.support.design.widget.TextInputLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Spinner
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinnerVariedades"
+                    android:layout_gravity="left"
+                    android:entries="@array/variedades"></Spinner>
+                <Spinner
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinnerUnidad"
+                    android:layout_gravity="right"
+                    android:entries="@array/variedades_array"></Spinner>
+
+            </LinearLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Guardar"
+                android:onClick="insert"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@color/cardview_light_background"/>
 
         </LinearLayout>
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="20dp"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Guardar"
-            android:onClick="insert"
-            android:background="@color/colorPrimaryDark"
-            android:textColor="@color/cardview_light_background"/>
 
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>
