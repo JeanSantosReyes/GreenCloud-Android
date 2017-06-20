@@ -9,11 +9,13 @@ import android.view.ViewGroup;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 
+import java.util.HashMap;
+
 import Model.ObtenerDatosGrafica1;
 
 public class FragmentGrafica extends Fragment {
     private BarChart grafica1;
-    private ObtenerDatosGrafica1 data;
+    private ObtenerDatosGrafica1 data = new ObtenerDatosGrafica1();
     private String position,type,field;
     public static FragmentGrafica newInstance(int page,String title,String position,String type,String field){
         FragmentGrafica fragmentGrafica1 = new FragmentGrafica();
@@ -50,5 +52,18 @@ public class FragmentGrafica extends Fragment {
 
     public void updateGrafica(String type,String seccion,String field,String mensaje){
        data = new ObtenerDatosGrafica1(grafica1,type,seccion,field,mensaje,getActivity());
+    }
+    //OBTIENE LA TEMPERATURA ACTUAL LA FECHA EL SECTOR Y LA VARIEDAD;
+    public HashMap getData(){
+       String[] d = data.obtenerFecha().split("-");
+        String fecha = d[0];
+        String valor = d[1];
+
+        HashMap<String,String> mapa = new HashMap<>();
+        mapa.put("fecha",data.obtenerFecha());
+        mapa.put("variedad",field);
+        mapa.put("sector",position);
+        mapa.put("valor",valor);
+        return mapa;
     }
 }

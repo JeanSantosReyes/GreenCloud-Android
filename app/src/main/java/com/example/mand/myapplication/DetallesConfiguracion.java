@@ -49,6 +49,12 @@ public class DetallesConfiguracion extends AppCompatActivity {
     public void inicializarDatos(){
         sqlite bh = new sqlite(DetallesConfiguracion.this,"MMTable",null,versionBD);
         //HACEMOS UN CICLO PARA RECORRER TODAS LAS VARIEDADES
+        Cursor c2 = bh.getReadableDatabase().rawQuery("SELECT * FROM MMTable",null);
+        if(c2.moveToFirst()){
+            do{
+                Log.d("login",c2.getString(1)+" "+c2.getString(2)+" "+c2.getString(3)+" "+c2.getString(4));
+            }while(c2.moveToNext());
+        }
         for(String variedad : variedes){
             SQLiteDatabase db  = bh.getReadableDatabase();
             //CON ESTA CONSULTA SELECCIONAMOS CADA UNA DE LAS VARIEDADES QUE ESTAN EN EN CICLO
@@ -109,11 +115,11 @@ public class DetallesConfiguracion extends AppCompatActivity {
                 mm.setTmaxima("Maxima "+max);
                 mm.setTminima("Minima "+min);
                 break;
-            case "Humedad suelo":
+            case "Humedad Suelo":
                 mm.setHSmaxima("Maxima "+max);
                 mm.setHSminima("Minima "+min);
                 break;
-            case "Humedad relativa":
+            case "Humedad Relativa":
                 mm.setHRmaxima("Maxima "+max);
                 mm.setHRminima("Minima "+min);
                 break;
@@ -125,6 +131,7 @@ public class DetallesConfiguracion extends AppCompatActivity {
         rvMinimosMaximos.setAdapter(adaptador);
     }
     public boolean onCreateOptionsMenu(Menu menu){
+        toolbar.setTitle("Detalles configuracion");
         return true;
     }
     public boolean onOptionsItemSelected(MenuItem item){

@@ -3,6 +3,7 @@ package com.example.mand.myapplication;
 import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +18,11 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import Fragments.DialogFragmentGeneral;
+import Fragments.DialogSaveVariable;
 
 public class tomateActivity extends AppCompatActivity {
 
@@ -34,13 +39,24 @@ public class tomateActivity extends AppCompatActivity {
     //IMAGEViEw
     private ImageView imgTmp, imgHumeR, imgHumeS;
 
-
+    private FloatingActionButton floatingActionButton;
     public void onCreate(Bundle b) {
         super.onCreate(b);
         setContentView(R.layout.activity_tomate);
         toolbar = (Toolbar) findViewById(R.id.toolbarGen);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatinSave);
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(tomateActivity.this,adapter.getData().get("fecha").toString(),Toast.LENGTH_LONG).show();
+                showDialog();
+            }
+        });
+
 
         Bundle extras = getIntent().getExtras();
         if(extras!=null){
@@ -69,8 +85,19 @@ public class tomateActivity extends AppCompatActivity {
         }
 
     }
-    
+    public void showDialog(){
+        FragmentManager f = getSupportFragmentManager();
+        HashMap mapa = adapter.getData();
+        String fecha = mapa.get("fecha").toString();
+        //String variedad = mapa.get("variedad").toString();
+        String variedad = "cherubs";
+        //String sector = mapa.get("sector").toString();
+        String sector = "0,0";
+        String valor = mapa.get("valor").toString();
 
+        DialogSaveVariable dsf = DialogSaveVariable.newInstance(fecha,variedad,sector,valor);
+        dsf.show(f,"");
+    }
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_grafica,menu);
         toolbar.setTitle(type);

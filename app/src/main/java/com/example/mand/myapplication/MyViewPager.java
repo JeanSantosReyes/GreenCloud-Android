@@ -7,6 +7,9 @@ import android.util.Log;
 
 import org.json.JSONException;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MyViewPager extends FragmentPagerAdapter {
     private static int NUM = 2;
     private Fragment[] fragmentsList;
@@ -63,5 +66,8 @@ public class MyViewPager extends FragmentPagerAdapter {
                 ((FragmetLinea)fragmentsList[1]).updateLinea(type, seccion, field,mensaje,tipoEstadistica);
                 break;
         }
+    }
+    public HashMap getData(){
+        return grafica.getData();
     }
 }

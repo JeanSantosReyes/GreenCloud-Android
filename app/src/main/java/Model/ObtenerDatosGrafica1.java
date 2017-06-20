@@ -50,7 +50,12 @@ public class ObtenerDatosGrafica1 {
     private Context context;
     private ArrayList<BarEntry> barEntries;
     private ArrayList<String> labels;
+    //ESTE LO OCUPAMOS PARA PODER SACAR LA FECHA DE LA VARIEDAD ACTUAL
+    private static String fecha;
 
+    public ObtenerDatosGrafica1(){
+        
+    }
 
     public ObtenerDatosGrafica1(BarChart barra,String tabla,String posicion,String campo,String mensaje,Context context){
         this.barra = barra;
@@ -67,6 +72,7 @@ public class ObtenerDatosGrafica1 {
         dialog.setCancelable(false);
 
 
+
         new AsynTask(context,dialog,this).execute();
 
 
@@ -77,11 +83,12 @@ public class ObtenerDatosGrafica1 {
         private ProgressDialog dialog;
         private Context context;
         private ObtenerDatosGrafica1 obj;
+        private String fe;
         public AsynTask(Context context,ProgressDialog dialog,ObtenerDatosGrafica1 obj){
             this.dialog = dialog;
             this.context = context;
             this.obj = obj;
-            Log.d("maicol","yea");
+            Log.d("maicol", "yea");
         }
         @Override
         public Void doInBackground(Void... params) {
@@ -91,31 +98,38 @@ public class ObtenerDatosGrafica1 {
             int day = calendar.get(Calendar.DAY_OF_MONTH);
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
 
+           fe = year+" "+month+" "+day+" "+hour;
             //Formateando los datos para el servicio
 
             String y = (""+year).length()==1?"0"+year:""+year;
             String m = (""+month).length()==1?"0"+month:""+month;
             String d = (""+day).length()==1?"0"+day:""+day;
 
-            obj.obtenerValor(y,m,d);
+            obj.obtenerValor(y, m, d);
             return null;
         }
         @Override
         public void onPreExecute(){
-            Log.d("maicol","yea");
+            Log.d("maicol", "yea"+obj.obtenerFecha());
             dialog.show();
         }
         @Override
         public void onPostExecute(Void unused) {
             obj.llenarGrafica();
             enviarp = posicion;
+            fecha = fe;
             //Alertas obj1 = new Alertas(context, enviarp);
            // obj1.llamar(valorGrafica1 );
             dialog.dismiss();
         }
 
-    }
 
+
+    }
+    public String obtenerFecha(){
+        //LE CONCATENAMOS EL VALOR DE LA GRAFICA ALA FECHA
+        return this.fecha+"-"+valorGrafica1;
+    }
 
 
     public void llenarGrafica(){
