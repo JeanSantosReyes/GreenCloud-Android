@@ -57,7 +57,7 @@ public class MyViewPager extends FragmentPagerAdapter {
     }
 
     public void updateFragment(int fragment,String type,String seccion,String field,String mensaje,int tipoEstadistica) throws JSONException {
-        Log.d("update"," "+fragment+" " +seccion+" "+field+" "+type);
+        Log.d("update"," "+fragment+" "+type+" "+seccion+" "+field+" ");
         switch (fragment){
             case 0:
                 ((FragmentGrafica)fragmentsList[0]).updateGrafica(type,seccion,field,mensaje);
@@ -67,7 +67,5 @@ public class MyViewPager extends FragmentPagerAdapter {
                 break;
         }
     }
-    public HashMap getData(){
-        return grafica.getData();
-    }
+
 }

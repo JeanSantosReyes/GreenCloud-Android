@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
@@ -14,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.mand.myapplication.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -37,6 +40,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
+import BaseDeDatos.sqlite;
+
 
 public class ObtenerDatosGrafica1 {
     public static float valorGrafica1;
@@ -45,14 +50,20 @@ public class ObtenerDatosGrafica1 {
 
 
     private BarChart barra;
-    private String tabla,campo,mensaje;
-    private static String posicion;
+    public String tabla,campo,mensaje;
+    public static String posicion;
     private Context context;
     private ArrayList<BarEntry> barEntries;
     private ArrayList<String> labels;
     //ESTE LO OCUPAMOS PARA PODER SACAR LA FECHA DE LA VARIEDAD ACTUAL
     private static String fecha;
+    //VERSION DATABASE
+    int version;
 
+    //METODO PARA OBTENER LA POSICION POR QUE ES ESTATICA
+    public String getPosicion(){
+        return posicion;
+    }
     public ObtenerDatosGrafica1(){
         
     }
@@ -64,6 +75,8 @@ public class ObtenerDatosGrafica1 {
         this.campo = campo;
         this.mensaje = mensaje;
         this.context = context;
+
+        version = Integer.parseInt(context.getString(R.string.version_db));
 
         ProgressDialog dialog = new ProgressDialog(context);
         dialog.setMessage("Obteniendo datos del servidor...");
@@ -105,7 +118,12 @@ public class ObtenerDatosGrafica1 {
             String m = (""+month).length()==1?"0"+month:""+month;
             String d = (""+day).length()==1?"0"+day:""+day;
 
+            //METODO PARA GUARDAR LA ULTIMA UNIDAD MEDIDAD EN LA BASE DE DATOS
+            obj.saveDataBase();
+
+
             obj.obtenerValor(y, m, d);
+
             return null;
         }
         @Override
@@ -125,6 +143,17 @@ public class ObtenerDatosGrafica1 {
 
 
 
+    }
+    //ESTE METODO GUARDA EN LA BASE DE DATOS LA ULTIMA Temperatura,O HumedadRelativa o HumedadSuelo
+    public void saveDataBase(){
+        sqlite bh = new sqlite(context,"UltimaVariedad",null,version);
+        SQLiteDatabase db = bh.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM UltimaVariedad WHERE campo = '"+campo+"' AND tipo = '"+tabla+"' AND posicion = '"+posicion+"'",null);
+        if(c.getCount()>0){
+            Log.d("mexico","Tienes varios "+campo+" "+tabla+" "+posicion);
+        }else{
+            Log.d("mexico","no tienes "+campo+" "+tabla+" "+posicion);
+        }
     }
     public String obtenerFecha(){
         //LE CONCATENAMOS EL VALOR DE LA GRAFICA ALA FECHA

@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +20,6 @@ import android.widget.Toast;
 import org.json.JSONException;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import Fragments.DialogFragmentGeneral;
 import Fragments.DialogSaveVariable;
@@ -52,7 +52,7 @@ public class tomateActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(tomateActivity.this,adapter.getData().get("fecha").toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(tomateActivity.this," ",Toast.LENGTH_LONG).show();
                 showDialog();
             }
         });
@@ -87,16 +87,9 @@ public class tomateActivity extends AppCompatActivity {
     }
     public void showDialog(){
         FragmentManager f = getSupportFragmentManager();
-        HashMap mapa = adapter.getData();
-        String fecha = mapa.get("fecha").toString();
-        //String variedad = mapa.get("variedad").toString();
-        String variedad = "cherubs";
-        //String sector = mapa.get("sector").toString();
-        String sector = "0,0";
-        String valor = mapa.get("valor").toString();
 
-        DialogSaveVariable dsf = DialogSaveVariable.newInstance(fecha,variedad,sector,valor);
-        dsf.show(f,"");
+        DialogSaveVariable dsf = DialogSaveVariable.newInstance("","","","");
+        dsf.show(f, "");
     }
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_grafica,menu);
@@ -121,7 +114,7 @@ public class tomateActivity extends AppCompatActivity {
 
         Spinner variedadesEstadistica = (Spinner) dialogView.findViewById(R.id.variedadesEstadistica);
 
-        String variedad = variedadesEstadistica.getSelectedItem().toString().replace(" ","");
+        String variedad = variedadesEstadistica.getSelectedItem().toString().replace(" ", "");
 
         variedad = String.valueOf(variedad.charAt(0)).toLowerCase()+variedad.substring(1, variedad.length());
 
@@ -131,6 +124,7 @@ public class tomateActivity extends AppCompatActivity {
         //Toast.makeText(tomateActivity.this, "Maickol Rodriguez cornejo", Toast.LENGTH_SHORT).show();
 
         String variedad = traerVariedad();
+        Log.d("mmm",variedad);
 
         adapter.updateFragment(1, type, position, variedad, "Temperaturas", 1);
         dfm.dismiss();
@@ -146,7 +140,8 @@ public class tomateActivity extends AppCompatActivity {
     public void estadisticasUnaSemana(View view) throws JSONException {
 
         String variedad = traerVariedad();
-
+        //EL PRIMER PARAMATRO QUE SE MANDA ES UN 1 {0:GRAFICA BARRA,1:GRAFICA LINEA} , el segundo paramtro es el tipo
+        //{cherubs,suburts....} el 3er parametro es la posicion que se quiere monitorear y el 4to es la variedad
         adapter.updateFragment(1,type,position,variedad,"Temperaturas",3);
         dfm.dismiss();
     }

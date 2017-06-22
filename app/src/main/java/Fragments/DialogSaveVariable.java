@@ -37,8 +37,8 @@ public class DialogSaveVariable extends DialogFragment{
         String sector = getArguments().getString("sector");
         String valor = getArguments().getString("valor");
 
-        TextView mEditText = (TextView) view.findViewById(R.id.texto);
-        mEditText.setText(fecha+" "+variedad+" "+sector+" "+valor);
+       // TextView mEditText = (TextView) view.findViewById(R.id.texto);
+        //mEditText.setText(fecha+" "+variedad+" "+sector+" "+valor);
     }
 
 
