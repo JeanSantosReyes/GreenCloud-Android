@@ -2,12 +2,11 @@ package Model;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.util.DisplayMetrics;
@@ -111,7 +110,7 @@ public class ObtenerDatosGrafica1 {
             int day = calendar.get(Calendar.DAY_OF_MONTH);
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
 
-           fe = year+" "+month+" "+day+" "+hour;
+
             //Formateando los datos para el servicio
 
             String y = (""+year).length()==1?"0"+year:""+year;
@@ -119,7 +118,7 @@ public class ObtenerDatosGrafica1 {
             String d = (""+day).length()==1?"0"+day:""+day;
 
             //METODO PARA GUARDAR LA ULTIMA UNIDAD MEDIDAD EN LA BASE DE DATOS
-            obj.saveDataBase();
+            obj.saveDataBase(y,m,d,""+hour);
 
 
             obj.obtenerValor(y, m, d);
@@ -144,15 +143,33 @@ public class ObtenerDatosGrafica1 {
 
 
     }
-    //ESTE METODO GUARDA EN LA BASE DE DATOS LA ULTIMA Temperatura,O HumedadRelativa o HumedadSuelo
-    public void saveDataBase(){
+    //ESTE METODO GUARDA EN LA BASE DE DATOS LA ULTIMA Temperatura,O HumedadRelativa o HumedadSuel
+    public void saveDataBase(String y,String m,String d,String h){
         sqlite bh = new sqlite(context,"UltimaVariedad",null,version);
         SQLiteDatabase db = bh.getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM UltimaVariedad WHERE campo = '"+campo+"' AND tipo = '"+tabla+"' AND posicion = '"+posicion+"'",null);
+        Cursor c = db.rawQuery("SELECT * FROM UltimaVariedad WHERE campo = '" + campo + "' AND tipo = '" + tabla + "' AND posicion = '" + posicion + "'", null);
+
+        ContentValues values = new ContentValues();
+        values.put("posicion",posicion);
+        values.put("tipo",tabla);
+        values.put("campo",campo);
+        values.put("hora",h);
+        values.put("anio",y);
+        values.put("mes",m);
+        values.put("dia", d);
+
         if(c.getCount()>0){
-            Log.d("mexico","Tienes varios "+campo+" "+tabla+" "+posicion);
+            try{
+                if(c.moveToFirst()){
+                    db.update("UltimaVariedad",values,"id="+c.getString(0),null);
+                    Log.d("mexico","Tienes varios "+campo+" "+tabla+" "+posicion);
+                }
+            }finally {
+
+            }
         }else{
-            Log.d("mexico","no tienes "+campo+" "+tabla+" "+posicion);
+            Log.d("mexico","Se inserto con exito");
+            db.insert("UltimaVariedad",null,values);
         }
     }
     public String obtenerFecha(){
