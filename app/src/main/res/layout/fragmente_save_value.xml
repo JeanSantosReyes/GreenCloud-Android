@@ -7,17 +7,40 @@
               android:layout_height="1000dp">
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ImageView
+            android:layout_margin="10dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/imgVariedadSave"/>
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:id="@+id/imgVariableSave"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:padding="10dp"
         android:orientation="horizontal"
         android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/SaveMensaje"
-            android:textSize="15pt"
+            android:id="@+id/DescripcionVariable"
+            android:textSize="13pt"
             android:layout_marginRight="10dp"
-            android:textStyle="bold|italic"
-            android:text="variedad"/>
+            android:textStyle="italic"
+            android:text="Variable: "/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/valorVariable"
+            android:textStyle="italic"
+            android:textSize="12pt"
+            android:text="15"/>
     </LinearLayout>
 
 </LinearLayout>
