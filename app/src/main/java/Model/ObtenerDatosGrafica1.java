@@ -117,11 +117,12 @@ public class ObtenerDatosGrafica1 {
             String m = (""+month).length()==1?"0"+month:""+month;
             String d = (""+day).length()==1?"0"+day:""+day;
 
-            //METODO PARA GUARDAR LA ULTIMA UNIDAD MEDIDAD EN LA BASE DE DATOS
-            obj.saveDataBase(y,m,d,""+hour);
 
 
             obj.obtenerValor(y, m, d);
+
+            //METODO PARA GUARDAR LA ULTIMA UNIDAD MEDIDAD EN LA BASE DE DATOS
+            obj.saveDataBase(y,m,d,""+hour);
 
             return null;
         }
@@ -163,7 +164,7 @@ public class ObtenerDatosGrafica1 {
             try{
                 if(c.moveToFirst()){
                     db.update("UltimaVariedad",values,"id="+c.getString(0),null);
-                    Log.d("mexico","Tienes varios "+campo+" "+tabla+" "+posicion);
+                    Log.d("mexico","Tienes varios "+campo+" "+tabla+" "+posicion+" "+valorGrafica1);
                 }
             }finally {
 
@@ -273,10 +274,10 @@ public class ObtenerDatosGrafica1 {
             JSONArray jsonArray = null;
             //CREAMOS UN ARRAY CON TODOS LOS DATOS OBTENIDOS DEL SERVIDOR
             jsonArray = new JSONArray(json);
-            Log.d("michi",""+jsonArray.length());
-            if(!jsonArray.getJSONObject(0).getString("temperatura").equalsIgnoreCase("null") && jsonArray.length()>0){
+            Log.d("michi",""+jsonArray.length()+" "+campo);
+            if(!jsonArray.getJSONObject(0).getString(campo).equalsIgnoreCase("null") && jsonArray.length()>0){
                 //OBTENEMOS EL ULTIMO VALOR DEL JSON QUE SERA EL QUE SE GRAFICA Y LO  GUSRAMOS EN valorJSON
-                valorGrafica1 = Float.parseFloat("" + jsonArray.getJSONObject(0).getString("temperatura"));
+                valorGrafica1 = Float.parseFloat("" + jsonArray.getJSONObject(0).getString(campo));
             }else{
                 valorGrafica1 = 0;
             }
