@@ -12,13 +12,17 @@ import android.widget.TextView;
 import com.example.mand.myapplication.R;
 
 public class DialogSaveVariable extends DialogFragment{
-    public static DialogSaveVariable newInstance(String fecha,String variedad,String sector,String valor){
+    public static DialogSaveVariable newInstance(String posicion,String tipo,String campo,String hora,String anio,String mes,String dia,String valor){
         DialogSaveVariable dsv = new DialogSaveVariable();
         Bundle extras = new Bundle();
-        extras.putString("fecha",fecha);
-        extras.putString("variedad",variedad);
-        extras.putString("sector",sector);
-        extras.putString("valor", valor);
+        extras.putString("posicion",posicion);
+        extras.putString("tipo",tipo);
+        extras.putString("campo",campo);
+        extras.putString("hora", hora);
+        extras.putString("anio",anio);
+        extras.putString("mes", mes);
+        extras.putString("dia",dia);
+        extras.putString("valor",valor);
         dsv.setArguments(extras);
 
         return dsv;
@@ -32,13 +36,17 @@ public class DialogSaveVariable extends DialogFragment{
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        String fecha = getArguments().getString("fecha");
-        String variedad = getArguments().getString("variedad");
-        String sector = getArguments().getString("sector");
+        String posicion = getArguments().getString("posicion");
+        String tipo = getArguments().getString("tipo");
+        String campo = getArguments().getString("campo");
+        String hora = getArguments().getString("hora");
+        String anio = getArguments().getString("anio");
+        String mes = getArguments().getString("mes");
+        String dia = getArguments().getString("dia");
         String valor = getArguments().getString("valor");
 
-       // TextView mEditText = (TextView) view.findViewById(R.id.texto);
-        //mEditText.setText(fecha+" "+variedad+" "+sector+" "+valor);
+        TextView mEditText = (TextView) view.findViewById(R.id.SaveMensaje);
+        mEditText.setText(posicion+" "+tipo+" "+campo+" "+hora+" "+anio+" "+mes+" "+dia+" "+valor);
     }
 
 

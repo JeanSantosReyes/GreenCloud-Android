@@ -1,6 +1,8 @@
 package com.example.mand.myapplication;
 
 import android.app.Dialog;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -21,6 +23,7 @@ import org.json.JSONException;
 
 import java.util.HashMap;
 
+import BaseDeDatos.sqlite;
 import Fragments.DialogFragmentGeneral;
 import Fragments.DialogSaveVariable;
 
@@ -28,8 +31,10 @@ public class tomateActivity extends AppCompatActivity {
 
     private Toolbar mTool;
 
+    private int version;
+
     private Toolbar toolbar;
-    private String type,position;
+    private String type,position,variable;
 
     private MyViewPager adapter;
     private ViewPager viewPager;
@@ -47,12 +52,17 @@ public class tomateActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatinSave);
+        variable = "temperatura";
 
+        version = Integer.parseInt(getString(R.string.version_db));
+
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatinSave);
+        //AQUI LE DAMOS EL EVENTO AL BOTON FLOTANTE , Y CUANDO SE LE DA CLICK SE ABRE UN DIALOGO
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(tomateActivity.this," ",Toast.LENGTH_LONG).show();
+                //SE MANDA LLAMAR EL METODO showDialog(); QUE MUESTRA EL DIALOGO PARA PODER GUARDAR LA TEMPERATURA RELEVANTE
                 showDialog();
             }
         });
@@ -86,9 +96,26 @@ public class tomateActivity extends AppCompatActivity {
 
     }
     public void showDialog(){
-        FragmentManager f = getSupportFragmentManager();
+        sqlite bh = new sqlite(tomateActivity.this,"UltimaVariedad",null,version);
 
-        DialogSaveVariable dsf = DialogSaveVariable.newInstance("","","","");
+        SQLiteDatabase db = bh.getReadableDatabase();
+
+        Cursor c = db.rawQuery("SELECT * FROM UltimaVariedad WHERE campo = '" + variable + "' AND tipo = '" + type + "' AND posicion = '" + position + "'", null);
+
+        FragmentManager f = getSupportFragmentManager();
+        DialogSaveVariable dsf = null;
+        try{
+            if(c.moveToFirst()){
+                dsf = DialogSaveVariable.newInstance(position,type,variable,c.getString(4),c.getString(5),c.getString(6),c.getString(7),c.getString(8));
+            }else{
+                Log.d("esp","No Se encontraron datos "+variable+" "+type+" "+position);
+            }
+        }finally {
+
+        }
+
+
+
         dsf.show(f, "");
     }
     public boolean onCreateOptionsMenu(Menu menu){
@@ -120,6 +147,7 @@ public class tomateActivity extends AppCompatActivity {
 
         return variedad;
     }
+    //ESTE METODO TE MUESTRA LAS ESTADISTICAS POR UNA HORA DEPENDIENDO QUE VARIABLE ESTE SELECCIONADA EN EL DIALOGO
     public void estadisticaUnaHora(View view) throws JSONException {
         //Toast.makeText(tomateActivity.this, "Maickol Rodriguez cornejo", Toast.LENGTH_SHORT).show();
 
@@ -129,6 +157,7 @@ public class tomateActivity extends AppCompatActivity {
         adapter.updateFragment(1, type, position, variedad, "Temperaturas", 1);
         dfm.dismiss();
     }
+    //ESTE METODO TE MUESTRA LAS ESTADISTICAS POR UN DIA DEPENDIENDO QUE VARIABLE ESTE SELECCIONADA EN EL DIALOGO
     public void estadisticasUnDia(View view) throws JSONException{
         //Toast.makeText(tomateActivity.this,"Maickol rodriguez cornejo 2",Toast.LENGTH_LONG).show();
 
@@ -137,6 +166,7 @@ public class tomateActivity extends AppCompatActivity {
         adapter.updateFragment(1,type,position,variedad,"Temperaturas",2);
         dfm.dismiss();
     }
+    //ESTE METODO TE MUESTRA LAS ESTADISTICAS POR UNA SEMANA QUE VARIABLE ESTE SELECCIONADA EN EL DIALOGO
     public void estadisticasUnaSemana(View view) throws JSONException {
 
         String variedad = traerVariedad();
@@ -145,6 +175,7 @@ public class tomateActivity extends AppCompatActivity {
         adapter.updateFragment(1,type,position,variedad,"Temperaturas",3);
         dfm.dismiss();
     }
+    //ESTE METODO TE MUESTRA LAS ESTADISTICAS POR UN MES DEPENDIENDO QUE VARIABLE ESTE SELECCIONADA EN EL DIALOGO
     public void estadisticasMes(View view) throws JSONException {
         adapter.updateFragment(1,type,position,"temperatura","Temperaturas",4);
         dfm.dismiss();
@@ -152,6 +183,7 @@ public class tomateActivity extends AppCompatActivity {
 
     //Click para la temperatura
     public void changeToTemperaturaCherubs(View v) throws JSONException {
+        variable = "temperatura";
         adapter.updateFragment(0,type,position,"temperatura","Temperatura actual",0);
         adapter.updateFragment(1,type,position,"temperatura","Temperaturas",0);
         imgTmp.setImageResource(R.drawable.temperaturasueloseleccionado);
@@ -164,6 +196,7 @@ public class tomateActivity extends AppCompatActivity {
 
     //Click para la HumedadRelativa
     public void changeToHumedadRelativaCherubs(View v) throws JSONException {
+        variable = "humedadRelativa";
         adapter.updateFragment(0,type,position,"humedadRelativa","Humedad relativa actual",0);
         adapter.updateFragment(1,type,position,"humedadRelativa","Humedades relativas",0);
         imgHumeR.setImageResource(R.drawable.humedadrelativaseleccionado);
@@ -176,6 +209,7 @@ public class tomateActivity extends AppCompatActivity {
     }
     //Click para la HumedadSuelo
     public void changeToHuedadSueloCherubs(View v) throws JSONException {
+        variable = "humedadSuelo";
         adapter.updateFragment(0,type,position,"humedadSuelo","Humedad suelo actual",0);
         adapter.updateFragment(1,type,position,"humedadSuelo","Humedades suelo",0);
         imgHumeS.setImageResource(R.drawable.humedadsueloseleccionado);

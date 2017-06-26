@@ -13,81 +13,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/variedadSaveMenesaje"
+            android:id="@+id/SaveMensaje"
             android:textSize="15pt"
             android:layout_marginRight="10dp"
             android:textStyle="bold|italic"
             android:text="variedad"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/variedadSave"
-            android:textStyle="italic"
-            android:textSize="13pt"
-            android:text="cherubs"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:padding="10dp"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/valorSaveMenesaje"
-            android:textSize="15pt"
-            android:layout_marginRight="10dp"
-            android:textStyle="bold|italic"
-            android:text="variedad"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/valorSave"
-            android:textStyle="italic"
-            android:textSize="13pt"
-            android:text="cherubs"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:padding="10dp"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/sectorSaveMenesaje"
-            android:textSize="15pt"
-            android:layout_marginRight="10dp"
-            android:textStyle="bold|italic"
-            android:text="variedad"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/sectorSave"
-            android:textStyle="italic"
-            android:textSize="13pt"
-            android:text="cherubs"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:padding="10dp"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/fechaSaveMenesaje"
-            android:textSize="15pt"
-            android:layout_marginRight="10dp"
-            android:textStyle="bold|italic"
-            android:text="variedad"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/fechaSave"
-            android:textStyle="italic"
-            android:textSize="13pt"
-            android:text="cherubs"/>
     </LinearLayout>
 
 </LinearLayout>

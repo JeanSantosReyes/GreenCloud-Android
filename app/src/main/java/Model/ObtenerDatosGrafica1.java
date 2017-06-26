@@ -157,6 +157,7 @@ public class ObtenerDatosGrafica1 {
         values.put("anio",y);
         values.put("mes",m);
         values.put("dia", d);
+        values.put("valor",valorGrafica1);
 
         if(c.getCount()>0){
             try{
