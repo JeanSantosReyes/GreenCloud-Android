@@ -186,7 +186,7 @@ public class tomateActivity extends AppCompatActivity {
         variable = "temperatura";
         adapter.updateFragment(0,type,position,"temperatura","Temperatura actual",0);
         adapter.updateFragment(1,type,position,"temperatura","Temperaturas",0);
-        imgTmp.setImageResource(R.drawable.temperaturasueloseleccionado);
+        imgTmp.setImageResource(R.drawable.temperaturasueloseleccionadoo);
         imgHumeR.setImageResource(R.drawable.humedadrelativa);
         imgHumeS.setImageResource(R.drawable.humedadsuelo);
         /*imgTmp.setFocusableInTouchMode(true);
@@ -199,7 +199,7 @@ public class tomateActivity extends AppCompatActivity {
         variable = "humedadRelativa";
         adapter.updateFragment(0,type,position,"humedadRelativa","Humedad relativa actual",0);
         adapter.updateFragment(1,type,position,"humedadRelativa","Humedades relativas",0);
-        imgHumeR.setImageResource(R.drawable.humedadrelativaseleccionado);
+        imgHumeR.setImageResource(R.drawable.humedadrelativaseleccionadoo);
         imgTmp.setImageResource(R.drawable.temperaturasuelo);
         imgHumeS.setImageResource(R.drawable.humedadsuelo);
         /*imgHumeR.setFocusableInTouchMode(true);
@@ -212,7 +212,7 @@ public class tomateActivity extends AppCompatActivity {
         variable = "humedadSuelo";
         adapter.updateFragment(0,type,position,"humedadSuelo","Humedad suelo actual",0);
         adapter.updateFragment(1,type,position,"humedadSuelo","Humedades suelo",0);
-        imgHumeS.setImageResource(R.drawable.humedadsueloseleccionado);
+        imgHumeS.setImageResource(R.drawable.humedadsueloseleccionadoo);
         imgHumeR.setImageResource(R.drawable.humedadrelativa);
         imgTmp.setImageResource(R.drawable.temperaturasuelo);
         /*imgHumeS.setFocusableInTouchMode(true);

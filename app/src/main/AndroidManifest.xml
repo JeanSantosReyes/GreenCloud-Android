@@ -15,11 +15,12 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".tomateActivity"/>
+        android:theme="@style/AppTheme"
+        android:windowSoftInputMode="stateHidden">
+        <activity android:name=".MainActivity" />
+        <activity android:name=".tomateActivity" />
         <activity android:name=".secciones" />
-        <activity android:name=".ConfiguracionVariables"/>
+        <activity android:name=".ConfiguracionVariables" />
         <activity android:name=".DetallesConfiguracion" />
         <activity android:name=".login">
             <intent-filter>
@@ -31,7 +32,17 @@
         <activity
             android:name=".navigation"
             android:label="@string/title_activity_navigation"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ConfiguracionDeVariables" />
+        <activity android:name=".ViewConfiguracionVariables" />
+        <activity android:name=".ModificarConfiguracionVariable" />
+
+        <service android:name=".ServicioAlertas" />
+
+        <activity android:name=".ConfiguracionInvernaderos"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".ConfiguracionSectoresXinvernaderos"
+            android:windowSoftInputMode="stateHidden"></activity>
     </application>
 
 </manifest>

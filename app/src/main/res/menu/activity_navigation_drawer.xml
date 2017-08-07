@@ -11,6 +11,11 @@
             android:icon="@android:drawable/ic_menu_manage"
             android:title="Configurar variables"
             />
+        <item
+            android:id="@+id/ConfiguracionInvernaderos"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="Invernaderos"
+            />
     </group>
 
     <item android:title="Opciones">

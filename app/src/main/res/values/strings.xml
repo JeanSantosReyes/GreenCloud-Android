@@ -33,4 +33,14 @@
         <item>Humedad Suelo</item>
         <item>Humedad Relativa</item>
     </string-array>
+
+    <string-array name="tiposCultivos">
+        <item>TIPO DE CULTIVO</item>
+        <item>Citricos</item>
+        <item>Frutas</item>
+        <item>Hortalizas</item>
+        <item>Lechugas</item>
+        <item>Sandias y Melones</item>
+    </string-array>
+
 </resources>
