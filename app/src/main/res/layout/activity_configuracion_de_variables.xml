@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_configuracion_de_variables"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.mand.myapplication.ConfiguracionDeVariables">
+
+    <include layout="@layout/toolbargeneral" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/confi" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Configuración de variables"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:textColor="@android:color/holo_blue_dark" />
+
+    </LinearLayout>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tipo de Tomate"
+            android:layout_gravity="center"/>
+        <Spinner
+            android:layout_marginTop="10dp"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerTomate"
+            android:spinnerMode="dropdown"
+            android:layout_gravity="left"
+            android:entries="@array/tomates_array"></Spinner>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Variable Ambiental"
+                android:layout_gravity="center"/>
+            <Spinner
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinnerVariable"
+                android:layout_gravity="right"
+                android:spinnerMode="dropdown"
+                android:entries="@array/variedades_array"></Spinner>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/uno">
+
+            <EditText
+                android:id="@+id/txtMax"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Valor Máximo"
+                android:inputType="numberDecimal"
+                android:gravity="center"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/dos">
+
+            <EditText
+                android:id="@+id/txtMin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Valor Minimo"
+                android:inputType="numberDecimal"
+                android:gravity="center"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp">
+        <Button
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="Guardar"
+            android:textStyle="bold|normal"
+            android:id="@+id/btnGuardar"
+            android:layout_gravity="left"
+            android:layout_marginRight="10dp"
+            android:textColor="@android:color/background_light"
+            android:background="@android:color/holo_blue_dark"
+            android:layout_marginTop="20dp"/>
+
+        <Button
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="Cancelar"
+            android:textStyle="bold|normal"
+            android:id="@+id/btnCancelar"
+            android:layout_gravity="left"
+            android:layout_marginRight="10dp"
+            android:textColor="@android:color/background_light"
+            android:background="@android:color/holo_red_dark"
+            android:layout_marginTop="20dp"/>
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

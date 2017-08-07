@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_configuracion_invernaderos"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.mand.myapplication.ConfiguracionInvernaderos">
+
+    <include layout="@layout/toolbargeneral" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/dos">
+
+        <EditText
+            android:id="@+id/txt"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:hint="Cantidad"
+            android:inputType="numberDecimal"
+            android:gravity="center"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:text="Generar"
+        android:textStyle="bold|normal"
+        android:id="@+id/btn"
+        android:layout_gravity="left"
+        android:layout_marginRight="10dp"
+        android:textColor="@android:color/background_light"
+        android:background="@android:color/holo_blue_dark"
+        android:layout_marginTop="20dp"/>
+
+        </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Presione sobre el Invernadero para Configuraciones"/>
+
+
+    <GridView
+        android:layout_marginTop="15dp"
+        android:id="@+id/am_gv_gridview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnWidth="70dp"
+        android:numColumns="2"
+        android:gravity="center">
+    </GridView>
+
+</LinearLayout>

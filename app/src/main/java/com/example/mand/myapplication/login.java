@@ -5,6 +5,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -26,7 +29,10 @@ public class login extends AppCompatActivity {
     EditText txtUsuario;
     TextInputEditText txtPass;
     TextInputLayout TILusuario,TILcontrasenia;
+    ProgressDialog progeesDialog;
 
+    String parametros = "";
+    String url = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,56 @@ public class login extends AppCompatActivity {
 
         TILusuario = (TextInputLayout)  findViewById(R.id.TILUsuario);
         TILcontrasenia = (TextInputLayout) findViewById(R.id.TILPassword);
+
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+                if (networkInfo != null && networkInfo.isConnected()) {
+                    String user = txtUsuario.getText().toString();
+                    String pass = txtPass.getText().toString();
+
+                    if(user.isEmpty() || pass.isEmpty()){
+                        Toast.makeText(getApplicationContext(), "Ingrese los Datos Correspendientes...", Toast.LENGTH_LONG).show();
+                    }else{
+                        /*progeesDialog =  new ProgressDialog(login.this);
+                        progeesDialog.setMessage("Verificando datos, Espere...");
+                        progeesDialog.setCancelable(false);
+                        progeesDialog.show();
+
+                        url = "http://improntadsi.000webhostapp.com/WebServiceGreen/validarUsuario.php";
+                        parametros = "usuario=" + user + "&contrasena=" + pass;
+                        new SolicitaDados().execute(url);*/
+                        if(user.equals("nature") && pass.equals("nature")){
+                            Intent go = new Intent(login.this, navigation.class);
+                            startActivity(go);
+                            finish();
+                        }
+
+
+
+                    }
+
+                }else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(login.this);
+                    builder.setMessage("Verifica la Conexión a Internet")
+                            .setTitle("ERROR");
+
+                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.setCancelable(false);
+                    dialog.show();
+                }
+
+            }
+        });
 
     }
     public void auth(View v){
@@ -64,22 +120,22 @@ public class login extends AppCompatActivity {
         //startActivity(go2);
         //sdfinish();
 
-         if (usuario.equals(user) && contrasena.equals(pass)) {
-             new android.os.Handler().postDelayed(new Runnable() {
-                 @Override
-                 public void run() {
-                     progressDialog.dismiss();
-                     Intent go = new Intent(login.this, navigation.class);
-                     startActivity(go);
-                     finish();
-                 }
-             },4000);
+        if (usuario.equals(user) && contrasena.equals(pass)) {
+            new android.os.Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    progressDialog.dismiss();
+                    Intent go = new Intent(login.this, navigation.class);
+                    startActivity(go);
+                    finish();
+                }
+            },4000);
 
-         } else {
-             progressDialog.dismiss();
-             Snackbar.make(v,"Usuario/Contraseña incorrectos",Snackbar.LENGTH_SHORT).show();
-             btnLogin.setEnabled(true);
-         }
+        } else {
+            progressDialog.dismiss();
+            Snackbar.make(v,"Usuario/Contraseña incorrectos",Snackbar.LENGTH_SHORT).show();
+            btnLogin.setEnabled(true);
+        }
 
     }
 
@@ -149,5 +205,57 @@ public class login extends AppCompatActivity {
         alert.show();
     }
 
+
+    private class SolicitaDados extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... urls) {
+
+            return Conexion.postDados(urls[0], parametros);
+        }
+        protected void onPostExecute(String resultado) {
+            //Toast.makeText(getApplicationContext(),resultado,Toast.LENGTH_LONG).show();
+            int ini = resultado.length()-4;
+
+            String rol = resultado.substring(ini,ini+1);
+            if (resultado.contains("login_ok")){
+                Intent go = new Intent(login.this, navigation.class);
+                startActivity(go);
+                finish();
+                progeesDialog.dismiss();
+                //progeesDialog.dismiss();
+                String[] dados = resultado.split(",");
+                // etEmail.setText(dados[0]+"-"+dados[1]+"+"+dados[2]);
+                Intent abreInicio;
+                if(rol.equals("1")){
+                    //abreInicio = new Intent(login.this,menuprincipal.class);
+                }else{}
+                //abreInicio = new Intent(login.this,menualumno.class);
+
+                //abreInicio.putExtra("rol",rol);
+                //abreInicio.putExtra("contrasena",dados[1]);
+                //Toast.makeText(getApplicationContext(),"YEAH PAPU",Toast.LENGTH_LONG).show();
+
+                //startActivity(abreInicio);
+                //finish();
+            }else {
+                progeesDialog.dismiss();
+                AlertDialog.Builder builder = new AlertDialog.Builder(login.this);
+                builder.setMessage("Usuario o Contraseña Incorrectos")
+                        .setTitle("ERROR");
+
+                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.setCancelable(false);
+                dialog.show();
+                //Toast.makeText(getApplicationContext(),"Usuario o Contraseña incorrectos",Toast.LENGTH_LONG).show();
+                //progeesDialog.dismiss();
+            }
+        }
+    }
 
 }

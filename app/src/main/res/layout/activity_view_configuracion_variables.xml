@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_view_configuracion_variables"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.mand.myapplication.ViewConfiguracionVariables">
+
+    <include layout="@layout/toolbargeneral" />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Configuraciones Realizadas"
+        android:textStyle="bold|normal"
+        android:textSize="20dp"
+        android:layout_gravity="center"
+        android:textColor="@android:color/holo_blue_dark" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Manten presionado para ver Opciones"
+        android:textStyle="bold|normal"
+        android:textSize="12dp"
+        android:layout_gravity="center"/>
+
+    <!--TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filtro por tipo de tomate"
+        android:textStyle="bold|normal"
+        android:textSize="12dp"
+        android:layout_gravity="center"/>
+
+    <Spinner
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerFiltro"
+        android:spinnerMode="dropdown"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:entries="@array/tomates_array"></Spinner-->
+
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.holamundo.example.hctor.alumnos.listaAlumnos"
+        android:fitsSystemWindows="false">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="10dp"
+            android:id="@+id/lvLista"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            app:srcCompat="@android:drawable/ic_input_add"
+            app:backgroundTint="@android:color/holo_red_dark" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+
+
+
+
+</LinearLayout>

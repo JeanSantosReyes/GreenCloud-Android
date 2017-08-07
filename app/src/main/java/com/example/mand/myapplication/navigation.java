@@ -1,8 +1,12 @@
 package com.example.mand.myapplication;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.BoolRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -16,10 +20,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class navigation extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
+        implements NavigationView.OnNavigationItemSelectedListener  {
+        private Context thisContext = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,14 +33,6 @@ public class navigation extends AppCompatActivity
         setSupportActionBar(toolbar);
         toolbar.setTitle("Navegación");
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -45,6 +42,25 @@ public class navigation extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("ArchivoSp" , thisContext.MODE_PRIVATE);
+
+        SharedPreferences sharedPreferences1 = getPreferences(thisContext.MODE_PRIVATE);
+        SharedPreferences.Editor editor  = sharedPreferences1.edit();
+        editor.putString("MiDato" , "nature");
+        editor.commit();
+
+        SharedPreferences sharedPreferences2 = getPreferences(thisContext.MODE_PRIVATE);
+        String valor = sharedPreferences2.getString("MiDato" , "");
+
+        if(valor.length() < 0){
+            finish();
+        }
+
+
+        //time time = new time();
+        //time.execute();
+        //startService(new Intent(thisContext, ServicioAlertas.class));
     }
 
 
@@ -82,9 +98,14 @@ public class navigation extends AppCompatActivity
         }else if(id == R.id.closeSesion){
             Intent close = new Intent(navigation.this, login.class);
             startActivity(close);
+            stopService(new Intent(thisContext, ServicioAlertas.class));
         }else if(id == R.id.ConfiguracionVariables){
-            Intent intent = new Intent(navigation.this,ConfiguracionVariables.class);
+            Intent intent = new Intent(navigation.this,ViewConfiguracionVariables.class);
             startActivity(intent);
+        }else if(id == R.id.ConfiguracionInvernaderos){
+            Intent intent = new Intent(navigation.this, ConfiguracionInvernaderos.class);
+            startActivity(intent);
+
         }
 
 
