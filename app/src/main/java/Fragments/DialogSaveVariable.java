@@ -53,17 +53,30 @@ public class DialogSaveVariable extends DialogFragment{
         ImageView imageVariable = (ImageView) view.findViewById(R.id.imgVariableSave);
         TextView variedadDescripcion = (TextView) view.findViewById(R.id.DescripcionVariable);
         TextView variedadValor = (TextView) view.findViewById(R.id.valorVariable);
+        TextView TVdia = (TextView) view.findViewById(R.id.dia);
+        TextView TVMes = (TextView) view.findViewById(R.id.mes);
+        TextView TVAnio = (TextView) view.findViewById(R.id.anio);
+        TextView TVhora = (TextView) view.findViewById(R.id.hora);
 
         //METODO PARA PINTAR LA RESPECTIVA VARIEDAD EN EL DIALOGO
-        chooseVariedad(imageVariedad,tipo);
+        chooseVariedad(imageVariedad, tipo);
 
         //METODO PARA PINTAR LA RESPECTIVA VARIABLE EN EL DIALOGO
-        chooseVariable(imageVariable,campo);
+        chooseVariable(imageVariable, campo);
 
         //ESTABLECEMOS LA DESCRIPCION DE LA VARIABLE
         variedadDescripcion.setText(campo);
         //ESTABLECEMOS EL VALOR DE LA VARIABLE
         variedadValor.setText(valor);
+
+        //ESTABLECEMOS EL AÑO
+        TVAnio.setText(anio);
+        //ESTABLECEMOS EL MES
+        TVMes.setText(mes);
+        //ESTABLECEMOS EL DIA
+        TVdia.setText(dia);
+        //ESTABLECEMOS LA HORA
+        TVhora.setText(hora);
 
 
     }

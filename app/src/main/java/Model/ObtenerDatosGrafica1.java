@@ -109,6 +109,7 @@ public class ObtenerDatosGrafica1 {
             int month = calendar.get(Calendar.MONTH)+1;
             int day = calendar.get(Calendar.DAY_OF_MONTH);
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int seg = calendar.get(Calendar.SECOND);
 
 
             //Formateando los datos para el servicio
@@ -122,7 +123,7 @@ public class ObtenerDatosGrafica1 {
             obj.obtenerValor(y, m, d);
 
             //METODO PARA GUARDAR LA ULTIMA UNIDAD MEDIDAD EN LA BASE DE DATOS
-            obj.saveDataBase(y,m,d,""+hour);
+            obj.saveDataBase(y,m,d,""+hour+":"+seg);
 
             return null;
         }
