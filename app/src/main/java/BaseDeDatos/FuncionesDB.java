@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Base64;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.security.Key;
@@ -54,8 +55,7 @@ public class FuncionesDB {
     //GUARDANDO EL INVERNADERO
     public void guardarInvernadero(ArrayList<String> invernaderos){
         checkLogin();
-        preferences = context.getSharedPreferences(prefence, MODE);
-        int idUser = preferences.getInt("id", 0);
+        int idUser = getIdUser();
         String usename = preferences.getString("UserEmail", null).toString();
         String password = preferences.getString("pass", null).toString();
         Toast.makeText(context,""+invernaderos.size(),Toast.LENGTH_SHORT).show();
@@ -63,10 +63,16 @@ public class FuncionesDB {
             sqlite bh = new sqlite(context,"invernadero",null,version);
             SQLiteDatabase db = bh.getWritableDatabase();
             ContentValues cv = new ContentValues();
-            cv.put("name","");
+            cv.put("name","invernadero "+(i+1));
             cv.put("id_user",idUser);
             db.insert("invernadero", null, cv);
         }
+
+    }
+    public void deleteInvernaderosById(int id){
+        checkLogin();
+        sqlite bh = new sqlite(context,"invernadero",null,version);
+        SQLiteDatabase db = bh.getWritableDatabase();
 
 
 
@@ -84,6 +90,7 @@ public class FuncionesDB {
         Cursor c = db.rawQuery("SELECT * FROM invernadero WHERE id_user = "+iduser,null);
         if(c.moveToFirst()){
             do {
+                Log.d("maickol12",c.getString(1)+" "+c.getString(0));
                 invernaderos.add(c.getString(1));
             }while(c.moveToNext());
         }

@@ -31,36 +31,50 @@ public class ConfiguracionInvernaderos extends AppCompatActivity {
     private GridAdapter adapter;
     private EditText txtCantidad;
     private Button btng;
-    private FuncionesDB fdb;
     private int versionDB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuracion_invernaderos);
-        versionDB = Integer.parseInt(getString(R.string.version_db));
+
         toolbar = (Toolbar) findViewById(R.id.toolbarGen);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        versionDB = Integer.parseInt(getText(R.string.version_db).toString());
         txtCantidad = (EditText) findViewById(R.id.txt);
         btng = (Button) findViewById(R.id.btn);
-        fdb = new FuncionesDB(this,versionDB);
 
-        ArrayList<String> arrayList = fdb.getInvernaderoByIdUser(fdb.getIdUser());
+        int x = 0;
+
+
+        FuncionesDB fdb = new FuncionesDB(this,versionDB);
+        final ArrayList<String> arrayList = fdb.getInvernaderoByIdUser(fdb.getIdUser());
         gridView = (GridView) findViewById(R.id.am_gv_gridview);
         adapter = new GridAdapter(this, arrayList, 1);
         gridView.setAdapter(adapter);
 
+        x =(arrayList.size()>0)?0:-1;
 
+        eventoLista(x);
+        
         btng.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int x = llenar();
-                if (x == 0) {
-                gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(getApplicationContext(), adapter.getItem(position).toString(), Toast.LENGTH_LONG).show();
+                eventoLista(x);
+            }
+        });
+
+
+
+    }
+
+    public void eventoLista(int x){
+        if (x == 0) {
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Toast.makeText(getApplicationContext(), adapter.getItem(position).toString(), Toast.LENGTH_LONG).show();
 
                         /*LayoutInflater layoutInflater = getLayoutInflater();
                         View dialogLayout = layoutInflater.inflate(R.layout.alert_invernaderos, null);
@@ -69,24 +83,18 @@ public class ConfiguracionInvernaderos extends AppCompatActivity {
                         builder.setView(dialogLayout);
                         builder.show();*/
 
-                        Intent intent = new Intent(ConfiguracionInvernaderos.this, ConfiguracionSectoresXinvernaderos.class);
-                        intent.putExtra("invernadero", adapter.getItem(position).toString());
-                        startActivity(intent);
+                    Intent intent = new Intent(ConfiguracionInvernaderos.this, ConfiguracionSectoresXinvernaderos.class);
+                    intent.putExtra("invernadero", adapter.getItem(position).toString());
+                    startActivity(intent);
 
-                        //https://www.youtube.com/watch?v=DOXBg1HwXcI
-                        //https://www.youtube.com/watch?v=BPoNXAV1ghQ
-                        //https://www.youtube.com/watch?v=SiJvwBkI2Lg
+                    //https://www.youtube.com/watch?v=DOXBg1HwXcI
+                    //https://www.youtube.com/watch?v=BPoNXAV1ghQ
+                    //https://www.youtube.com/watch?v=SiJvwBkI2Lg
 
-                    }
-                });
-            }
-            }
-        });
-
-
-
+                }
+            });
+        }
     }
-
     public int llenar(){
         AlertDialog.Builder builder = new AlertDialog.Builder(ConfiguracionInvernaderos.this);
         int RSP = -1;
@@ -125,7 +133,8 @@ public class ConfiguracionInvernaderos extends AppCompatActivity {
                     int num = x + 1;
                     arrayList.add("Invernadero: " + num);
                 }
-
+                FuncionesDB fdb = new FuncionesDB(this,versionDB);
+                fdb.guardarInvernadero(arrayList);
                 gridView = (GridView) findViewById(R.id.am_gv_gridview);
                 adapter = new GridAdapter(this, arrayList, 1);
                 gridView.setAdapter(adapter);

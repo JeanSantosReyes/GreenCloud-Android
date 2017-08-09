@@ -1,27 +1,31 @@
 package com.example.mand.myapplication;
 
-import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatButton;
-import android.text.method.PasswordTransformationMethod;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import BaseDeDatos.FuncionesDB;
+import BaseDeDatos.sqlite;
+import Fragments.AddUserFragment;
 
 public class login extends AppCompatActivity {
 
@@ -30,7 +34,8 @@ public class login extends AppCompatActivity {
     TextInputEditText txtPass;
     TextInputLayout TILusuario,TILcontrasenia;
     ProgressDialog progeesDialog;
-
+    private int versionDB;
+    private FuncionesDB fdb;
     String parametros = "";
     String url = "";
 
@@ -46,58 +51,12 @@ public class login extends AppCompatActivity {
         TILusuario = (TextInputLayout)  findViewById(R.id.TILUsuario);
         TILcontrasenia = (TextInputLayout) findViewById(R.id.TILPassword);
 
-
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-
-                if (networkInfo != null && networkInfo.isConnected()) {
-                    String user = txtUsuario.getText().toString();
-                    String pass = txtPass.getText().toString();
-
-                    if(user.isEmpty() || pass.isEmpty()){
-                        Toast.makeText(getApplicationContext(), "Ingrese los Datos Correspendientes...", Toast.LENGTH_LONG).show();
-                    }else{
-                        /*progeesDialog =  new ProgressDialog(login.this);
-                        progeesDialog.setMessage("Verificando datos, Espere...");
-                        progeesDialog.setCancelable(false);
-                        progeesDialog.show();
-
-                        url = "http://improntadsi.000webhostapp.com/WebServiceGreen/validarUsuario.php";
-                        parametros = "usuario=" + user + "&contrasena=" + pass;
-                        new SolicitaDados().execute(url);*/
-                        if(user.equals("nature") && pass.equals("nature")){
-                            Intent go = new Intent(login.this, navigation.class);
-                            startActivity(go);
-                            finish();
-                        }
-
-
-
-                    }
-
-                }else{
-                    AlertDialog.Builder builder = new AlertDialog.Builder(login.this);
-                    builder.setMessage("Verifica la Conexión a Internet")
-                            .setTitle("ERROR");
-
-                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.dismiss();
-                        }
-                    });
-                    AlertDialog dialog = builder.create();
-                    dialog.setCancelable(false);
-                    dialog.show();
-                }
-
-            }
-        });
+        versionDB = Integer.parseInt(getText(R.string.version_db).toString());
 
     }
-    public void auth(View v){
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
+    public void auth(View v) throws Exception{
 
         if(!validate()){
             authFallo();
@@ -111,32 +70,28 @@ public class login extends AppCompatActivity {
         progressDialog.show();
 
 
-        String user = "nature";
-        String pass = "nature";
-        String usuario = txtUsuario.getText().toString();
-        String contrasena = txtPass.getText().toString();
+        String user = txtUsuario.getText().toString();
+        String pass = txtPass.getText().toString();
 
-        //Intent go2 = new Intent(login.this, navigation.class);
-        //startActivity(go2);
-        //sdfinish();
-
-        if (usuario.equals(user) && contrasena.equals(pass)) {
-            new android.os.Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    progressDialog.dismiss();
-                    Intent go = new Intent(login.this, navigation.class);
-                    startActivity(go);
-                    finish();
-                }
-            },4000);
-
-        } else {
+        FuncionesDB fdb = new FuncionesDB(this,versionDB);
+        int id = fdb.login(user,pass);
+        if(id>0){
+            preferences = this.getSharedPreferences("LOGIN", 0);
+            editor = preferences.edit();
+            editor.putInt("id",id);
+            editor.putString("UserEmail",user);
+            editor.putString("pass",pass);
+            editor.putBoolean("islog",true);
+            editor.commit();
+            progressDialog.dismiss();
+            Intent go = new Intent(login.this, navigation.class);
+            startActivity(go);
+            finish();
+        }else{
             progressDialog.dismiss();
             Snackbar.make(v,"Usuario/Contraseña incorrectos",Snackbar.LENGTH_SHORT).show();
             btnLogin.setEnabled(true);
         }
-
     }
 
     public void authFallo(){
@@ -144,11 +99,12 @@ public class login extends AppCompatActivity {
 
         btnLogin.setEnabled(true);
     }
-    public boolean validate(){
+    public boolean validate() throws Exception{
         String usuario,contrasenia;
         boolean valid = true;
         usuario = txtUsuario.getText().toString();
         contrasenia = txtPass.getText().toString();
+
 
         if(usuario.isEmpty()){
             txtUsuario.requestFocus();
@@ -230,14 +186,7 @@ public class login extends AppCompatActivity {
                 if(rol.equals("1")){
                     //abreInicio = new Intent(login.this,menuprincipal.class);
                 }else{}
-                //abreInicio = new Intent(login.this,menualumno.class);
 
-                //abreInicio.putExtra("rol",rol);
-                //abreInicio.putExtra("contrasena",dados[1]);
-                //Toast.makeText(getApplicationContext(),"YEAH PAPU",Toast.LENGTH_LONG).show();
-
-                //startActivity(abreInicio);
-                //finish();
             }else {
                 progeesDialog.dismiss();
                 AlertDialog.Builder builder = new AlertDialog.Builder(login.this);
@@ -257,5 +206,26 @@ public class login extends AppCompatActivity {
             }
         }
     }
+    AddUserFragment auf;
+    public void registerUser(View v){
+        FragmentManager fm = getSupportFragmentManager();
+        auf = AddUserFragment.newInstance();
+        auf.show(fm,"");
+    }
+    public void BTNregisterUser(View v) throws Exception{
+        fdb = new FuncionesDB(this, versionDB);
+        long i = fdb.registerUsuario(auf.correo.getText().toString(), auf.usuario.getText().toString(), auf.password.getText().toString());
 
+        if(i>0) {
+            Toast.makeText(this, "Insertado con exito", Toast.LENGTH_LONG).show();
+            auf.limpiarInputs();
+            auf.dismiss();
+        }else {
+            Toast.makeText(this, "Ocurrio un error", Toast.LENGTH_LONG).show();
+        }
+
+
+
+
+    }
 }

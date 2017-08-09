@@ -1,77 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_login"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorFondo"
-    android:fitsSystemWindows="true"
-    tools:context="com.example.mand.myapplication.login"
-    android:weightSum="1">
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/activity_login"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorFondo"
+            android:fillViewport="true"
+            android:fitsSystemWindows="true"
+            tools:context="com.example.mand.myapplication.login"
+            android:weightSum="1">
 
 
-   <LinearLayout
-       android:orientation="vertical"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:paddingTop="56dp"
-       android:paddingLeft="24dp"
-       android:paddingRight="24dp"
-       android:weightSum="1">
-       <ImageView
-           android:layout_width="match_parent"
-           android:layout_height="200dp"
-           android:src="@drawable/oficial"
-           android:id="@+id/imageView"
-           android:layout_weight="0.16" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/linear1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="56dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:weightSum="1">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/oficial"
+            android:id="@+id/imageView"
+            android:layout_weight="0.16" />
 
-       <android.support.design.widget.TextInputLayout
-           android:layout_width="match_parent"
-           android:id="@+id/TILUsuario"
-           android:layout_height="wrap_content">
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:id="@+id/TILUsuario"
+            android:layout_height="wrap_content">
 
-           <EditText
-               android:id="@+id/txtUsuario"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:hint="Usuario"
-               android:text="nature"
-               android:singleLine="true"
-               android:layout_centerVertical="true"
-               android:layout_alignParentRight="true"
-               android:layout_alignParentEnd="true"/>
+            <EditText
+                android:id="@+id/txtUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Usuario"
+                android:text="nature"
+                android:singleLine="true"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"/>
 
 
-       </android.support.design.widget.TextInputLayout>
+        </android.support.design.widget.TextInputLayout>
 
-       <android.support.design.widget.TextInputLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:id="@+id/TILPassword"
-           app:passwordToggleEnabled = "true">
-           <android.support.design.widget.TextInputEditText
-               android:id="@+id/txtPass"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:inputType="textPassword"
-               android:text="nature"
-               android:hint="password"
-               />
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/TILPassword"
+            app:passwordToggleEnabled = "true">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:text="nature"
+                android:hint="password"
+                />
 
-       </android.support.design.widget.TextInputLayout>
+        </android.support.design.widget.TextInputLayout>
 
-       <Button
-           android:id="@+id/btnLogin"
-           android:background="@color/accent"
-           android:textColor="@color/colorFondo"
-           android:layout_width="fill_parent"
-           android:layout_height="wrap_content"
-           android:layout_marginTop="24dp"
-           android:layout_marginBottom="24dp"
-           android:padding="12dp"
-           android:text="Login"
-           android:drawableRight="@drawable/login"
-           android:onClick="auth"/>
-   </LinearLayout>
+        <Button
+            android:id="@+id/btnLogin"
+            android:background="@color/accent"
+            android:textColor="@color/colorFondo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:padding="12dp"
+            android:text="Login"
+            android:drawableRight="@drawable/login"
+            android:onClick="auth"/>
+        <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                         xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                         xmlns:tools="http://schemas.android.com/tools"
+                                                         android:layout_width="match_parent"
+                                                         android:layout_height="100dp"
+                                                         android:fitsSystemWindows="false"
+            >
+            <android.support.design.widget.FloatingActionButton
+                android:onClick="registerUser"
+                android:id="@+id/babAddUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                app:srcCompat="@drawable/adduser"
+                app:backgroundTint="@color/accent" />
+        </android.support.design.widget.CoordinatorLayout>
+
+    </LinearLayout>
 </ScrollView>
