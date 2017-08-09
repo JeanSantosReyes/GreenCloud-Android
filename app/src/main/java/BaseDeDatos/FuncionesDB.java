@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
+import Model.Invernadero;
+
 public class FuncionesDB {
     private Context context;
     private int version;
@@ -69,6 +71,20 @@ public class FuncionesDB {
         }
 
     }
+    public ArrayList<String> getSectoresByInvernadero(int idInvernadero){
+        checkLogin();
+        sqlite bh = new sqlite(context,"sector",null,version);
+        SQLiteDatabase db = bh.getReadableDatabase();
+
+        Cursor c = db.rawQuery("SELECT * FROM sector WHERE id_invernadero = " + idInvernadero, null);
+        ArrayList<String> salida = new ArrayList<>();
+        if(c.moveToFirst()){
+            do{
+                salida.add(c.getString(1));
+            }while(c.moveToNext());
+        }
+        return salida;
+    }
     public void deleteInvernaderosById(int id){
         checkLogin();
         sqlite bh = new sqlite(context,"invernadero",null,version);
@@ -82,19 +98,42 @@ public class FuncionesDB {
         int idUser = preferences.getInt("id", 0);
         return idUser;
     }
-    public ArrayList<String> getInvernaderoByIdUser(int iduser){
+    public ArrayList<Invernadero> getInvernaderoByIdUser(int iduser){
         sqlite bh = new sqlite(context,"invernadero",null,version);
         SQLiteDatabase db = bh.getReadableDatabase();
 
-        ArrayList<String> invernaderos = new ArrayList<String>();
-        Cursor c = db.rawQuery("SELECT * FROM invernadero WHERE id_user = "+iduser,null);
+        ArrayList<Invernadero> invernaderos = new ArrayList<Invernadero>();
+        Cursor c = db.rawQuery("SELECT * FROM invernadero WHERE id_user = " + iduser, null);
         if(c.moveToFirst()){
             do {
                 Log.d("maickol12",c.getString(1)+" "+c.getString(0));
-                invernaderos.add(c.getString(1));
+                invernaderos.add(new Invernadero(c.getInt(0),c.getString(1),c.getInt(2)));
             }while(c.moveToNext());
         }
         return invernaderos;
+    }
+    //GUARDAR INVERNADEROS EN LA BASE DE DATOS
+    public void guardarSectores(ArrayList<String> sectores,int id_invernadero){
+        sqlite bh = new sqlite(context,"sector",null,version);
+
+        SQLiteDatabase db = bh.getWritableDatabase();
+        int i = 0;
+        int contador = 1;
+        for (String nombre : sectores){
+            ContentValues cv = new ContentValues();
+            cv.put("nombre",nombre);
+            cv.put("id_invernadero",id_invernadero);
+            cv.put("posicion_x",i);
+            cv.put("posicion_y",(contador%2));
+            Log.d("michael",i+" "+(contador%2));
+            i = (i>1)?0:i++;
+            contador++;
+        }
+
+    }
+    //OBTENER SECTORES POR ID DE INVERNADERO
+    public void obtenerSectoresById(int id){
+        sqlite bh = new sqlite(context,"sector",null,version);
     }
     //FUNCIONES PARA ENCRIPTAR Y DEDENCRIPTAR UNA PASSWORD
     private static final String ALGORITHM = "AES";

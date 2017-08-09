@@ -24,6 +24,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import BaseDeDatos.FuncionesDB;
+
 public class ConfiguracionSectoresXinvernaderos extends AppCompatActivity {
 
     private Toolbar toolbar;
@@ -33,7 +35,9 @@ public class ConfiguracionSectoresXinvernaderos extends AppCompatActivity {
     private GridAdapter adapter;
     private EditText txtCantidadSectores;
     Bundle datosIntent;
-
+    private int idInvernadero;
+    private FuncionesDB fdb;
+    private int versionDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,76 +48,22 @@ public class ConfiguracionSectoresXinvernaderos extends AppCompatActivity {
         btnGenerar = (Button) findViewById(R.id.btn);
         txtCantidadSectores = (EditText) findViewById(R.id.txt);
 
+
         datosIntent = getIntent().getExtras();
-        txtTituloInvernadero.setText(datosIntent.getString("invernadero").toString());
+        idInvernadero = datosIntent.getInt("idinvernadero");
+        txtTituloInvernadero.setText("Invernadero "+idInvernadero);
+
+        versionDB = Integer.parseInt(getString(R.string.version_db));
+
+        fdb = new FuncionesDB(this,versionDB);
 
         btnGenerar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int x = generarSectores();
-                if(x == 0){
-                gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                        LayoutInflater layoutInflater = getLayoutInflater();
-                        final View dialogLayout = layoutInflater.inflate(R.layout.activity_cantidad_sectores, null);
-
-                        final CheckBox cbHR = (CheckBox) dialogLayout.findViewById(R.id.rdHumedadRelativa);
-                        final CheckBox cbHS = (CheckBox) dialogLayout.findViewById(R.id.rdHumedadSuelo);
-                        final CheckBox cbTM = (CheckBox) dialogLayout.findViewById(R.id.rdTemperatura);
-
-                        TextView txtTituloSector = (TextView) dialogLayout.findViewById(R.id.tituloSector);
-                        Button btnGuardar = (Button) dialogLayout.findViewById(R.id.btnGuardar);
-                        Button btnCancelar = (Button) dialogLayout.findViewById(R.id.btnCancelar);
-
-                        txtTituloSector.setText("Seleccione las Variables Ambientales a Monitorear para : " + adapter.getItem(position).toString());
-
-                        final AlertDialog.Builder builder = new AlertDialog.Builder(ConfiguracionSectoresXinvernaderos.this);
-                        builder.setView(dialogLayout);
-                        builder.setCancelable(false);
-
-                        final AlertDialog dialog = builder.create();
-                        dialog.setCancelable(false);
-                        dialog.show();
-
-                        // BOTONES
-
-                        btnGuardar.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                String Hr = "", Hs = "", Tm = "";
-                                if (cbHR.isChecked()) {
-                                    Hr = cbHR.getText().toString();
-                                }
-                                if (cbHS.isChecked()) {
-                                    Hs = cbHS.getText().toString();
-                                }
-                                if (cbTM.isChecked()) {
-                                    Tm = cbTM.getText().toString();
-                                }
-
-                                String sector = adapter.getItem(position).toString();
-                                //sector = sector.substring(sector.length() -1,sector.length());
-
-                                String invernadero = txtTituloInvernadero.getText().toString();
-
-                                String cFinal = invernadero + " " + sector + " " + Hr + " " + Hs + " " + Tm;
-
-                                Toast.makeText(getApplicationContext(), "Valor a Registrar:  " + cFinal, Toast.LENGTH_LONG).show();
-                            }
-                        });
-
-                        btnCancelar.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                dialog.dismiss();
-                            }
-                        });
-
-
-                    }
-                });
-            }
+                if (x == 0) {
+                    eventoLista();
+                }
 
             }
         });
@@ -136,6 +86,69 @@ public class ConfiguracionSectoresXinvernaderos extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+    public void eventoLista(){
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                LayoutInflater layoutInflater = getLayoutInflater();
+                final View dialogLayout = layoutInflater.inflate(R.layout.activity_cantidad_sectores, null);
+
+                final CheckBox cbHR = (CheckBox) dialogLayout.findViewById(R.id.rdHumedadRelativa);
+                final CheckBox cbHS = (CheckBox) dialogLayout.findViewById(R.id.rdHumedadSuelo);
+                final CheckBox cbTM = (CheckBox) dialogLayout.findViewById(R.id.rdTemperatura);
+
+                TextView txtTituloSector = (TextView) dialogLayout.findViewById(R.id.tituloSector);
+                Button btnGuardar = (Button) dialogLayout.findViewById(R.id.btnGuardar);
+                Button btnCancelar = (Button) dialogLayout.findViewById(R.id.btnCancelar);
+
+                txtTituloSector.setText("Seleccione las Variables Ambientales a Monitorear para : " + adapter.getItem(position).toString());
+
+                final AlertDialog.Builder builder = new AlertDialog.Builder(ConfiguracionSectoresXinvernaderos.this);
+                builder.setView(dialogLayout);
+                builder.setCancelable(false);
+
+                final AlertDialog dialog = builder.create();
+                dialog.setCancelable(false);
+                dialog.show();
+
+                // BOTONES
+                btnGuardar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String Hr = "", Hs = "", Tm = "";
+                        if (cbHR.isChecked()) {
+                            Hr = cbHR.getText().toString();
+                        }
+                        if (cbHS.isChecked()) {
+                            Hs = cbHS.getText().toString();
+                        }
+                        if (cbTM.isChecked()) {
+                            Tm = cbTM.getText().toString();
+                        }
+
+                        String sector = adapter.getItem(position).toString();
+                        //sector = sector.substring(sector.length() -1,sector.length());
+
+                        String invernadero = txtTituloInvernadero.getText().toString();
+
+                        String cFinal = invernadero + " " + sector + " " + Hr + " " + Hs + " " + Tm;
+
+                        Toast.makeText(getApplicationContext(), "Valor a Registrar:  " + cFinal, Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                btnCancelar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+
+            }
+        });
+
     }
 
     public int generarSectores(){
@@ -177,7 +190,7 @@ public class ConfiguracionSectoresXinvernaderos extends AppCompatActivity {
                     int num = x + 1;
                     arrayList.add("Sector: " + num);
                 }
-
+                fdb.guardarSectores(arrayList,idInvernadero);
                 gridView = (GridView) findViewById(R.id.am_gv_gridview);
                 adapter = new GridAdapter(this, arrayList, 2);
                 gridView.setAdapter(adapter);
