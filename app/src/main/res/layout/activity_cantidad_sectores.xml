@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Configuración de variables"
+        android:textSize="20dp"
+        android:layout_gravity="center"
+        android:textColor="@android:color/holo_blue_dark" />
+
+        <TextView
+            android:id="@+id/tituloSector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Seleccione las Variables Ambientales a Monitorear"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_green_light"/>
+
+    <CheckBox
+        android:id="@+id/rdHumedadRelativa"
+        android:layout_marginTop="10dp"
+        android:text="Humedad Relativa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:id="@+id/rdTemperatura"
+        android:text="Temperatura"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:id="@+id/rdHumedadSuelo"
+        android:text="Humedad Suelo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!--Spinner
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerVariable"
+        android:layout_gravity="left"
+        android:spinnerMode="dialog"
+        android:entries="@array/tiposCultivos"></Spinner-->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp">
+            <Button
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="Guardar"
+                android:textStyle="bold|normal"
+                android:id="@+id/btnGuardar"
+                android:layout_gravity="left"
+                android:layout_marginRight="10dp"
+                android:textColor="@android:color/background_light"
+                android:background="@android:color/holo_blue_dark"
+                android:layout_marginTop="20dp"/>
+
+            <Button
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="Cancelar"
+                android:textStyle="bold|normal"
+                android:id="@+id/btnCancelar"
+                android:layout_gravity="left"
+                android:layout_marginRight="10dp"
+                android:textColor="@android:color/background_light"
+                android:background="@android:color/holo_red_dark"
+                android:layout_marginTop="20dp"/>
+
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

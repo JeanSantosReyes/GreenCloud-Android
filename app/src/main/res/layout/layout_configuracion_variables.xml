@@ -18,14 +18,62 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="1">
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/confi" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Configuración de variables"
+                    android:textSize="20dp"
+                    android:gravity="center"
+                    android:textColor="@android:color/holo_blue_dark" />
+
+            </LinearLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Spinner
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinnerVariedades"
+                    android:spinnerMode="dialog"
+                    android:layout_gravity="left"
+                    android:entries="@array/tomates_array"></Spinner>
+                <Spinner
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinnerUnidad"
+                    android:layout_gravity="right"
+                    android:spinnerMode="dialog"
+                    android:entries="@array/variedades_array"></Spinner>
+
+            </LinearLayout>
+
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Temperatura maxima"/>
+                android:text="Valor Máximo"
+                android:layout_marginTop="10dp"/>
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:id="@+id/maximaTIL"
@@ -42,7 +90,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Temperatura minima"/>
+                android:text="Valor Mínimo"/>
          <android.support.design.widget.TextInputLayout
              android:layout_width="match_parent"
              android:id="@+id/minimaTIL"
@@ -53,27 +101,8 @@
                  android:id="@+id/tmpMinima"
                  android:inputType="numberDecimal"/>
          </android.support.design.widget.TextInputLayout>
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <Spinner
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/spinnerVariedades"
-                    android:layout_gravity="left"
-                    android:entries="@array/variedades"></Spinner>
-                <Spinner
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/spinnerUnidad"
-                    android:layout_gravity="right"
-                    android:entries="@array/variedades_array"></Spinner>
 
-            </LinearLayout>
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp"/>
