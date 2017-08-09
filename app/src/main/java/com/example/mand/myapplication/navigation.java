@@ -22,9 +22,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import BaseDeDatos.FuncionesDB;
+
 public class navigation extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener  {
         private Context thisContext = this;
+
+        private int versionDB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +37,7 @@ public class navigation extends AppCompatActivity
         setSupportActionBar(toolbar);
         toolbar.setTitle("Navegación");
 
+        versionDB = Integer.parseInt(getString(R.string.version_db));
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -96,6 +101,8 @@ public class navigation extends AppCompatActivity
             Intent go = new Intent(navigation.this, MainActivity.class);
             startActivity(go);
         }else if(id == R.id.closeSesion){
+            fdb = new FuncionesDB(this,versionDB);
+            fdb.logout();
             Intent close = new Intent(navigation.this, login.class);
             startActivity(close);
             stopService(new Intent(thisContext, ServicioAlertas.class));
@@ -125,6 +132,7 @@ public class navigation extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+    private FuncionesDB fdb;
     public void salir(){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setMessage("Estas seguro que deseas salir?");

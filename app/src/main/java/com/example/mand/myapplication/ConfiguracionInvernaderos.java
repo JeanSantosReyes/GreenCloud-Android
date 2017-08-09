@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import BaseDeDatos.FuncionesDB;
+
 import static com.example.mand.myapplication.R.id.ConfiguracionInvernaderos;
 import static com.example.mand.myapplication.R.id.toolbar;
 import static com.example.mand.myapplication.R.id.txt;
@@ -29,18 +31,26 @@ public class ConfiguracionInvernaderos extends AppCompatActivity {
     private GridAdapter adapter;
     private EditText txtCantidad;
     private Button btng;
-
+    private FuncionesDB fdb;
+    private int versionDB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuracion_invernaderos);
-
+        versionDB = Integer.parseInt(getString(R.string.version_db));
         toolbar = (Toolbar) findViewById(R.id.toolbarGen);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         txtCantidad = (EditText) findViewById(R.id.txt);
         btng = (Button) findViewById(R.id.btn);
+        fdb = new FuncionesDB(this,versionDB);
+
+        ArrayList<String> arrayList = fdb.getInvernaderoByIdUser(fdb.getIdUser());
+        gridView = (GridView) findViewById(R.id.am_gv_gridview);
+        adapter = new GridAdapter(this, arrayList, 1);
+        gridView.setAdapter(adapter);
+
 
         btng.setOnClickListener(new View.OnClickListener() {
             @Override
