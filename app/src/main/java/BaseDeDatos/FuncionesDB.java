@@ -5,12 +5,15 @@ import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.example.mand.myapplication.ConfiguracionInvernaderos;
 
 import java.security.Key;
 import java.util.ArrayList;
@@ -228,15 +231,16 @@ public class FuncionesDB {
     public void deleteSelectoresByInvernadero(int idInvernadero,boolean flag){
         this.idInvernadero = idInvernadero;
         if(flag){
-            Toast.makeText(context,"maickol ordriguez ",Toast.LENGTH_SHORT).show();
+            sqlite bh = new sqlite(context,"sector",null,version);
+            SQLiteDatabase db = bh.getWritableDatabase();
+            db.delete("sector","id_invernadero="+idInvernadero,null);
         }else{
             confirmacion("Eliminacion de sectores","Cuidado");
         }
-
     }
 
     //ESTA FUNCION MUESTRA UNA VENTANA DE CONFIRMACION
-    public boolean confirmacion(String mensaje,String titulo){
+    public void confirmacion(String mensaje,String titulo){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(false);
         builder.setTitle(titulo);
@@ -246,10 +250,12 @@ public class FuncionesDB {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 deleteSelectoresByInvernadero(idInvernadero,true);
+                Toast.makeText(context,"Los sectores se han eliminado...",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, ConfiguracionInvernaderos.class);
+                context.startActivity(intent);
             }
         });
         builder.show();
-        return true;
     }
 
 

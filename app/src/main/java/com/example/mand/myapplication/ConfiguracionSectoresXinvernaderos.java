@@ -38,6 +38,7 @@ public class ConfiguracionSectoresXinvernaderos extends AppCompatActivity {
     private int idInvernadero;
     private FuncionesDB fdb;
     private int versionDB;
+    private ArrayList<String> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +57,8 @@ public class ConfiguracionSectoresXinvernaderos extends AppCompatActivity {
         versionDB = Integer.parseInt(getString(R.string.version_db));
 
         fdb = new FuncionesDB(this,versionDB);
-
-        llenarGrid(fdb.getSectoresByInvernadero(idInvernadero));
+        arrayList = fdb.getSectoresByInvernadero(idInvernadero);
+        llenarGrid(arrayList);
 
 
         btnGenerar.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +90,8 @@ public class ConfiguracionSectoresXinvernaderos extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.eliminarSectores:
-                fdb.deleteSelectoresByInvernadero(1,false);
+                fdb.deleteSelectoresByInvernadero(1, false);
+
                 break;
         }
         return true;
@@ -192,7 +194,7 @@ public class ConfiguracionSectoresXinvernaderos extends AppCompatActivity {
                 dialog.show();
             }else {
                 int xx = Integer.parseInt(xy);
-                final ArrayList<String> arrayList = new ArrayList<>();
+                arrayList = new ArrayList<>();
                 int contador = 2;
                 int vueltas = 0;
                 int i = 0;
