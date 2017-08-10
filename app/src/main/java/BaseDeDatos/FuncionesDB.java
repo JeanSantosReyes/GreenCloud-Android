@@ -1,8 +1,10 @@
 package BaseDeDatos;
 
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,6 +24,8 @@ import Model.Sector;
 public class FuncionesDB {
     private Context context;
     private int version;
+    //EN ESTA VARIABLE SE GUARDA EL ID DE UN INVERNADERO POR SI SE REQUIRE ELIMAR ALGUNAS VEZ LOS SECTORES DEL INVERNADERO
+    private int idInvernadero;
     public FuncionesDB(Context context,int version){
         this.version = version;
         this.context = context;
@@ -90,10 +94,8 @@ public class FuncionesDB {
         checkLogin();
         sqlite bh = new sqlite(context,"invernadero",null,version);
         SQLiteDatabase db = bh.getWritableDatabase();
-
-
-
     }
+
     public int getIdUser(){
         preferences = context.getSharedPreferences(prefence, MODE);
         int idUser = preferences.getInt("id", 0);
@@ -221,6 +223,33 @@ public class FuncionesDB {
         }else{
             Toast.makeText(context,"No esta logueado ",Toast.LENGTH_SHORT).show();
         }
+    }
+    //FUNCION PARA ELIMINAR TODOS LOS SECTORES DEL INVERNADERO
+    public void deleteSelectoresByInvernadero(int idInvernadero,boolean flag){
+        this.idInvernadero = idInvernadero;
+        if(flag){
+            Toast.makeText(context,"maickol ordriguez ",Toast.LENGTH_SHORT).show();
+        }else{
+            confirmacion("Eliminacion de sectores","Cuidado");
+        }
+
+    }
+
+    //ESTA FUNCION MUESTRA UNA VENTANA DE CONFIRMACION
+    public boolean confirmacion(String mensaje,String titulo){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(false);
+        builder.setTitle(titulo);
+        builder.setMessage(mensaje);
+        builder.setNegativeButton("Cancelar", null);
+        builder.setPositiveButton("Estoy de acuerdo", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteSelectoresByInvernadero(idInvernadero,true);
+            }
+        });
+        builder.show();
+        return true;
     }
 
 

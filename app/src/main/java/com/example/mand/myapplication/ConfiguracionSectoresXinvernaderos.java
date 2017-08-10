@@ -80,12 +80,16 @@ public class ConfiguracionSectoresXinvernaderos extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         toolbar.setTitle("Sectores por Invernadero");
+        getMenuInflater().inflate(R.menu.menu_sectores,menu);
         return true;
     }
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case android.R.id.home:
                 onBackPressed();
+                break;
+            case R.id.eliminarSectores:
+                fdb.deleteSelectoresByInvernadero(1,false);
                 break;
         }
         return true;
