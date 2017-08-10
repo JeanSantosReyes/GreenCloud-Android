@@ -69,7 +69,8 @@ public class FuncionesDB {
         String usename = preferences.getString("UserEmail", null).toString();
         String password = preferences.getString("pass", null).toString();
         Toast.makeText(context,""+invernaderos.size(),Toast.LENGTH_SHORT).show();
-        for (int i = 0;i<invernaderos.size();i++){
+        int start = countInvernaderos();
+        for (int i = start;i<invernaderos.size()+start;i++){
             sqlite bh = new sqlite(context,"invernadero",null,version);
             SQLiteDatabase db = bh.getWritableDatabase();
             ContentValues cv = new ContentValues();
@@ -231,9 +232,9 @@ public class FuncionesDB {
         if (flag) {
             sqlite bh = new sqlite(context,"invernadero",null,version);
             SQLiteDatabase db = bh.getWritableDatabase();
-            db.rawQuery("DELETE invernadero WHERE id_user = "+idUsuario,null);
+            db.delete("invernadero", "id_user = " + idUsuario, null);
         }else{
-            confirmacion("Eliminacion de invernaderos","Cuidado");
+            confirmacion("Eliminacion de invernaderos", "Cuidado", 1);
         }
     }
     //FUNCION PARA ELIMINAR TODOS LOS SECTORES DEL INVERNADERO
@@ -244,12 +245,12 @@ public class FuncionesDB {
             SQLiteDatabase db = bh.getWritableDatabase();
             db.delete("sector", "id_invernadero=" + idInvernadero, null);
         }else{
-            confirmacion("Eliminacion de sectores", "Cuidado");
+            confirmacion("Eliminacion de sectores", "Cuidado",0);
         }
     }
 
     //ESTA FUNCION MUESTRA UNA VENTANA DE CONFIRMACION
-    public void confirmacion(String mensaje,String titulo){
+    public void confirmacion(String mensaje, final String titulo, final int opcion){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(false);
         builder.setTitle(titulo);
@@ -258,8 +259,15 @@ public class FuncionesDB {
         builder.setPositiveButton("Estoy de acuerdo", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                deleteSelectoresByInvernadero(idInvernadero,true);
-                Toast.makeText(context,"Los sectores se han eliminado...",Toast.LENGTH_SHORT).show();
+               switch (opcion){
+                   case 0:
+                       deleteSelectoresByInvernadero(idInvernadero,true);
+                       break;
+                   case 1:
+                       deleteInvernaderos(true);
+                       break;
+               }
+                Toast.makeText(context,"Los "+titulo+" se han eliminado...",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, ConfiguracionInvernaderos.class);
                 context.startActivity(intent);
             }

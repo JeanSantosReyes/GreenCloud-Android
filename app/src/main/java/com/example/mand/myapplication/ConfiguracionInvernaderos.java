@@ -136,9 +136,7 @@ public class ConfiguracionInvernaderos extends AppCompatActivity {
             }else {
                 int xx = Integer.parseInt(xy);
                  ArrayList<String> array = new ArrayList<>();
-                int start = fdb.countInvernaderos();
-                Toast.makeText(this,""+start,Toast.LENGTH_SHORT).show();
-                for (int x = start; x < xx+start; x++) {
+                for (int x = 0; x < xx; x++) {
                     int num = x + 1;
                     array.add("Invernadero: " + num);
                 }
