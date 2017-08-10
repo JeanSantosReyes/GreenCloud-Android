@@ -57,6 +57,8 @@ public class ConfiguracionSectoresXinvernaderos extends AppCompatActivity {
 
         fdb = new FuncionesDB(this,versionDB);
 
+        fdb.getSectoresByInvernadero(idInvernadero);
+
         btnGenerar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

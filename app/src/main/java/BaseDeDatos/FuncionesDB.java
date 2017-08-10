@@ -17,6 +17,7 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 import Model.Invernadero;
+import Model.Sector;
 
 public class FuncionesDB {
     private Context context;
@@ -133,7 +134,20 @@ public class FuncionesDB {
     }
     //OBTENER SECTORES POR ID DE INVERNADERO
     public void obtenerSectoresById(int id){
+        checkLogin();
+        ArrayList<Sector> sectores = new ArrayList<>();
+
         sqlite bh = new sqlite(context,"sector",null,version);
+        SQLiteDatabase db = bh.getReadableDatabase();
+
+
+        Cursor c = db.rawQuery("SELECT * FROM sector WHERE idsector = "+id,null);
+
+        if(c.moveToFirst()){
+            do {
+                sectores.add(new Sector(c.getInt(0),c.getString(1),c.getString(2),c.getString(3),c.getInt(4)));
+            }while(c.moveToNext());
+        }
     }
     //FUNCIONES PARA ENCRIPTAR Y DEDENCRIPTAR UNA PASSWORD
     private static final String ALGORITHM = "AES";
