@@ -39,7 +39,9 @@
                 android:layout_height="wrap_content"
                 android:hint="Usuario"
                 android:text="nature"
+                android:drawableLeft="@drawable/user"
                 android:singleLine="true"
+                android:textAlignment="center"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"/>
@@ -59,6 +61,8 @@
                 android:inputType="textPassword"
                 android:text="nature"
                 android:hint="password"
+                android:drawableLeft="@drawable/password"
+                android:textAlignment="center"
                 />
 
         </android.support.design.widget.TextInputLayout>
