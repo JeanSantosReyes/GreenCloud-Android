@@ -2,11 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
+              android:background="@color/DarkColor"
               android:layout_height="match_parent"
               android:minWidth="1000dp">
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:theme="@style/TextLabel"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -15,7 +17,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/emailRegister"
+            android:drawableLeft="@drawable/email"
             android:text="nature"
+            android:textColor="@color/colorFondo"
             android:hint="Correo electronico..."
             />
     </android.support.design.widget.TextInputLayout>
@@ -24,31 +28,37 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_width="match_parent"
+        android:theme="@style/TextLabel"
         android:layout_height="wrap_content">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="nature"
+            android:drawableLeft="@drawable/user"
             android:id="@+id/usernameRegister"
             android:hint="Nombre de usuario..."
+            android:textColor="@color/colorFondo"
             />
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:theme="@style/TextLabel"
         android:layout_height="wrap_content">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="nature"
+            android:drawableLeft="@drawable/password"
             android:id="@+id/passwordRegister"
             android:hint="Contraseña..."
+            android:textColor="@color/colorFondo"
             />
     </android.support.design.widget.TextInputLayout>
     <Button
         android:id="@+id/btnLogin"
-        android:background="@color/accent"
+        android:background="@color/darkLight"
         android:textColor="@color/colorFondo"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
