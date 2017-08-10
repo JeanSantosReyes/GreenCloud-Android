@@ -9,7 +9,9 @@ public class sqlite  extends SQLiteOpenHelper {
     private String UltimaVariedad = "CREATE TABLE UltimaVariedad(id INTEGER PRIMARY KEY AUTOINCREMENT,posicion TEXT,tipo TEXT,campo TEXT,hora TEXT,anio TEXT,mes TEXT,dia TEXT,valor TEXT)";
     private String users = "CREATE TABLE user(id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, email TEXT, password TEXT)";
     private String invenadero = "CREATE TABLE invernadero(idinverdero INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT,id_user INTEGER)";
+
     private String sector = "CREATE TABLE sector(idsector INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, posicion_x TEXT, posicion_y TEXT, id_invernadero INTEGER)";
+
     private String variable = "CREATE TABLE variable(idvariable INTEGER PRIMARY KEY AUTOINCREMENT, variable_ambiental TEXT)";
     private String valor_variable = "CREATE TABLE valor_variable(idvalor_variable INTEGER PRIMARY KEY AUTOINCREMENT, id_variable INTEGER, id_sector INTEGER)";
 

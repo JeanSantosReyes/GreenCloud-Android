@@ -117,20 +117,40 @@ public class FuncionesDB {
     public void guardarSectores(ArrayList<String> sectores,int id_invernadero){
         sqlite bh = new sqlite(context,"sector",null,version);
 
-        SQLiteDatabase db = bh.getWritableDatabase();
+
         int i = 0;
-        int contador = 1;
+        int contador = 2;
+        int vueltas = 0;
         for (String nombre : sectores){
+            SQLiteDatabase db = bh.getWritableDatabase();
             ContentValues cv = new ContentValues();
             cv.put("nombre",nombre);
             cv.put("id_invernadero",id_invernadero);
             cv.put("posicion_x",i);
             cv.put("posicion_y",(contador%2));
-            Log.d("michael",i+" "+(contador%2));
-            i = (i>1)?0:i++;
+            Log.d("michael",i+" "+(contador%2)+" SECTOR "+id_invernadero);
             contador++;
-        }
+            vueltas++;
+            if(vueltas==2){
+                vueltas = 0;
+                i++;
+            }
+            db.insert("sector",null,cv);
 
+
+        }
+        comp();
+
+    }
+    public void comp(){
+        sqlite bh = new sqlite(context,"sector",null,version);
+        SQLiteDatabase db = bh.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM sector",null);
+        if(c.moveToFirst()){
+            do{
+                Log.d("maka",""+c.getString(4));
+            }while(c.moveToNext());
+        }
     }
     //OBTENER SECTORES POR ID DE INVERNADERO
     public void obtenerSectoresById(int id){

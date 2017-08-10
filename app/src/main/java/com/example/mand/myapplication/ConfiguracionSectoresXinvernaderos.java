@@ -57,7 +57,8 @@ public class ConfiguracionSectoresXinvernaderos extends AppCompatActivity {
 
         fdb = new FuncionesDB(this,versionDB);
 
-        fdb.getSectoresByInvernadero(idInvernadero);
+        llenarGrid(fdb.getSectoresByInvernadero(idInvernadero));
+
 
         btnGenerar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,18 +189,31 @@ public class ConfiguracionSectoresXinvernaderos extends AppCompatActivity {
             }else {
                 int xx = Integer.parseInt(xy);
                 final ArrayList<String> arrayList = new ArrayList<>();
+                int contador = 2;
+                int vueltas = 0;
+                int i = 0;
                 for (int x = 0; x < xx; x++) {
                     int num = x + 1;
-                    arrayList.add("Sector: " + num);
+                    arrayList.add("Sector: " + i+" "+(contador%2));
+
+                    contador++;
+                    vueltas++;
+                    if(vueltas==2){
+                        vueltas = 0;
+                        i++;
+                    }
                 }
                 fdb.guardarSectores(arrayList,idInvernadero);
-                gridView = (GridView) findViewById(R.id.am_gv_gridview);
-                adapter = new GridAdapter(this, arrayList, 2);
-                gridView.setAdapter(adapter);
+                llenarGrid(arrayList);
                 RSP = 0;
             }
 
         }
         return RSP;
+    }
+    public void llenarGrid(ArrayList<String> arrayList){
+        gridView = (GridView) findViewById(R.id.am_gv_gridview);
+        adapter = new GridAdapter(this, arrayList, 2);
+        gridView.setAdapter(adapter);
     }
 }
