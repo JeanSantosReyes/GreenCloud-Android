@@ -165,6 +165,7 @@ public class ConfiguracionInvernaderos extends AppCompatActivity {
                 onBackPressed();
                 break;
             case R.id.deleteInvernaderos:
+                finish();
                 fdb.deleteInvernaderos(false);
                 break;
         }

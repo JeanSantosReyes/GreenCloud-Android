@@ -10,4 +10,8 @@
     <color name="divider">#BDBDBD</color>
     <color name="colorFondo">#FFFFFF</color>
     <color name="colorVariedades">#8A4B08</color>
+
+
+    <color name="darkLight">#353245</color>
+    <color name="DarkColor">#353245</color>
 </resources>
