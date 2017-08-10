@@ -135,13 +135,16 @@ public class ConfiguracionInvernaderos extends AppCompatActivity {
                 dialog.show();
             }else {
                 int xx = Integer.parseInt(xy);
-                final ArrayList<String> array = new ArrayList<>();
-                for (int x = 0; x < xx; x++) {
+                 ArrayList<String> array = new ArrayList<>();
+                int start = fdb.countInvernaderos();
+                Toast.makeText(this,""+start,Toast.LENGTH_SHORT).show();
+                for (int x = start; x < xx+start; x++) {
                     int num = x + 1;
                     array.add("Invernadero: " + num);
                 }
                 FuncionesDB fdb = new FuncionesDB(this,versionDB);
                 fdb.guardarInvernadero(array);
+                array = fdb.getInvernaderosById();
                 gridView = (GridView) findViewById(R.id.am_gv_gridview);
                 adapter = new GridAdapter(this, array, 1);
                 gridView.setAdapter(adapter);
@@ -155,12 +158,16 @@ public class ConfiguracionInvernaderos extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         toolbar.setTitle("Configuracón de Invernaderos");
+        getMenuInflater().inflate(R.menu.menu_invernaderos,menu);
         return true;
     }
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case android.R.id.home:
                 onBackPressed();
+                break;
+            case R.id.deleteInvernaderos:
+                fdb.deleteInvernaderos(false);
                 break;
         }
         return true;

@@ -93,11 +93,7 @@ public class FuncionesDB {
         }
         return salida;
     }
-    public void deleteInvernaderosById(int id){
-        checkLogin();
-        sqlite bh = new sqlite(context,"invernadero",null,version);
-        SQLiteDatabase db = bh.getWritableDatabase();
-    }
+
 
     public int getIdUser(){
         preferences = context.getSharedPreferences(prefence, MODE);
@@ -227,15 +223,28 @@ public class FuncionesDB {
             Toast.makeText(context,"No esta logueado ",Toast.LENGTH_SHORT).show();
         }
     }
+    public void deleteInvernaderos(boolean flag){
+        checkLogin();
+
+        //OBTENIENDO EL ID DEL USUARIO EN LINEA
+        int idUsuario = getIdUser();
+        if (flag) {
+            sqlite bh = new sqlite(context,"invernadero",null,version);
+            SQLiteDatabase db = bh.getWritableDatabase();
+            db.rawQuery("DELETE invernadero WHERE id_user = "+idUsuario,null);
+        }else{
+            confirmacion("Eliminacion de invernaderos","Cuidado");
+        }
+    }
     //FUNCION PARA ELIMINAR TODOS LOS SECTORES DEL INVERNADERO
     public void deleteSelectoresByInvernadero(int idInvernadero,boolean flag){
         this.idInvernadero = idInvernadero;
         if(flag){
             sqlite bh = new sqlite(context,"sector",null,version);
             SQLiteDatabase db = bh.getWritableDatabase();
-            db.delete("sector","id_invernadero="+idInvernadero,null);
+            db.delete("sector", "id_invernadero=" + idInvernadero, null);
         }else{
-            confirmacion("Eliminacion de sectores","Cuidado");
+            confirmacion("Eliminacion de sectores", "Cuidado");
         }
     }
 
@@ -258,5 +267,36 @@ public class FuncionesDB {
         builder.show();
     }
 
+    //METODO PARA SACAR TODOS LOS INVERNADEROS POR USUARIO
+    public ArrayList<String> getInvernaderosById(){
+        ArrayList<String> lista = new ArrayList<>();
+        //SACAMOS EL ID DEL USUARIO EN LINEA
+        int idUser = getIdUser();
+
+        sqlite bh = new sqlite(context,"invernadero",null,version);
+        SQLiteDatabase db = bh.getReadableDatabase();
+
+        Cursor c = db.rawQuery("SELECT * FROM invernadero WHERE id_user = "+idUser,null);
+
+        if(c.moveToFirst()){
+            do{
+                lista.add(c.getString(1));
+            }while(c.moveToNext());
+        }
+
+        return lista;
+    }
+
+    //METODO PARA CONTAR TODOS INVERNADEROS
+    public int countInvernaderos(){
+        //SACAMOS EL ID DEL USUARIO EN LINEA
+        int idUser = getIdUser();
+        sqlite bh = new sqlite(context,"invernadero",null,version);
+        SQLiteDatabase db = bh.getReadableDatabase();
+
+        int count = db.rawQuery("SELECT * FROM invernadero WHERE id_user = "+idUser,null).getCount();
+
+        return count;
+    }
 
 }

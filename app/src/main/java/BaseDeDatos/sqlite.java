@@ -6,8 +6,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class sqlite  extends SQLiteOpenHelper {
     private String MaximosMinimosTable = "CREATE TABLE MMTable(id INTEGER PRIMARY KEY AUTOINCREMENT,temperatura_maxima TEXT,temperatura_minima TEXT,variedad TEXT,unidad TEXT)";
+
     private String UltimaVariedad = "CREATE TABLE UltimaVariedad(id INTEGER PRIMARY KEY AUTOINCREMENT,posicion TEXT,tipo TEXT,campo TEXT,hora TEXT,anio TEXT,mes TEXT,dia TEXT,valor TEXT)";
+
     private String users = "CREATE TABLE user(id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, email TEXT, password TEXT)";
+
     private String invenadero = "CREATE TABLE invernadero(idinverdero INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT,id_user INTEGER)";
 
     private String sector = "CREATE TABLE sector(idsector INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, posicion_x TEXT, posicion_y TEXT, id_invernadero INTEGER)";
