@@ -11,12 +11,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
 import java.util.List;
 
 import BaseDeDatos.FuncionesDB;
 import Model.Invernadero;
 import adaptadores.adaptadorVariedades;
+import adaptadores.oyenteRecycler;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -46,11 +48,26 @@ public class MainActivity extends AppCompatActivity {
         recyclerVariedades.setLayoutManager(llm);
         llenarDatos();
         inicializarAdapter();
+        oyenteRecy();
 
         if(Build.VERSION.SDK_INT >= 21){
             Window window = this.getWindow();
             window.setStatusBarColor(this.getResources().getColor(R.color.darkLight));
         }
+    }
+    public void oyenteRecy(){
+        recyclerVariedades.addOnItemTouchListener(new oyenteRecycler(this,recyclerVariedades,new oyenteRecycler.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(View v, int position) {
+                Toast.makeText(MainActivity.this, "corto", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onItemLongClick(View v, int position) {
+                Toast.makeText(MainActivity.this, "largo", Toast.LENGTH_SHORT).show();
+            }
+        }));
     }
 
     public void llenarDatos(){
