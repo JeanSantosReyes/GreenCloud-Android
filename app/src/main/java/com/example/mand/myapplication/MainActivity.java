@@ -60,7 +60,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(View v, int position) {
-                Toast.makeText(MainActivity.this, "corto", Toast.LENGTH_SHORT).show();
+               Invernadero invernadero = variedadList.get(position);
+                Toast.makeText(MainActivity.this,""+invernadero.getNombre(),Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MainActivity.this,secciones.class);
+                intent.putExtra("type","glorys");
+                startActivity(intent);
             }
 
             @Override
@@ -79,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         toolbar.setTitle("Variedades");
+        if(Build.VERSION.SDK_INT>=17){
+            toolbar.setTitleTextColor(getResources().getColor(R.color.colorFondo));
+        }
         return true;
     }
     public boolean onOptionsItemSelected(MenuItem item){
@@ -89,58 +96,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
-    //METODO PARA CAMBIAR DE ACTIVIDAD
-    public void cherubsActivity(View v){
-        /*Intent intent = new Intent(this, tomateActivity.class);
-        intent.putExtra("type", "cherubs");
-        startActivity(intent);*/
-        Intent intent = new Intent(this,secciones.class);
-        intent.putExtra("type","cherubs");
-        startActivity(intent);
-    }
-
-    //METODO PARA CAMBIAR ALA ACTIVIDAD DE ECLIPSES
-    public void eclipsesActivity(View v){
-        /*Intent intent = new Intent(this, tomateActivity.class);
-        intent.putExtra("type", "eclipses");
-        startActivity(intent);*/
-        Intent intent = new Intent(this,secciones.class);
-        intent.putExtra("type","eclipses");
-        startActivity(intent);
-    }
-
-    //METODO PARA CAMBIR ALA ACTIVIDAD DE GLORYS
-    public void glorysActivity(View v){
-       /* Intent intent = new Intent(this, tomateActivity.class);
-        intent.putExtra("type", "glorys");
-        startActivity(intent);*/
-        Intent intent = new Intent(this,secciones.class);
-        intent.putExtra("type","glorys");
-        startActivity(intent);
-    }
-
-    //METODO PARA CAMBIR ALA ACTIVIDAD DE JUBIES
-    public void jubilesActivity(View v){
-        /*Intent intent = new Intent(this, tomateActivity.class);
-        intent.putExtra("type","jubilees"); //Cambiar a "jubilees", así cambió en la API
-        startActivity(intent);*/
-        Intent intent = new Intent(this,secciones.class);
-        intent.putExtra("type","jubilees");
-        startActivity(intent);
-
-    }
-
-    //METODO PARA CAMBIR ALA ACTIVIDAD DE SUNBURTS
-    public void sunburtsActivity(View v){
-        /*Intent intent = new Intent(this, tomateActivity.class);
-        intent.putExtra("type","sunburts");
-        startActivity(intent);*/
-        Intent intent = new Intent(this,secciones.class);
-        intent.putExtra("type","sunburts");
-        startActivity(intent);
-    }
-
-
-
-
 }
