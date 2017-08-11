@@ -45,7 +45,7 @@ public class adaptadorVariedades extends RecyclerView.Adapter<adaptadorVariedade
     public void onBindViewHolder(VariedadesHolder holder, int position) {
         Invernadero var = variedadList.get(position);
         holder.nombre.setText(var.getNombre());
-        holder.logo.setImageResource(R.drawable.hojasector);
+        holder.logo.setImageResource(R.drawable.greenhouse);
     }
 
     @Override
