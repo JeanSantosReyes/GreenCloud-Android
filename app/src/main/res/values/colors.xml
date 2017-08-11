@@ -14,4 +14,6 @@
 
     <color name="darkLight">#2F2D3D</color>
     <color name="DarkColor">#353245</color>
+
+    <color name="barColor">#2ECC71</color>
 </resources>

@@ -12,9 +12,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import Model.variedad;
+import adaptadores.adaptadorVariedades;
+
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private RecyclerView recyclerVariedades;
+    private List<variedad> variedadList;
+    private adaptadorVariedades adaptador;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,12 +37,24 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerVariedades.setLayoutManager(llm);
-
+        llenarDatos();
+        inicializarAdapter();
 
         if(Build.VERSION.SDK_INT >= 21){
             Window window = this.getWindow();
-            window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimary));
+            window.setStatusBarColor(this.getResources().getColor(R.color.darkLight));
         }
+    }
+
+    public void llenarDatos(){
+        variedadList = new ArrayList<>();
+        for(int i = 0;i<4;i++){
+            variedadList.add(new variedad("variadad "+(i+1),"img"));
+        }
+    }
+    public void inicializarAdapter(){
+        adaptador = new adaptadorVariedades(variedadList,MainActivity.this);
+        recyclerVariedades.setAdapter(adaptador);
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         toolbar.setTitle("Variedades");
