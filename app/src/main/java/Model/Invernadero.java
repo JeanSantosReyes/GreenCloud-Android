@@ -4,13 +4,15 @@ package Model;
  * Created by MAND on 09/08/2017.
  */
 public class Invernadero {
-    public int id_invernadero;
-    public String nombre;
-    public int id_user;
-    public Invernadero(int id_invernadero,String nombre,int id_user){
+    private int id_invernadero;
+    private String nombre;
+    private int id_user;
+    private String img;
+    public Invernadero(int id_invernadero,String nombre,String img,int id_user){
         this.id_invernadero = id_invernadero;
         this.nombre = nombre;
         this.id_user = id_user;
+        this.img = img;
     }
 
     public int getId_invernadero() {
@@ -39,5 +41,13 @@ public class Invernadero {
 
     public String toString(){
         return this.nombre;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

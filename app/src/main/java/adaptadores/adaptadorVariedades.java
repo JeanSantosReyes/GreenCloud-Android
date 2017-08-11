@@ -13,13 +13,13 @@ import com.example.mand.myapplication.R;
 
 import java.util.List;
 
-import Model.variedad;
+import Model.Invernadero;
 
 public class adaptadorVariedades extends RecyclerView.Adapter<adaptadorVariedades.VariedadesHolder>{
-    private List<variedad> variedadList;
+    private List<Invernadero> variedadList;
     private Context context;
 
-    public adaptadorVariedades(List<variedad> variedadList,Context context){
+    public adaptadorVariedades(List<Invernadero> variedadList,Context context){
         this.variedadList = variedadList;
         this.context = context;
     }
@@ -43,9 +43,8 @@ public class adaptadorVariedades extends RecyclerView.Adapter<adaptadorVariedade
 
     @Override
     public void onBindViewHolder(VariedadesHolder holder, int position) {
-        variedad var = variedadList.get(position);
-
-        holder.nombre.setText(var.getName());
+        Invernadero var = variedadList.get(position);
+        holder.nombre.setText(var.getNombre());
         holder.logo.setImageResource(R.drawable.eclipse);
     }
 

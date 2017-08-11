@@ -12,17 +12,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import Model.variedad;
+import BaseDeDatos.FuncionesDB;
+import Model.Invernadero;
 import adaptadores.adaptadorVariedades;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private RecyclerView recyclerVariedades;
-    private List<variedad> variedadList;
+    private List<Invernadero> variedadList;
     private adaptadorVariedades adaptador;
+    private FuncionesDB fdb;
+    private int versionDB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        versionDB = Integer.parseInt(getString(R.string.version_db));
+
+        fdb = new FuncionesDB(this,versionDB);
+
 
         //CODIGO DEL RECICLER
         recyclerVariedades = (RecyclerView) findViewById(R.id.reciclerviewVariedades);
@@ -47,10 +54,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void llenarDatos(){
-        variedadList = new ArrayList<>();
-        for(int i = 0;i<4;i++){
-            variedadList.add(new variedad("variadad "+(i+1),"img"));
-        }
+        variedadList = fdb.getInvernaderoByIdUser(fdb.getIdUser());
     }
     public void inicializarAdapter(){
         adaptador = new adaptadorVariedades(variedadList,MainActivity.this);

@@ -11,7 +11,7 @@ public class sqlite  extends SQLiteOpenHelper {
 
     private String users = "CREATE TABLE user(id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, email TEXT, password TEXT)";
 
-    private String invenadero = "CREATE TABLE invernadero(idinverdero INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT,id_user INTEGER)";
+    private String invenadero = "CREATE TABLE invernadero(idinverdero INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT,img TEXT,id_user INTEGER)";
 
     private String sector = "CREATE TABLE sector(idsector INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, posicion_x TEXT, posicion_y TEXT, id_invernadero INTEGER)";
 

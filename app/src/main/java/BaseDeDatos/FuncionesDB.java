@@ -76,6 +76,7 @@ public class FuncionesDB {
             ContentValues cv = new ContentValues();
             cv.put("name","invernadero "+(i+1));
             cv.put("id_user",idUser);
+            cv.put("img","null");
             db.insert("invernadero", null, cv);
         }
 
@@ -110,7 +111,7 @@ public class FuncionesDB {
         if(c.moveToFirst()){
             do {
                 Log.d("maickol12",c.getString(1)+" "+c.getString(0));
-                invernaderos.add(new Invernadero(c.getInt(0),c.getString(1),c.getInt(2)));
+                invernaderos.add(new Invernadero(c.getInt(0),c.getString(1),c.getString(3),c.getInt(3)));
             }while(c.moveToNext());
         }
         return invernaderos;
