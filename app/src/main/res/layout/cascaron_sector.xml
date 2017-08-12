@@ -25,11 +25,11 @@
                 <TextView
                     android:layout_width="10dp"
                     android:layout_height="match_parent"
-                    android:background="@color/DarkColor"/>
+                    android:background="@color/darkLight"/>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="108dp"
-                    android:id="@+id/imgVariedad"
+                    android:id="@+id/imgSector"
                     android:src="@drawable/greenhouse"
                     style="?android:borderlessButtonStyle"/>
                 <LinearLayout
@@ -41,8 +41,8 @@
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
                         android:textSize="11pt"
-                        android:text="Cherubs"
-                        android:id="@+id/textVariedad"
+                        android:text="Sector"
+                        android:id="@+id/textSector"
                         android:layout_marginTop="10dp"
                         android:textStyle="normal"
                         android:textColor="@color/primary_text"
@@ -69,7 +69,7 @@
                 <TextView
                     android:layout_width="10dp"
                     android:layout_height="match_parent"
-                    android:background="@color/DarkColor"/>
+                    android:background="@color/darkLight"/>
                 <Button
                     android:background="#EEEEEE"
                     android:layout_width="wrap_content"

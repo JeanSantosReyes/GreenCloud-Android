@@ -25,6 +25,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import BaseDeDatos.FuncionesDB;
+import Model.Sector;
 
 public class ConfiguracionSectoresXinvernaderos extends AppCompatActivity {
 
@@ -38,7 +39,7 @@ public class ConfiguracionSectoresXinvernaderos extends AppCompatActivity {
     private int idInvernadero;
     private FuncionesDB fdb;
     private int versionDB;
-    private ArrayList<String> arrayList;
+    private ArrayList<Sector> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,8 +201,7 @@ public class ConfiguracionSectoresXinvernaderos extends AppCompatActivity {
                 int i = 0;
                 for (int x = 0; x < xx; x++) {
                     int num = x + 1;
-                    arrayList.add("Sector: " + i+" "+(contador%2));
-
+                    arrayList.add(new Sector(x+1,"Sector: " + i+" "+(contador%2),"","",idInvernadero));
                     contador++;
                     vueltas++;
                     if(vueltas==2){
@@ -217,9 +217,19 @@ public class ConfiguracionSectoresXinvernaderos extends AppCompatActivity {
         }
         return RSP;
     }
-    public void llenarGrid(ArrayList<String> arrayList){
+    public void llenarGrid(ArrayList<Sector> arrayList){
         gridView = (GridView) findViewById(R.id.am_gv_gridview);
-        adapter = new GridAdapter(this, arrayList, 2);
+
+        adapter = new GridAdapter(this, array(arrayList), 2);
         gridView.setAdapter(adapter);
+    }
+
+
+    public ArrayList<String> array(ArrayList<Sector> list1){
+        ArrayList<String>  list = new ArrayList<>();
+        for (int i = 0;i<list1.size();i++){
+            list.add(list1.get(i).getNombre());
+        }
+        return list;
     }
 }

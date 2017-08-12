@@ -81,16 +81,16 @@ public class FuncionesDB {
         }
 
     }
-    public ArrayList<String> getSectoresByInvernadero(int idInvernadero){
+    public ArrayList<Sector> getSectoresByInvernadero(int idInvernadero){
         checkLogin();
         sqlite bh = new sqlite(context,"sector",null,version);
         SQLiteDatabase db = bh.getReadableDatabase();
 
         Cursor c = db.rawQuery("SELECT * FROM sector WHERE id_invernadero = " + idInvernadero, null);
-        ArrayList<String> salida = new ArrayList<>();
+        ArrayList<Sector> salida = new ArrayList<>();
         if(c.moveToFirst()){
             do{
-                salida.add(c.getString(1));
+                salida.add(new Sector(c.getInt(0),c.getString(1),c.getString(2),c.getString(3),c.getInt(4)));
             }while(c.moveToNext());
         }
         return salida;
@@ -117,17 +117,17 @@ public class FuncionesDB {
         return invernaderos;
     }
     //GUARDAR INVERNADEROS EN LA BASE DE DATOS
-    public void guardarSectores(ArrayList<String> sectores,int id_invernadero){
+    public void guardarSectores(ArrayList<Sector> sectores,int id_invernadero){
         sqlite bh = new sqlite(context,"sector",null,version);
 
 
         int i = 0;
         int contador = 2;
         int vueltas = 0;
-        for (String nombre : sectores){
+        for (Sector sec : sectores){
             SQLiteDatabase db = bh.getWritableDatabase();
             ContentValues cv = new ContentValues();
-            cv.put("nombre",nombre);
+            cv.put("nombre",sec.getNombre());
             cv.put("id_invernadero",id_invernadero);
             cv.put("posicion_x",i);
             cv.put("posicion_y",(contador%2));

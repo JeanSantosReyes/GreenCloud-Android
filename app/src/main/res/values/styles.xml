@@ -6,7 +6,7 @@
         <!--<item name="colorPrimary">@color/colorPrimary</item>-->
         <item name="colorPrimary">@color/darkLight</item>
         <item name="colorPrimaryDark">@color/DarkColor</item>
-        <item name="colorAccent">@color/colorFondo</item>
+        <item name="colorAccent">@color/darkLight</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
