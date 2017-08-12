@@ -80,16 +80,6 @@ public class sqlite  extends SQLiteOpenHelper {
             "dia TEXT," +
             "valor TEXT)";
 
-
-
-
-
-
-
-
-
-
-
     public sqlite(Context context,String name,SQLiteDatabase.CursorFactory factory,int version){
         super(context,name,factory,version);
     }
@@ -101,6 +91,9 @@ public class sqlite  extends SQLiteOpenHelper {
         db.execSQL(invernadero);
         db.execSQL(sector);
         db.execSQL(variable);
+        db.execSQL(business);
+        db.execSQL(tipo_cultivo);
+        db.execSQL(tipo_variable);
     }
 
     @Override
@@ -111,6 +104,9 @@ public class sqlite  extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS invernadero");
         db.execSQL("DROP TABLE IF EXISTS sector");
         db.execSQL("DROP TABLE IF EXISTS variable");
+        db.execSQL("DROP TABLE IF EXISTS business");
+        db.execSQL("DROP TABLE IF EXITS tipo_cultivo");
+        db.execSQL("DROP TABLE IF EXITS tipo_variable");
         onCreate(db);
     }
 }
