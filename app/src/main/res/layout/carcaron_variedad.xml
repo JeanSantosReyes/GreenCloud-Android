@@ -25,7 +25,8 @@
                 <TextView
                     android:layout_width="10dp"
                     android:layout_height="match_parent"
-                    android:background="@color/DarkColor"/>
+                    android:id="@+id/barraLateral1Variedad"
+                    android:background="@color/colorPrimaryDark"/>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="108dp"
@@ -45,7 +46,6 @@
                         android:id="@+id/textVariedad"
                         android:layout_marginTop="10dp"
                         android:textStyle="normal"
-                        android:textColor="@color/primary_text"
                         />
                     <TextView
                         android:layout_width="wrap_content"
@@ -53,9 +53,9 @@
                         android:layout_marginTop="10dp"
                         android:textAlignment="center"
                         android:textSize="6pt"
-                        android:text="Descripcion"
+                        android:id="@+id/descripcionVariedad"
+                        android:text="0 activos"
                         android:textStyle="normal"
-                        android:textColor="@color/primary_text"
                         />
                 </LinearLayout>
 
@@ -69,7 +69,8 @@
                 <TextView
                     android:layout_width="10dp"
                     android:layout_height="match_parent"
-                    android:background="@color/DarkColor"/>
+                    android:background="@color/colorPrimaryDark"
+                    android:id="@+id/barraLateral2Variedad"/>
                 <Button
                     android:background="#EEEEEE"
                     android:layout_width="wrap_content"

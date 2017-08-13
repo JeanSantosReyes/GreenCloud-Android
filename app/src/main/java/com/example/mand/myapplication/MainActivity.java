@@ -2,6 +2,7 @@ package com.example.mand.myapplication;
 
 import android.content.Intent;
 import android.os.Build;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(Build.VERSION.SDK_INT >= 21){
             Window window = this.getWindow();
-            window.setStatusBarColor(this.getResources().getColor(R.color.darkLight));
+            window.setStatusBarColor(this.getResources().getColor(R.color.colorPrimaryDark));
         }
     }
     //METODOS ADAPTER SE ENCARGA DE LLAMAR A TODOS LOS METODOS NECESARIOS PARA LLENAR EL RECYCLER VIEW Y DARLE SUS EVENTOS
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     public void inicializarAdapter(int opcion){
         switch (opcion){
             case 0:
-                adaptador = new adaptadorVariedades(variedadList,MainActivity.this);
+                adaptador = new adaptadorVariedades(variedadList,MainActivity.this,fdb);
                 recyclerVariedades.setAdapter(adaptador);
                 break;
             case 1:
@@ -97,7 +98,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View v, int position) {
                 invernadero = variedadList.get(position);
-                metodosAdapter(1);
+                if(fdb.coutSectores(invernadero.getId_invernadero())!=0) {
+                    metodosAdapter(1);
+                }else{
+                    Snackbar.make(v,"No hay invernaderos activos",Snackbar.LENGTH_LONG).show();
+                }
             }
 
             @Override

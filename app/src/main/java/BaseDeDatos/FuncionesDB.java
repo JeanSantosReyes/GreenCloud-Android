@@ -308,4 +308,10 @@ public class FuncionesDB {
         return count;
     }
 
+    //METODO PARA CONTAR TODOS LOS SECTOR ACTIVOS DE LOS INVERNADEROS
+    public int coutSectores(int idInvernadero){
+        sqlite db = new sqlite(context,"sector",null,version);
+        return db.getReadableDatabase().rawQuery("SELECT * FROM sector WHERE id_invernadero = "+idInvernadero,null).getCount();
+    }
+
 }

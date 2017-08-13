@@ -26,6 +26,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:hint="Cantidad"
+            android:textColor="@color/colorPrimaryDark"
             android:inputType="numberDecimal"
             android:gravity="center"/>
 
@@ -40,17 +41,20 @@
         android:layout_gravity="left"
         android:layout_marginRight="10dp"
         android:textColor="@android:color/background_light"
-        android:background="@android:color/holo_blue_dark"
+        android:background="@color/colorPrimaryDark"
         android:layout_marginTop="20dp"/>
 
         </LinearLayout>
 
-    <TextView
-        android:layout_marginTop="15dp"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Presione sobre el Invernadero para Configuraciones"/>
+
+        <TextView
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:text="Presione sobre el Invernadero para Configuraciones"/>
+
 
 
     <GridView

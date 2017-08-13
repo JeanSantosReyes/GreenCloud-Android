@@ -22,7 +22,7 @@ public class secciones extends AppCompatActivity {
         setContentView(R.layout.secciones);
         if(Build.VERSION.SDK_INT>=21){
             Window window = this.getWindow();
-            window.setStatusBarColor(getResources().getColor(R.color.darkLight));
+            window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
         Bundle extras = getIntent().getExtras();
         if(extras!=null){

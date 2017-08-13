@@ -4,16 +4,12 @@
     <color name="colorPrimaryDark">#D32F2F</color>
     <color name="colorAccent">#FF5252</color>
     <color name="accent">#a61616</color>
-    <color name="primary_text">#212121</color>
-    <color name="secondary_text">#757575</color>
+    <color name="primary_text">#FFFFFF</color>
+    <color name="secondary_text">#FFFFFF</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
     <color name="colorFondo">#FFFFFF</color>
     <color name="colorVariedades">#8A4B08</color>
-
-
-    <color name="darkLight">#2F2D3D</color>
-    <color name="DarkColor">#353245</color>
 
     <color name="barColor">#2ECC71</color>
     <color name="barColor2">#E14A3E</color>

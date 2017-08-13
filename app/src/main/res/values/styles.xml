@@ -4,9 +4,10 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-        <item name="colorPrimary">@color/darkLight</item>
-        <item name="colorPrimaryDark">@color/DarkColor</item>
-        <item name="colorAccent">@color/darkLight</item>
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <!-- LINEA DONDE SE CAMBIA EL COLOR DEL TEXTHINT-->
+        <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -14,8 +15,9 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppTheme.AppTheme_Dark_Dialog" parent="ThemeOverlay.AppCompat.Dialog.Alert" />
+
     <style name="TextLabel" parent="TextAppearance.AppCompat">
-        <item name="android:textColorHint">@color/colorFondo</item>
+        <item name="android:textColorHint">@color/colorPrimaryDark</item>
     </style>
 
 </resources>

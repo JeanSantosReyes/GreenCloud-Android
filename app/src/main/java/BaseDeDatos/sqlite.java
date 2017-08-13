@@ -105,8 +105,8 @@ public class sqlite  extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS sector");
         db.execSQL("DROP TABLE IF EXISTS variable");
         db.execSQL("DROP TABLE IF EXISTS business");
-        db.execSQL("DROP TABLE IF EXITS tipo_cultivo");
-        db.execSQL("DROP TABLE IF EXITS tipo_variable");
+        db.execSQL("DROP TABLE IF EXISTS tipo_cultivo");
+        db.execSQL("DROP TABLE IF EXISTS tipo_variable");
         onCreate(db);
     }
 }
